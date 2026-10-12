@@ -85,7 +85,16 @@ select:focus-visible{outline:2px solid var(--acc);outline-offset:1px;border-colo
 
 /* gráficos */
 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;margin-bottom:12px}
-.card{background:var(--surface);border-radius:12px;box-shadow:var(--sh);padding:13px 15px 12px;min-width:0}
+.card{background:var(--surface);border-radius:12px;box-shadow:var(--sh);padding:13px 15px 12px;min-width:0;position:relative}
+.card h3{padding-right:34px}
+.exp{position:absolute;top:9px;right:10px;width:28px;height:28px;border-radius:50%;border:none;padding:0;
+  background:transparent;color:var(--ink3);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .15s,color .15s}
+.exp:hover{background:var(--s2);color:var(--ink)}
+.exp:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.exp .ms{font-size:17px}
+.card.big{grid-column:1/-1}
+.card.big .nt{margin-bottom:11px}
 .card h3{font-size:13px;margin-bottom:2px}
 .card .nt{font-size:11.5px;color:var(--ink3);margin:0 0 9px}
 .card .rd{font-size:11.5px;color:var(--ink2);margin:9px 0 0;padding-top:9px;border-top:1px solid var(--line);line-height:1.5}
@@ -157,6 +166,7 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
       <span><i class="sw" style="background:#E37400"></i>Hito #3</span>
       <span><i class="sw" style="background:#5F6368"></i>T.C.O.</span>
     </div>
+    <button class="exp" data-c="1" aria-label="Agrandar gráfico" title="Agrandar"><span class="ms">open_in_full</span></button>
     <div class="plot"><svg id="c1" viewBox="0 0 480 190" role="img" aria-label="Erosión de holgura de los hitos contractuales a lo largo de las versiones del cronograma"></svg><div class="tip" id="t1"></div></div>
     <p class="rd" id="r1"></p>
   </div>
@@ -168,6 +178,7 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
       <span><i class="sw q" style="background:#1A73E8"></i>Real</span>
       <span><i class="sw q" style="background:#D93025"></i>Plan</span>
     </div>
+    <button class="exp" data-c="2" aria-label="Agrandar gráfico" title="Agrandar"><span class="ms">open_in_full</span></button>
     <div class="plot"><svg id="c2" viewBox="0 0 480 190" role="img" aria-label="Actividades terminadas por mes frente a las que el plan exige en los meses siguientes"></svg><div class="tip" id="t2"></div></div>
     <p class="rd" id="r2"></p>
   </div>
@@ -179,6 +190,7 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
       <span><i class="sw q" style="background:#1A73E8"></i>Cumplimiento</span>
       <span><i class="sw" style="background:#80868B"></i>Promedio de la serie</span>
     </div>
+    <button class="exp" data-c="3" aria-label="Agrandar gráfico" title="Agrandar"><span class="ms">open_in_full</span></button>
     <div class="plot"><svg id="c3" viewBox="0 0 480 190" role="img" aria-label="Porcentaje de cumplimiento del plan mensual periodo a periodo"></svg><div class="tip" id="t3"></div></div>
     <p class="rd" id="r3"></p>
   </div>
@@ -242,9 +254,12 @@ function txt(x,y,s,o){o=o||{};var t=E('text',{x:x,y:y,fill:o.fill||cs('--ink3'),
   t.textContent=s;return t}
 function clear(id){var s=document.getElementById(id);while(s.firstChild)s.removeChild(s.firstChild);return s}
 
-var W=480,H=190,L=34,R=8,T=10,B=26,iw=W-L-R,ih=H-T-B;
+var BIG={};
+function dm(id){var b=!!BIG[id];var W=b?980:480,H=b?360:190,L=b?46:34,R=b?14:8,T=b?14:10,B=b?36:26;
+  return {W:W,H:H,L:L,R:R,T:T,B:B,iw:W-L-R,ih:H-T-B,big:b}}
 
-function hook(svg,tip,n,xf,build){
+function hook(svg,tip,n,xf,build,d){
+  var W=d.W,H=d.H,T=d.T,ih=d.ih;
   var hot=E('rect',{x:0,y:0,width:W,height:H,fill:'transparent'});
   svg.appendChild(hot);
   var mk=E('line',{x1:0,y1:T,x2:0,y2:T+ih,stroke:cs('--line2'),'stroke-width':1,opacity:0});
@@ -268,7 +283,9 @@ function hook(svg,tip,n,xf,build){
 }
 
 function chart1(idx){
+  var d=dm('c1'),W=d.W,H=d.H,L=d.L,T=d.T,iw=d.iw,ih=d.ih;
   var s=clear('c1'),tip=document.getElementById('t1');
+  s.setAttribute('viewBox','0 0 '+W+' '+H);
   var lab=D.map(function(o){return o.id==='BL 1.0a'?'BL':o.id.replace('U','')});
   var g2=D.map(function(o){return o.ms[1].tf}),g3=D.map(function(o){return o.ms[2].tf}),gt=D.map(function(o){return o.ms[3].tf});
   var all=g2.concat(g3,gt).filter(function(v){return v!==null});
@@ -276,21 +293,25 @@ function chart1(idx){
   function X(i){return L+iw*i/(lab.length-1)} function Y(v){return T+ih*(hi-v)/(hi-lo)}
   [hi,Math.round((hi+lo)/2/10)*10,0,lo].forEach(function(v){
     s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
-    s.appendChild(txt(L-6,Y(v)+3.2,v,{an:'end',mono:1}))});
+    s.appendChild(txt(L-6,Y(v)+3.2,v,{an:'end',mono:1,sz:d.big?11:9.5}))});
   [[g2,C.ms2],[g3,C.ms3],[gt,C.tco]].forEach(function(p){
-    var d=p[0].map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)}).join(' ');
-    s.appendChild(E('path',{d:d,fill:'none',stroke:p[1],'stroke-width':1.9,'stroke-linejoin':'round','stroke-linecap':'round'}));
-    p[0].forEach(function(v,i){if(i===idx)s.appendChild(E('circle',{cx:X(i),cy:Y(v),r:3.6,fill:p[1],stroke:cs('--surface'),'stroke-width':1.6}))})});
-  lab.forEach(function(t,i){s.appendChild(txt(X(i),H-9,t,{mono:1,sz:9,fill:i===idx?cs('--acc'):cs('--ink3')}))});
+      var pd=p[0].map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)}).join(' ');
+    s.appendChild(E('path',{d:pd,fill:'none',stroke:p[1],'stroke-width':d.big?2.6:1.9,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    p[0].forEach(function(v,i){
+      if(d.big)s.appendChild(E('circle',{cx:X(i),cy:Y(v),r:2.6,fill:p[1]}));
+      if(i===idx)s.appendChild(E('circle',{cx:X(i),cy:Y(v),r:d.big?5:3.6,fill:p[1],stroke:cs('--surface'),'stroke-width':d.big?2.2:1.6}))})});
+  lab.forEach(function(t,i){s.appendChild(txt(X(i),H-(d.big?13:9),t,{mono:1,sz:d.big?11:9,fill:i===idx?cs('--acc'):cs('--ink3')}))});
   hook(s,tip,lab.length,X,function(i){
     return '<div class="th">'+D[i].id+' · '+D[i].dd+'</div>'+
       '<i style="background:'+C.ms2+'"></i>Hito #2  '+fmt(g2[i],' d')+'<br>'+
       '<i style="background:'+C.ms3+'"></i>Hito #3  '+fmt(g3[i],' d')+'<br>'+
-      '<i style="background:'+C.tco+'"></i>T.C.O.   '+fmt(gt[i],' d')});
+      '<i style="background:'+C.tco+'"></i>T.C.O.   '+fmt(gt[i],' d')},d);
 }
 
 function chart2(idx){
+  var d=dm('c2'),W=d.W,H=d.H,L=d.L,T=d.T,iw=d.iw,ih=d.ih;
   var o=D[idx],s=clear('c2'),tip=document.getElementById('t2');
+  s.setAttribute('viewBox','0 0 '+W+' '+H);
   var real=o.real,plan=o.plan,rl=o.realLab,pl=o.planLab;
   var all=real.concat(plan),n=all.length;
   var hi=Math.max(10,Math.ceil(Math.max.apply(null,all.concat([10]))/50)*50);
@@ -298,22 +319,28 @@ function chart2(idx){
   function Y(v){return T+ih*(1-v/hi)} function X(i){return L+gap*i+gap/2}
   [hi,hi*0.75,hi*0.5,hi*0.25,0].forEach(function(v){
     s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
-    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v),{an:'end',mono:1}))});
+    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v),{an:'end',mono:1,sz:d.big?11:9.5}))});
   all.forEach(function(v,i){
     s.appendChild(E('rect',{x:(L+gap*i+(gap-bw)/2).toFixed(1),y:Y(v).toFixed(1),width:Math.max(1.2,bw).toFixed(1),
       height:Math.max(1,ih-(Y(v)-T)).toFixed(1),fill:i<real.length?C.real:C.plan,rx:1.5}))});
   if(real.length&&plan.length){var xs=L+gap*real.length;
     s.appendChild(E('line',{x1:xs,y1:T,x2:xs,y2:T+ih,stroke:cs('--line2'),'stroke-width':1,'stroke-dasharray':'3 3'}))}
-  if(real.length)s.appendChild(txt(L+gap*real.length/2,H-9,'real',{sz:9.5}));
-  if(plan.length)s.appendChild(txt(L+gap*(real.length+plan.length/2),H-9,'plan',{sz:9.5}));
+  if(d.big){all.forEach(function(v,i){
+      var lb=i<real.length?rl[i]:pl[i-real.length];
+      s.appendChild(txt(X(i),H-20,lb,{mono:1,sz:9.5}));
+      s.appendChild(txt(X(i),Y(v)-5,v,{mono:1,sz:9.5,fill:cs('--ink2')}))})}
+  if(real.length)s.appendChild(txt(L+gap*real.length/2,H-(d.big?6:9),'terminadas',{sz:d.big?11:9.5}));
+  if(plan.length)s.appendChild(txt(L+gap*(real.length+plan.length/2),H-(d.big?6:9),'plan del cronograma',{sz:d.big?11:9.5}));
   hook(s,tip,n,X,function(i){
     var isR=i<real.length;
     return '<div class="th">'+(isR?rl[i]:pl[i-real.length])+'</div>'+
-      '<i style="background:'+(isR?C.real:C.plan)+'"></i>'+(isR?'Terminadas':'Plan')+'  '+all[i]});
+      '<i style="background:'+(isR?C.real:C.plan)+'"></i>'+(isR?'Terminadas':'Plan')+'  '+all[i]},d);
 }
 
 function chart3(idx){
+  var d=dm('c3'),W=d.W,H=d.H,L=d.L,T=d.T,iw=d.iw,ih=d.ih;
   var s=clear('c3'),tip=document.getElementById('t3');
+  s.setAttribute('viewBox','0 0 '+W+' '+H);
   var pts=[],lab=[];
   for(var i=1;i<=idx;i++){if(D[i].ppc!==null&&D[i].ppc!==undefined){pts.push(D[i].ppc);lab.push(D[i])}}
   if(!pts.length){s.appendChild(txt(W/2,H/2,'Sin periodos previos',{sz:11}));document.getElementById('r3').textContent='';return}
@@ -322,16 +349,18 @@ function chart3(idx){
   function Y(v){return T+ih*(1-v/hi)} function X(i){return L+gap*i+gap/2}
   [hi,hi*0.66,hi*0.33,0].forEach(function(v){
     s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
-    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v)+'%',{an:'end',mono:1}))});
+    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v)+'%',{an:'end',mono:1,sz:d.big?11:9.5}))});
   var avg=pts.reduce(function(a,b){return a+b},0)/n;
   pts.forEach(function(v,i){
     s.appendChild(E('rect',{x:(L+gap*i+(gap-bw)/2).toFixed(1),y:Y(v).toFixed(1),width:bw.toFixed(1),
       height:Math.max(1,ih-(Y(v)-T)).toFixed(1),fill:i===n-1?C.plan:C.real,rx:1.5}))});
   s.appendChild(E('line',{x1:L,y1:Y(avg),x2:L+iw,y2:Y(avg),stroke:cs('--ink3'),'stroke-width':1.2,'stroke-dasharray':'4 3'}));
-  if(n<=12)lab.forEach(function(o,i){s.appendChild(txt(X(i),H-9,o.id.replace('U',''),{mono:1,sz:9}))});
+  lab.forEach(function(o,i){
+    s.appendChild(txt(X(i),H-(d.big?13:9),d.big?o.dd:o.id.replace('U',''),{mono:1,sz:d.big?10:9}));
+    if(d.big)s.appendChild(txt(X(i),Y(pts[i])-6,pts[i].toFixed(0)+'%',{mono:1,sz:10,fill:cs('--ink2')}))});
   hook(s,tip,n,X,function(i){
     return '<div class="th">'+lab[i].id+' · '+lab[i].dd+'</div>'+
-      '<i style="background:'+(i===n-1?C.plan:C.real)+'"></i>'+pts[i].toFixed(1)+'%  ('+lab[i].cump+' de '+lab[i].prom+')'});
+      '<i style="background:'+(i===n-1?C.plan:C.real)+'"></i>'+pts[i].toFixed(1)+'%  ('+lab[i].cump+' de '+lab[i].prom+')'},d);
   document.getElementById('r3').innerHTML='Promedio de la serie <b>'+avg.toFixed(1)+'%</b>. Máximo alcanzado <b>'+
     Math.max.apply(null,pts).toFixed(1)+'%</b>.';
 }
@@ -408,6 +437,16 @@ function render(){
     : '<tr><td style="color:var(--ink3)">No hay actividades en curso en esta versión.</td></tr>';
   document.getElementById('risk').innerHTML=rk;
 }
+Array.prototype.forEach.call(document.querySelectorAll('.exp'),function(b){
+  b.addEventListener('click',function(){
+    var id='c'+b.dataset.c, card=b.closest('.card');
+    BIG[id]=!BIG[id];
+    card.classList.toggle('big',BIG[id]);
+    b.querySelector('.ms').textContent=BIG[id]?'close_fullscreen':'open_in_full';
+    b.setAttribute('aria-label',BIG[id]?'Reducir gráfico':'Agrandar gráfico');
+    b.setAttribute('title',BIG[id]?'Reducir':'Agrandar');
+    render();
+  })});
 sel.addEventListener('change',render);
 render();
 window.addEventListener('resize',function(){render()});

@@ -1,740 +1,416 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Tablero Domus II</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block">
 <style>
-/* Layout: barra de aplicación, tarjetas elevadas de estado, gráficos y panel de integridad */
+/* Layout: barra con selector de versión, franja de KPIs, tres gráficos con tooltip, panel de integridad */
 :root{
-  --bg:#F8F9FA; --surface:#FFFFFF; --surface-2:#F1F3F4; --surface-3:#E8EAED;
-  --ink:#202124; --ink-2:#5F6368; --ink-3:#80868B;
-  --line:#DADCE0; --line-2:#BDC1C6;
-  --accent:#1A73E8; --accent-bg:#E8F0FE;
-  --crit:#D93025; --crit-bg:#FCE8E6;
-  --warn:#E37400; --warn-bg:#FEF7E0;
-  --ok:#1E8E3E; --ok-bg:#E6F4EA;
+  --bg:#F1F3F4; --surface:#FFFFFF; --s2:#F1F3F4; --s3:#E8EAED;
+  --ink:#202124; --ink2:#5F6368; --ink3:#80868B;
+  --line:#DADCE0; --line2:#BDC1C6;
+  --acc:#1A73E8; --accbg:#E8F0FE;
+  --crit:#D93025; --critbg:#FCE8E6;
+  --warn:#E37400; --warnbg:#FEF7E0;
+  --ok:#1E8E3E; --okbg:#E6F4EA;
   --grid:#E8EAED;
-  --sh-1:0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
-  --sh-2:0 1px 2px 0 rgba(60,64,67,.30), 0 2px 6px 2px rgba(60,64,67,.15);
-  --f-display:"Roboto","Helvetica Neue",Arial,sans-serif;
-  --f-body:"Roboto","Helvetica Neue",Arial,sans-serif;
-  --f-mono:"Roboto Mono",Consolas,monospace;
+  --sh:0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+  --sh2:0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+  --fs:"Roboto","Helvetica Neue",Arial,sans-serif;
+  --fm:"Roboto Mono",Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#202124; --surface:#292A2D; --surface-2:#35363A; --surface-3:#3C4043;
-  --ink:#E8EAED; --ink-2:#9AA0A6; --ink-3:#80868B;
-  --line:#3C4043; --line-2:#5F6368;
-  --accent:#8AB4F8; --accent-bg:#1F3047;
-  --crit:#F28B82; --crit-bg:#3B2220;
-  --warn:#FDD663; --warn-bg:#3A2F15;
-  --ok:#81C995; --ok-bg:#1C2E22;
+  --bg:#202124; --surface:#292A2D; --s2:#35363A; --s3:#3C4043;
+  --ink:#E8EAED; --ink2:#9AA0A6; --ink3:#80868B;
+  --line:#3C4043; --line2:#5F6368;
+  --acc:#8AB4F8; --accbg:#1F3047;
+  --crit:#F28B82; --critbg:#3B2220;
+  --warn:#FDD663; --warnbg:#3A2F15;
+  --ok:#81C995; --okbg:#1C2E22;
   --grid:#35363A;
-  --sh-1:0 1px 2px 0 rgba(0,0,0,.45), 0 1px 3px 1px rgba(0,0,0,.25);
-  --sh-2:0 1px 2px 0 rgba(0,0,0,.45), 0 2px 6px 2px rgba(0,0,0,.25);
+  --sh:0 1px 2px 0 rgba(0,0,0,.5), 0 1px 3px 1px rgba(0,0,0,.3);
+  --sh2:0 1px 3px 0 rgba(0,0,0,.5), 0 4px 8px 3px rgba(0,0,0,.3);
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#202124; --surface:#292A2D; --surface-2:#35363A; --surface-3:#3C4043;
-  --ink:#E8EAED; --ink-2:#9AA0A6; --ink-3:#80868B;
-  --line:#3C4043; --line-2:#5F6368;
-  --accent:#8AB4F8; --accent-bg:#1F3047;
-  --crit:#F28B82; --crit-bg:#3B2220;
-  --warn:#FDD663; --warn-bg:#3A2F15;
-  --ok:#81C995; --ok-bg:#1C2E22;
+  --bg:#202124; --surface:#292A2D; --s2:#35363A; --s3:#3C4043;
+  --ink:#E8EAED; --ink2:#9AA0A6; --ink3:#80868B;
+  --line:#3C4043; --line2:#5F6368;
+  --acc:#8AB4F8; --accbg:#1F3047;
+  --crit:#F28B82; --critbg:#3B2220;
+  --warn:#FDD663; --warnbg:#3A2F15;
+  --ok:#81C995; --okbg:#1C2E22;
   --grid:#35363A;
-  --sh-1:0 1px 2px 0 rgba(0,0,0,.45), 0 1px 3px 1px rgba(0,0,0,.25);
-  --sh-2:0 1px 2px 0 rgba(0,0,0,.45), 0 2px 6px 2px rgba(0,0,0,.25);
+  --sh:0 1px 2px 0 rgba(0,0,0,.5), 0 1px 3px 1px rgba(0,0,0,.3);
+  --sh2:0 1px 3px 0 rgba(0,0,0,.5), 0 4px 8px 3px rgba(0,0,0,.3);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);line-height:1.5;
+body{background:var(--bg);color:var(--ink);font-family:var(--fs);font-size:13px;line-height:1.45;
   -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-.wrap{max-width:1140px;margin:0 auto;padding-inline:20px;padding-block:28px 56px}
-h1,h2,h3,h4{margin:0;text-wrap:balance;font-family:var(--f-display)}
-.material-symbols-outlined{font-family:"Material Symbols Outlined";font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;-webkit-font-feature-settings:"liga";-webkit-font-smoothing:antialiased;font-variation-settings:"opsz" 24;user-select:none}
+.ms{font-family:"Material Symbols Outlined";font-weight:400;font-style:normal;line-height:1;
+  letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;
+  -webkit-font-feature-settings:"liga";-webkit-font-smoothing:antialiased;user-select:none}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:14px 32px}
+h1,h2,h3{margin:0;font-weight:500}
 
-.masthead{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
-  background:var(--surface);border-radius:16px;box-shadow:var(--sh-1);padding:20px 24px;margin-bottom:28px}
-.masthead h1{font-size:clamp(19px,2.8vw,24px);font-weight:500;letter-spacing:0;display:flex;align-items:center;gap:11px}
-.masthead h1 .material-symbols-outlined{font-size:26px;color:var(--accent)}
-.masthead .sub{color:var(--ink-2);font-size:13px;margin-top:4px;padding-left:37px}
-.stamp{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);text-align:right;line-height:1.75}
-.stamp b{color:var(--ink);font-weight:500}
+/* barra */
+.bar{background:var(--surface);border-radius:12px;box-shadow:var(--sh);padding:12px 16px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-bottom:12px}
+.bar h1{font-size:16px;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.bar h1 .ms{font-size:21px;color:var(--acc)}
+.bar .job{font-family:var(--fm);font-size:11.5px;color:var(--ink3);padding-left:2px}
+.pick{margin-left:auto;display:flex;align-items:center;gap:9px}
+.pick label{font-size:11px;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em;font-weight:500}
+select{font-family:var(--fs);font-size:13px;font-weight:500;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;min-width:188px}
+select:focus-visible{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+.meta{font-family:var(--fm);font-size:11.5px;color:var(--ink2);white-space:nowrap}
+.meta b{color:var(--ink);font-weight:500}
 
-.eyebrow{font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--accent);font-family:var(--f-body);margin-bottom:12px;display:flex;align-items:center;gap:7px}
-.eyebrow .material-symbols-outlined{font-size:17px}
-section{margin-top:40px}
-section > h2{font-size:19px;font-weight:500;margin-bottom:4px}
-section > .lede{color:var(--ink-2);font-size:13.5px;margin:0 0 18px;max-width:64ch}
-
-/* Nivel 1 */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(218px,1fr));gap:14px}
-.tile{background:var(--surface);border:none;border-radius:16px;box-shadow:var(--sh-1);padding:18px 18px 16px;
-  display:flex;flex-direction:column;gap:2px;min-width:0;position:relative;overflow:hidden;
-  transition:box-shadow .2s}
-.tile:hover{box-shadow:var(--sh-2)}
-.tile .ico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
-.tile .ico .material-symbols-outlined{font-size:19px}
-.tile .label{font-size:12px;color:var(--ink-2);font-weight:500;line-height:1.35}
-.tile .date{font-family:var(--f-display);font-size:26px;font-weight:400;letter-spacing:0;margin-top:7px}
-.tile .meta{font-size:12.5px;color:var(--ink-3);margin-top:1px}
-.tile .foot{display:flex;align-items:baseline;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(128,134,139,.28)}
-.float{font-family:var(--f-mono);font-size:20px;font-weight:500}
-.delta{font-size:12px;font-family:var(--f-mono)}
-.tile.crit{background:var(--crit-bg)}
-.tile.crit .ico{background:var(--crit)}
-.tile.crit .ico .material-symbols-outlined{color:var(--surface)}
-.tile.crit .float,.tile.crit .date{color:var(--crit)}
-.tile.warn{background:var(--warn-bg)}
-.tile.warn .ico{background:var(--warn)}
-.tile.warn .ico .material-symbols-outlined{color:var(--surface)}
-.tile.warn .float{color:var(--warn)}
-.tile.ok{background:var(--ok-bg)}
-.tile.ok .ico{background:var(--ok)}
-.tile.ok .ico .material-symbols-outlined{color:var(--surface)}
-.tile.ok .float{color:var(--ok)}
-.down{color:var(--crit)} .up{color:var(--ok)}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:12px}
+@media (max-width:1040px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.k{background:var(--surface);border-radius:12px;box-shadow:var(--sh);padding:11px 13px 12px;min-width:0;
+  border-top:3px solid transparent}
+.k.c{border-top-color:var(--crit)} .k.w{border-top-color:var(--warn)} .k.o{border-top-color:var(--ok)}
+.k .lb{font-size:10.5px;color:var(--ink2);font-weight:500;text-transform:uppercase;letter-spacing:.05em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k .v{font-family:var(--fm);font-size:24px;font-weight:500;line-height:1.1;margin-top:5px}
+.k.c .v{color:var(--crit)} .k.w .v{color:var(--warn)} .k.o .v{color:var(--ok)}
+.k .s{font-size:11px;color:var(--ink3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k .d{font-family:var(--fm);font-size:11px;margin-top:4px;display:flex;align-items:center;gap:3px}
+.k .d .ms{font-size:14px}
+.dn{color:var(--crit)} .up{color:var(--ok)} .fl{color:var(--ink3)}
 
 /* gráficos */
-.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
-.card{background:var(--surface);border:none;border-radius:16px;box-shadow:var(--sh-1);padding:19px 20px 17px;min-width:0}
-.card h3{font-size:15px;font-weight:500;margin-bottom:3px}
-.card .note{font-size:12.5px;color:var(--ink-2);margin:0 0 14px}
-.card .read{font-size:12.5px;color:var(--ink-2);margin:14px 0 0;padding-top:13px;border-top:1px solid var(--line);line-height:1.6}
-.card .read b{color:var(--ink);font-weight:500}
-svg{display:block;width:100%;height:auto;overflow:visible}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink-2);margin-bottom:10px}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.swatch{width:13px;height:3px;border-radius:2px;flex:none}
-.swatch.sq{width:10px;height:10px;border-radius:2px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;margin-bottom:12px}
+.card{background:var(--surface);border-radius:12px;box-shadow:var(--sh);padding:13px 15px 12px;min-width:0}
+.card h3{font-size:13px;margin-bottom:2px}
+.card .nt{font-size:11.5px;color:var(--ink3);margin:0 0 9px}
+.card .rd{font-size:11.5px;color:var(--ink2);margin:9px 0 0;padding-top:9px;border-top:1px solid var(--line);line-height:1.5}
+.card .rd b{color:var(--ink);font-weight:500}
+.lg{display:flex;flex-wrap:wrap;gap:4px 13px;font-size:11px;color:var(--ink2);margin-bottom:6px}
+.lg span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:12px;height:3px;border-radius:2px;flex:none}
+.sw.q{width:9px;height:9px;border-radius:2px}
+.plot{position:relative}
+svg{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);
+  border-radius:6px;padding:6px 9px;font-size:11.5px;line-height:1.5;white-space:nowrap;
+  box-shadow:var(--sh2);opacity:0;transition:opacity .12s;z-index:5;font-family:var(--fm)}
+.tip.on{opacity:1}
+.tip .th{font-family:var(--fs);font-weight:500;font-size:11px;opacity:.72;margin-bottom:2px}
+.tip i{font-style:normal;display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
 
-/* Nivel 3 */
-.integ{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:16px}
-@media (max-width:760px){.integ{grid-template-columns:1fr}}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--ink-3);padding:0 8px 9px 0;border-bottom:1px solid var(--line)}
+/* tablas y panel */
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink3);padding:0 7px 6px 0;border-bottom:1px solid var(--line)}
 th.n,td.n{text-align:right;padding-right:0}
-td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td{padding:7px 7px 7px 0;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}
-.mono{font-family:var(--f-mono);font-size:12.5px}
-.num{font-family:var(--f-mono);font-weight:500}
-.flag{display:inline-block;font-family:var(--f-mono);font-size:11px;font-weight:500;
-  padding:3px 10px;border-radius:999px;white-space:nowrap}
-.flag.c{background:var(--crit-bg);color:var(--crit)}
-.flag.w{background:var(--warn-bg);color:var(--warn)}
-.flag.o{background:var(--ok-bg);color:var(--ok)}
-.pair{display:flex;flex-direction:column;gap:11px}
-.row2{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
-.row2:last-child{border-bottom:none}
-.row2 .k{flex:none;width:112px;font-size:12px;color:var(--ink-2);padding-top:1px}
-.row2 .v{min-width:0;font-size:13px}
-.row2 .v .t{font-weight:500}
-.row2 .v .d{color:var(--ink-2);font-size:12.5px;margin-top:2px}
-footer{margin-top:44px;padding:18px 20px;background:var(--surface-2);border-radius:14px;
-  font-size:12px;color:var(--ink-2);line-height:1.65}
-footer code{font-family:var(--f-mono);font-size:11.5px;background:var(--surface-3);padding:1px 5px;border-radius:4px}
-
-/* desplegables por versión */
-.upd{border:none;border-radius:14px;background:var(--surface);box-shadow:var(--sh-1);margin-bottom:9px;overflow:hidden}
-.upd[open]{box-shadow:var(--sh-2)}
-.upd.lvl-c{border-left:4px solid var(--crit)}
-.upd.lvl-w{border-left:4px solid var(--warn)}
-.upd summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;
-  padding:12px 15px;font-size:13px}
-.upd summary::-webkit-details-marker{display:none}
-.upd summary:hover{background:var(--surface-2)}
-.upd summary{border-radius:14px}
-.upd summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.uid{font-family:var(--f-display);font-weight:500;font-size:14px;min-width:52px;color:var(--accent)}
-.udd{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);min-width:92px}
-.ums{font-size:11.5px;color:var(--ink-3);display:inline-flex;align-items:baseline;gap:5px}
-.ums b{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--ink)}
-.ums b.c{color:var(--crit)} .ums b.w{color:var(--warn)} .ums b.o{color:var(--ok)}
-.uchips{margin-left:auto;display:flex;flex-wrap:wrap;gap:5px}
-.chip{font-style:normal;font-family:var(--f-mono);font-size:10.5px;padding:4px 11px;border-radius:999px;white-space:nowrap}
-.chip.c{background:var(--crit-bg);color:var(--crit)}
-.chip.w{background:var(--warn-bg);color:var(--warn)}
-.chip.o{background:var(--surface-2);color:var(--ink-2)}
-.ubody{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;
-  padding:4px 15px 16px;border-top:1px solid var(--line)}
-.ubody h4{margin:15px 0 8px;font-family:var(--f-body);font-size:11px;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.ubody table{font-size:12.5px}
-.ubody td{padding:6px 8px 6px 0}
-.ubody .wide{grid-column:span 2}
-@media (max-width:700px){.ubody .wide{grid-column:span 1}.uchips{margin-left:0;width:100%}}
-.num.hot{color:var(--crit)}
-.unote{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.6}
-.unote b{color:var(--ink);font-weight:500}
-.unote code{font-family:var(--f-mono);font-size:11.5px;background:var(--surface-2);padding:2px 6px;border-radius:5px}
-
+.mo{font-family:var(--fm);font-size:11.5px}
+.nm{font-family:var(--fm);font-weight:500}
+.nm.hot{color:var(--crit)}
+.pill{display:inline-block;font-family:var(--fm);font-size:10.5px;font-weight:500;
+  padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill.c{background:var(--critbg);color:var(--crit)}
+.pill.w{background:var(--warnbg);color:var(--warn)}
+.pill.o{background:var(--okbg);color:var(--ok)}
+.pill.n{background:var(--s2);color:var(--ink2)}
+.note{margin:10px 0 0;padding:10px 12px;background:var(--s2);border-radius:8px;
+  font-size:11.5px;color:var(--ink2);line-height:1.55}
+.note.c{background:var(--critbg);color:var(--crit)}
+.note.w{background:var(--warnbg);color:var(--warn)}
+.note b{font-weight:500}
+.note code{font-family:var(--fm);font-size:11px;background:rgba(128,134,139,.2);padding:1px 5px;border-radius:4px}
+.sub{font-size:11px;color:var(--ink3);line-height:1.5;margin-top:2px}
+footer{margin-top:14px;padding:12px 15px;background:var(--surface);border-radius:12px;box-shadow:var(--sh);
+  font-size:11px;color:var(--ink3);line-height:1.6}
+footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:1px 4px;border-radius:3px}
 </style>
 
 <div class="wrap">
 
-<div class="masthead">
+<div class="bar">
   <div>
-    <h1><span class="material-symbols-outlined">apartment</span>Domus Brickell Center · NB Domus II</h1>
-    <div class="sub">Tablero mensual de cronograma · Job #52511</div>
+    <h1><span class="ms">apartment</span>Domus Brickell Center · NB Domus II</h1>
+    <div class="job">Job #52511 · Tablero de cronograma</div>
   </div>
-  <div class="stamp">
-    Actualización <b>#11</b><br>
-    Data date <b>30-Sep-2026</b><br>
-    <span style="color:var(--ink-3)">3,504 actividades · 6,326 relaciones</span>
+  <div class="pick">
+    <label for="sel">Actualización</label>
+    <select id="sel"></select>
   </div>
+  <div class="meta" id="meta"></div>
 </div>
 
-<section style="margin-top:0">
-  <div class="eyebrow"><span class="material-symbols-outlined">monitoring</span>Estado</div>
-  <div class="tiles">
-    <div class="tile crit">
-      <div class="ico"><span class="material-symbols-outlined">key</span></div><div class="label">Hito Contractual #2 · Llaves L16–L25</div>
-      <div class="date">10 Nov 2027</div>
-      <div class="meta">contractual 21-Oct-2027</div>
-      <div class="foot"><span class="float">−20 d</span><span class="delta down">▼ 13 en el mes</span></div>
+<div class="kpis" id="kpis"></div>
+
+<div class="row">
+  <div class="card">
+    <h3>Erosión de holgura</h3>
+    <p class="nt">Holgura total por hito, días calendario</p>
+    <div class="lg">
+      <span><i class="sw" style="background:#1A73E8"></i>Hito #2</span>
+      <span><i class="sw" style="background:#E37400"></i>Hito #3</span>
+      <span><i class="sw" style="background:#5F6368"></i>T.C.O.</span>
     </div>
-    <div class="tile crit">
-      <div class="ico"><span class="material-symbols-outlined">key</span></div><div class="label">Hito Contractual #3 · Llaves L26–L35</div>
-      <div class="date">12 Ene 2028</div>
-      <div class="meta">contractual 21-Dic-2027</div>
-      <div class="foot"><span class="float">−22 d</span><span class="delta down">▼ 14 en el mes</span></div>
+    <div class="plot"><svg id="c1" viewBox="0 0 480 190" role="img" aria-label="Erosión de holgura de los hitos contractuales a lo largo de las versiones del cronograma"></svg><div class="tip" id="t1"></div></div>
+    <p class="rd" id="r1"></p>
+  </div>
+
+  <div class="card">
+    <h3>Capacidad contra exigencia</h3>
+    <p class="nt">Actividades terminadas por mes y las que el plan exige</p>
+    <div class="lg">
+      <span><i class="sw q" style="background:#1A73E8"></i>Real</span>
+      <span><i class="sw q" style="background:#D93025"></i>Plan</span>
     </div>
-    <div class="tile ok">
-      <div class="ico"><span class="material-symbols-outlined">verified</span></div><div class="label">Substantial Completion · T.C.O.</div>
-      <div class="date">14 Mar 2028</div>
-      <div class="meta">contractual 21-Mar-2028</div>
-      <div class="foot"><span class="float">+7 d</span><span class="delta down">▼ 7 en el mes</span></div>
+    <div class="plot"><svg id="c2" viewBox="0 0 480 190" role="img" aria-label="Actividades terminadas por mes frente a las que el plan exige en los meses siguientes"></svg><div class="tip" id="t2"></div></div>
+    <p class="rd" id="r2"></p>
+  </div>
+
+  <div class="card">
+    <h3>Cumplimiento del plan</h3>
+    <p class="nt">De lo prometido para el mes, cuánto se terminó</p>
+    <div class="lg">
+      <span><i class="sw q" style="background:#1A73E8"></i>Cumplimiento</span>
+      <span><i class="sw" style="background:#80868B"></i>Promedio de la serie</span>
     </div>
-    <div class="tile warn">
-      <div class="ico"><span class="material-symbols-outlined">account_tree</span></div><div class="label">Cadenas con holgura ≤ 5 días</div>
-      <div class="date">5</div>
-      <div class="meta">de 314 bandas de holgura</div>
-      <div class="foot"><span class="float">250 act.</span><span class="delta">frentes que pueden hacer daño</span></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="eyebrow"><span class="material-symbols-outlined">show_chart</span>Tendencia</div>
-  <h2>Qué dirección lleva el proyecto</h2>
-  <p class="lede">Tres series calculadas de las catorce versiones del cronograma. Ninguna proviene del reporte narrativo.</p>
-  <div class="charts">
-
-    <div class="card">
-      <h3>Erosión de holgura</h3>
-      <p class="note">Holgura total por hito, en días calendario</p>
-      <div class="legend">
-        <span><i class="swatch" style="background:#1A73E8"></i>Hito #2</span>
-        <span><i class="swatch" style="background:#E37400"></i>Hito #3</span>
-        <span><i class="swatch" style="background:#5F6368"></i>T.C.O.</span>
-      </div>
-      <svg id="c1" viewBox="0 0 520 260" role="img" aria-label="Erosión de holgura de los hitos contractuales desde la línea base hasta la actualización 11"></svg>
-      <p class="read">Agosto recuperó 40 días; septiembre devolvió 13. El pico de la Upd 03 corresponde a un cambio de restricciones, no a avance.</p>
-    </div>
-
-    <div class="card">
-      <h3>Capacidad contra exigencia</h3>
-      <p class="note">Actividades terminadas por mes y actividades que el plan exige</p>
-      <div class="legend">
-        <span><i class="swatch sq" style="background:#1A73E8"></i>Real</span>
-        <span><i class="swatch sq" style="background:#D93025"></i>Plan Upd 11</span>
-      </div>
-      <svg id="c2" viewBox="0 0 520 260" role="img" aria-label="Actividades terminadas por mes contra las que el plan exige en los próximos doce meses"></svg>
-      <p class="read">Mejor marca alcanzada: <b>102</b> en septiembre. Promedio exigido para los próximos doce meses: <b>215</b>.</p>
-    </div>
-
-    <div class="card">
-      <h3>Cumplimiento del plan mensual</h3>
-      <p class="note">De lo prometido para el mes, cuánto se terminó</p>
-      <div class="legend">
-        <span><i class="swatch sq" style="background:#1A73E8"></i>Cumplimiento</span>
-        <span><i class="swatch" style="background:#80868B"></i>Promedio 43%</span>
-      </div>
-      <svg id="c3" viewBox="0 0 520 260" role="img" aria-label="Porcentaje de cumplimiento del plan mensual en los últimos diez periodos"></svg>
-      <p class="read">Nunca superó <b>61%</b>. El último periodo cerró en <b>38%</b>, el más bajo desde febrero.</p>
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <div class="eyebrow"><span class="material-symbols-outlined">fact_check</span>Integridad</div>
-  <h2>Qué cambió en el modelo, y qué no coincide</h2>
-  <p class="lede">Todo lo de abajo surge de comparar archivos entre sí. Cuando la primera tabla está en ceros, el cronograma se movió por obra; cuando no, se movió por una decisión que alguien tomó.</p>
-  <div class="integ">
-
-    <div class="card">
-      <h3>Cambios en el modelo</h3>
-      <p class="note">Diferencia entre versiones consecutivas</p>
-      <table>
-        <thead><tr><th>Concepto</th><th class="n">Upd 10→11</th><th class="n">Upd 09→10</th></tr></thead>
-        <tbody>
-          <tr><td>Duraciones originales modificadas</td><td class="n num">0</td><td class="n num" style="color:var(--crit)">3</td></tr>
-          <tr><td>Relaciones lógicas eliminadas</td><td class="n num">0</td><td class="n num" style="color:var(--crit)">1</td></tr>
-          <tr><td>Relaciones lógicas agregadas</td><td class="n num">12</td><td class="n num">9</td></tr>
-          <tr><td>Restricciones de hito cambiadas</td><td class="n num">0</td><td class="n num">0</td></tr>
-          <tr><td>Actividades agregadas</td><td class="n num">3</td><td class="n num">2</td></tr>
-        </tbody>
-      </table>
-      <p class="read">Las 12 relaciones de este mes son actividades de clima encadenadas a estructura. <b>El mes anterior sí hubo cambios de fondo:</b> tres duraciones de procura recortadas (mamparas 70→40 días, gabinetes 70→50) y el vínculo obsoleto del paquete BDA reemplazado. Esos cambios explican buena parte de los 40 días que el Upd 10 recuperó.</p>
-    </div>
-
-    <div class="card">
-      <h3>Lo que el reporte dice y lo que el archivo devuelve</h3>
-      <p class="note">Contraste directo, sin interpretación</p>
-      <div class="pair">
-        <div class="row2">
-          <div class="k">Ruta crítica<br>declarada</div>
-          <div class="v">
-            <div class="t">Drywall framing Nivel 9 <span class="flag o">+5 d</span></div>
-            <div class="d">Es el frente más apretado en ejecución, pero no alcanza ningún hito contractual.</div>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="k">Cadena que<br>gobierna</div>
-          <div class="v">
-            <div class="t"><span class="mono">F-10-400</span> Fab &amp; Deliver Shower Enclosures <span class="flag c">−14 d</span></div>
-            <div class="d">32 pasos hasta el Hito #2. No se describe en el reporte.</div>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="k">Sin reportar</div>
-          <div class="v">
-            <div class="t"><span class="mono">C-21-ST-100</span> losas postensadas L21→L35 <span class="flag w">+0.25 d</span></div>
-            <div class="d">87 actividades de estructura hasta ago-2027, con un cuarto de día de margen.</div>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="k">Atraso<br>acumulado</div>
-          <div class="v">
-            <div class="t">Reporte: 19 días · Archivo: 20 días <span class="flag w">Δ 1 d</span></div>
-            <div class="d">Diferencia en el Hito #2. El Hito #3 coincide exacto.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="charts" style="margin-top:16px">
-    <div class="card">
-      <h3>Holgura consumida en el mes</h3>
-      <p class="note">Sobre las 3,055 actividades pendientes al cierre</p>
-      <table>
-        <tbody>
-          <tr><td>Perdieron holgura</td><td class="n num" style="color:var(--crit)">2,741</td><td class="n num" style="color:var(--crit)">89.7%</td></tr>
-          <tr><td>Mantuvieron su holgura</td><td class="n num">12</td><td class="n num">0.4%</td></tr>
-          <tr><td>Ganaron holgura</td><td class="n num" style="color:var(--ok)">302</td><td class="n num" style="color:var(--ok)">9.9%</td></tr>
-          <tr><td>Cruzaron de positiva a negativa</td><td class="n num" style="color:var(--crit)">29</td><td class="n num">—</td></tr>
-        </tbody>
-      </table>
-      <p class="read">Pérdida mediana de 5 días. Avanzar solo sobre la cadena declarada crítica deja a las demás consumiendo su margen.</p>
-    </div>
-
-    <div class="card">
-      <h3>Decisiones y procura en riesgo</h3>
-      <p class="note">Lo que requiere acción, con la pelota identificada</p>
-      <table>
-        <thead><tr><th>Actividad</th><th>Vence</th><th class="n">Holgura</th></tr></thead>
-        <tbody>
-          <tr><td><span class="mono">F-10-400</span><br>Fab &amp; Deliver Shower Enclosures</td><td>30-Oct-26<br><span style="color:var(--ink-3);font-size:12px">en curso</span></td><td class="n num" style="color:var(--crit)">−14 d</td></tr>
-          <tr><td><span class="mono">F-06-200</span><br>Fab &amp; Deliver Kitchen Cabinets</td><td>28-Oct-26<br><span style="color:var(--ink-3);font-size:12px">en curso</span></td><td class="n num" style="color:var(--warn)">+3 d</td></tr>
-          <tr><td><span class="mono">C-09-U-FN-120</span><br>Drywall Framing L9</td><td>15-Oct-26<br><span style="color:var(--ink-3);font-size:12px">en curso</span></td><td class="n num" style="color:var(--warn)">+5 d</td></tr>
-          <tr><td><span class="mono">C-21-ST-100</span><br>Form Prestressed Slab L21</td><td>01-Oct-26<br><span style="color:var(--ink-3);font-size:12px">en curso</span></td><td class="n num" style="color:var(--crit)">+0.25 d</td></tr>
-        </tbody>
-      </table>
-      <p class="read">Las dos revisiones de submittal que estaban vencidas del lado Owner se cerraron: gabinetes el 13-Ago y mamparas el 24-Sep, ambas después de su fecha límite.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="eyebrow"><span class="material-symbols-outlined">history</span>Historial</div>
-  <h2>Versión por versión</h2>
-  <p class="lede">Las catorce entregas del cronograma, de la más reciente a la línea base. Cada una despliega sus hitos, su cumplimiento y los cambios que se le hicieron al modelo.</p>
-<details class="upd lvl-w">
-<summary>
-  <span class="uid">U11</span>
-  <span class="udd">30-Sep-2026</span>
-  <span class="ums"><b class="c">−20 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−22 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="o">+7 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip o">sin cambios de fondo</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">20-Aug-27</td><td class="n num w">+1.25 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">10-Nov-27</td><td class="n num c">−20 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">12-Jan-28</td><td class="n num c">−22 d</td></tr><tr><td>T.C.O.</td><td class="mono">14-Mar-28</td><td class="n num o">+7 d</td></tr><tr><td>C.O.</td><td class="mono">15-May-28</td><td class="n num o">+7 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">101</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">38.0%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">12</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">3</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">114</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">El deterioro se reanuda. La cadena que gobierna nace ahora en la fabricación de mamparas de ducha. Las 12 relaciones agregadas son actividades de clima encadenadas a estructura.</p>
+    <div class="plot"><svg id="c3" viewBox="0 0 480 190" role="img" aria-label="Porcentaje de cumplimiento del plan mensual periodo a periodo"></svg><div class="tip" id="t3"></div></div>
+    <p class="rd" id="r3"></p>
   </div>
 </div>
-</details>
-<details class="upd lvl-c">
-<summary>
-  <span class="uid">U10</span>
-  <span class="udd">31-Aug-2026</span>
-  <span class="ums"><b class="c">−7 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−8 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="o">+14 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip c">3 duraciones</i><i class="chip w">1 relación eliminada</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">18-Aug-27</td><td class="n num w">+3 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">28-Oct-27</td><td class="n num c">−7 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">29-Dec-27</td><td class="n num c">−8 d</td></tr><tr><td>T.C.O.</td><td class="mono">07-Mar-28</td><td class="n num o">+14 d</td></tr><tr><td>C.O.</td><td class="mono">08-May-28</td><td class="n num o">+14 d</td></tr></tbody></table>
+
+<div class="g2">
+  <div class="card">
+    <h3>Cambios en el modelo</h3>
+    <p class="nt">Diferencia contra la versión anterior</p>
+    <table id="mod"></table>
+    <div id="modnote"></div>
   </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">97</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">46.2%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num hot">3</td></tr><tr><td>Relaciones eliminadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones agregadas</td><td class="n num">9</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">2</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">88</td></tr></tbody></table>
+  <div class="card">
+    <h3>Cadenas más apretadas</h3>
+    <p class="nt">Bandas de holgura con cinco o más actividades</p>
+    <table id="chains"></table>
   </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote"><b>Tres duraciones de procura recortadas</b> (mamparas 70→40 días, gabinetes 70→50, coordinación FPL 40→21) y <b>el vínculo obsoleto del paquete BDA reemplazado</b>: su sucesora estaba completa desde mayo. Los hitos recuperan 40 días. Ninguno de los dos cambios es avance de obra.</p>
+  <div class="card">
+    <h3>En curso, con menos margen</h3>
+    <p class="nt">Actividades abiertas al cierre del periodo</p>
+    <table id="risk"></table>
   </div>
 </div>
-</details>
-<details class="upd lvl-c">
-<summary>
-  <span class="uid">U09</span>
-  <span class="udd">31-Jul-2026</span>
-  <span class="ums"><b class="c">−47 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−46 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="w">0 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip w">1 relación eliminada</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">12-Aug-27</td><td class="n num o">+9 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">07-Dec-27</td><td class="n num c">−47 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">05-Feb-28</td><td class="n num c">−46 d</td></tr><tr><td>T.C.O.</td><td class="mono">21-Mar-28</td><td class="n num w">0 d</td></tr><tr><td>C.O.</td><td class="mono">22-May-28</td><td class="n num w">0 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">51</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">43.4%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones agregadas</td><td class="n num">2</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">1</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">360</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Peor posición de la serie: −47 y −46 días, con la holgura del T.C.O. agotada en cero. 360 actividades en holgura negativa.</p>
-  </div>
-</div>
-</details>
-<details class="upd lvl-w">
-<summary>
-  <span class="uid">U08</span>
-  <span class="udd">30-Jun-2026</span>
-  <span class="ums"><b class="c">−27 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−29 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="o">+6 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip o">sin cambios de fondo</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">18-Aug-27</td><td class="n num w">+3 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">17-Nov-27</td><td class="n num c">−27 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">19-Jan-28</td><td class="n num c">−29 d</td></tr><tr><td>T.C.O.</td><td class="mono">15-Mar-28</td><td class="n num o">+6 d</td></tr><tr><td>C.O.</td><td class="mono">16-May-28</td><td class="n num o">+6 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">56</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">60.8%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">6</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">4</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">250</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Mejor cumplimiento de plan de toda la serie (60.8%). El narrativo encabeza con 7 días ganados a Substantial Completion, el mismo mes en que los hitos de entrega pierden 14.</p>
-  </div>
-</div>
-</details>
-<details class="upd">
-<summary>
-  <span class="uid">U07</span>
-  <span class="udd">31-May-2026</span>
-  <span class="ums"><b class="c">−13 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−15 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−1 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip w">1 relación eliminada</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">20-Aug-27</td><td class="n num w">+1.5 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">03-Nov-27</td><td class="n num c">−13 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">05-Jan-28</td><td class="n num c">−15 d</td></tr><tr><td>T.C.O.</td><td class="mono">22-Mar-28</td><td class="n num c">−1 d</td></tr><tr><td>C.O.</td><td class="mono">23-May-28</td><td class="n num c">−1 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">37</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">41.0%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones agregadas</td><td class="n num">9</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">1</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">202</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Comienza el deterioro sostenido: el Hito #2 cae a −13 días.</p>
-  </div>
-</div>
-</details>
-<details class="upd">
-<summary>
-  <span class="uid">U06</span>
-  <span class="udd">30-Apr-2026</span>
-  <span class="ums"><b class="c">−0.45 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−0.45 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−0.45 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip c">1 duraciones</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">20-Aug-27</td><td class="n num w">+1.55 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">22-Oct-27</td><td class="n num c">−0.45 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">22-Dec-27</td><td class="n num c">−0.45 d</td></tr><tr><td>T.C.O.</td><td class="mono">22-Mar-28</td><td class="n num c">−0.45 d</td></tr><tr><td>C.O.</td><td class="mono">23-May-28</td><td class="n num c">−0.45 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">28</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">37.1%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">3</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">2</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">162</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Periodo estable. Una duración modificada.</p>
-  </div>
-</div>
-</details>
-<details class="upd lvl-w">
-<summary>
-  <span class="uid">U05</span>
-  <span class="udd">31-Mar-2026</span>
-  <span class="ums"><b class="c">−0.2 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−0.2 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−0.2 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip c">1 duraciones</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">20-Aug-27</td><td class="n num w">+1.8 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">22-Oct-27</td><td class="n num c">−0.2 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">22-Dec-27</td><td class="n num c">−0.2 d</td></tr><tr><td>T.C.O.</td><td class="mono">22-Mar-28</td><td class="n num c">−0.2 d</td></tr><tr><td>C.O.</td><td class="mono">23-May-28</td><td class="n num c">−0.2 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">33</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">50.0%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">13</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">7</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">172</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Primera versión con cambios de alcance: 7 actividades agregadas, 13 relaciones y una duración. Los hitos convergen a −0.2 días.</p>
-  </div>
-</div>
-</details>
-<details class="upd lvl-c">
-<summary>
-  <span class="uid">U04</span>
-  <span class="udd">28-Feb-2026</span>
-  <span class="ums"><b class="c">−19 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−18 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−9 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip c">3 restricciones</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">10-Sep-27</td><td class="n num c">−20 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">09-Nov-27</td><td class="n num c">−19 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">08-Jan-28</td><td class="n num c">−18 d</td></tr><tr><td>T.C.O.</td><td class="mono">30-Mar-28</td><td class="n num c">−9 d</td></tr><tr><td>C.O.</td><td class="mono">31-May-28</td><td class="n num c">−9 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">16</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">25.0%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">0</td></tr><tr><td>Restricciones cambiadas</td><td class="n num hot">3</td></tr><tr><td>Actividades agregadas</td><td class="n num">0</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">761</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote"><b>Las tres restricciones fueron repuestas</b> y la holgura real reaparece en −18 a −20 días. El par Upd 03 / Upd 04 debe excluirse de cualquier serie de erosión.</p>
-  </div>
-</div>
-</details>
-<details class="upd lvl-c">
-<summary>
-  <span class="uid">U03</span>
-  <span class="udd">31-Jan-2026</span>
-  <span class="ums"><b class="o">+73 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="o">+73 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−3 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip c">3 restricciones</i><i class="chip w">1 relación eliminada</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">10-Sep-27</td><td class="n num o">+73 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">09-Nov-27</td><td class="n num o">+73 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">08-Jan-28</td><td class="n num o">+73 d</td></tr><tr><td>T.C.O.</td><td class="mono">24-Mar-28</td><td class="n num c">−3 d</td></tr><tr><td>C.O.</td><td class="mono">25-May-28</td><td class="n num c">−3 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">12</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">46.7%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num hot">1</td></tr><tr><td>Relaciones agregadas</td><td class="n num">1</td></tr><tr><td>Restricciones cambiadas</td><td class="n num hot">3</td></tr><tr><td>Actividades agregadas</td><td class="n num">0</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">118</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote"><b>Se retiraron las restricciones <code>CS_MEOB</code> de los tres hitos de entrega de llaves.</b> Sin fecha límite contra la cual medir, P6 calculó su holgura contra el fin del proyecto y devolvió +73 días en los tres. La fecha pronosticada empeoró en el mismo periodo: el cambio es de medición, no de obra.</p>
-  </div>
-</div>
-</details>
-<details class="upd">
-<summary>
-  <span class="uid">U02</span>
-  <span class="udd">31-Dec-2025</span>
-  <span class="ums"><b class="c">−5 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="c">−6 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="c">−3 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip o">sin cambios de fondo</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">25-Aug-27</td><td class="n num c">−4 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">26-Oct-27</td><td class="n num c">−5 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">27-Dec-27</td><td class="n num c">−6 d</td></tr><tr><td>T.C.O.</td><td class="mono">24-Mar-28</td><td class="n num c">−3 d</td></tr><tr><td>C.O.</td><td class="mono">25-May-28</td><td class="n num c">−3 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">8</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">16.7%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">0</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">0</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">403</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Los cinco hitos entran en holgura negativa por primera vez.</p>
-  </div>
-</div>
-</details>
-<details class="upd">
-<summary>
-  <span class="uid">U01</span>
-  <span class="udd">11-Dec-2025</span>
-  <span class="ums"><b class="w">0 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="w">0 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="w">0 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip o">sin cambios de fondo</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">19-Aug-27</td><td class="n num w">+2 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">21-Oct-27</td><td class="n num w">0 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">21-Dec-27</td><td class="n num w">0 d</td></tr><tr><td>T.C.O.</td><td class="mono">21-Mar-28</td><td class="n num w">0 d</td></tr><tr><td>C.O.</td><td class="mono">22-May-28</td><td class="n num w">0 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td>Actividades terminadas</td><td class="n num">10</td></tr><tr><td>Cumplimiento del plan</td><td class="n num">80.0%</td></tr><tr><td>Duraciones originales modificadas</td><td class="n num">0</td></tr><tr><td>Relaciones eliminadas</td><td class="n num">0</td></tr><tr><td>Relaciones agregadas</td><td class="n num">0</td></tr><tr><td>Restricciones cambiadas</td><td class="n num">0</td></tr><tr><td>Actividades agregadas</td><td class="n num">0</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">0</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Primer periodo de avance. Sin cambios en el modelo.</p>
-  </div>
-</div>
-</details>
-<details class="upd">
-<summary>
-  <span class="uid">BL1.0a</span>
-  <span class="udd">22-Oct-2025</span>
-  <span class="ums"><b class="w">0 d</b> Hito&nbsp;#2</span>
-  <span class="ums"><b class="w">0 d</b> Hito&nbsp;#3</span>
-  <span class="ums"><b class="w">0 d</b> T.C.O.</span>
-  <span class="uchips"><i class="chip o">sin cambios de fondo</i></span>
-</summary>
-<div class="ubody">
-  <div class="ucol">
-    <h4>Hitos</h4>
-    <table><thead><tr><th>Hito</th><th>Pronóstico</th><th class="n">Holgura</th></tr></thead><tbody><tr><td>Hito #1 · L2–L15</td><td class="mono">19-Aug-27</td><td class="n num w">+2 d</td></tr><tr><td>Hito #2 · L16–L25</td><td class="mono">21-Oct-27</td><td class="n num w">0 d</td></tr><tr><td>Hito #3 · L26–L35</td><td class="mono">21-Dec-27</td><td class="n num w">0 d</td></tr><tr><td>T.C.O.</td><td class="mono">21-Mar-28</td><td class="n num w">0 d</td></tr><tr><td>C.O.</td><td class="mono">22-May-28</td><td class="n num w">0 d</td></tr></tbody></table>
-  </div>
-  <div class="ucol">
-    <h4>El periodo</h4>
-    <table><tbody><tr><td colspan="2" style="color:var(--ink-3)">Versión de referencia</td></tr><tr><td>Actividades en holgura negativa</td><td class="n num">0</td></tr></tbody></table>
-  </div>
-  <div class="ucol wide">
-    <h4>Lectura</h4>
-    <p class="unote">Línea base de referencia. Los cinco hitos contractuales llevan restricción <code>CS_MEOB</code> sobre su fecha contractual.</p>
-  </div>
-</div>
-</details>
-</section>
 
 <footer>
-  Calculado directamente de las tablas <code>TASK</code>, <code>TASKPRED</code>, <code>CALENDAR</code> y <code>PROJECT</code> de los archivos <code>.xer</code> nativos de Primavera P6, sin intervención del reporte narrativo. La holgura de los hitos está en días calendario (calendario de 7 días); la de las actividades de trabajo, en días laborables (calendario 5×8 con feriados). El trazado de cadenas sigue, en cada paso, el predecesor de menor holgura total; para uso pericial conviene contrastarlo con <i>Multiple Float Paths</i> de P6.
+  Calculado de las tablas <code>TASK</code>, <code>TASKPRED</code>, <code>CALENDAR</code> y <code>PROJECT</code> de los archivos <code>.xer</code> nativos de Primavera P6. Ningún dato proviene del reporte narrativo. La holgura de los hitos está en días calendario; la de las actividades de trabajo, en días laborables del calendario 5×8. El trazado de cadenas sigue el predecesor de menor holgura en cada paso; para uso pericial conviene contrastarlo con <i>Multiple Float Paths</i> de P6.
 </footer>
-
 </div>
 
+<script id="data" type="application/json">[{"id":"BL 1.0a","dd":"22-oct-25","ddISO":"2025-10","nAct":3484,"nRel":6275,"done":0,"neg":0,"pend":3484,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":2.0,"fc":"19-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":0.0,"fc":"21-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":0.0,"fc":"21-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":0.0,"fc":"21-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":0.0,"fc":"22-may-28"}],"ch5":6,"ch5act":541,"chains":[{"tf":0.0,"n":191,"code":"PR-MS-100","name":"Notice-to-Proceed (N.T.P.)"},{"tf":1.0,"n":175,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[],"plan":[1,11,7,10,50,63,35,42,73,81,114,173],"planLab":["nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26"],"real":[],"realLab":[],"dur":null,"relDel":null,"relAdd":null,"cstr":null,"actAdd":null,"ppc":null,"perDone":null,"prom":null,"cump":null},{"id":"U01","dd":"11-dic-25","ddISO":"2025-12","nAct":3484,"nRel":6275,"done":10,"neg":0,"pend":3474,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":2.0,"fc":"19-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":0.0,"fc":"21-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":0.0,"fc":"21-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":0.0,"fc":"21-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":0.0,"fc":"22-may-28"}],"ch5":6,"ch5act":539,"chains":[{"tf":0.0,"n":187,"code":"C-00-PL-200","name":"Install Production Piles @ Bldg"},{"tf":1.0,"n":177,"code":"C-00-ST-100","name":"Excavate Entire Lot 3' ft @ Site"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"16-ene-26","tf":0.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":0.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":0.0},{"code":"R-03-200","name":"Review & Approve Rebar","lf":"29-dic-25","tf":10.0}],"plan":[9,9,48,64,35,42,72,81,114,174,169,164],"planLab":["ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26"],"real":[3,4,3],"realLab":["oct-25","nov-25","dic-25"],"dur":0,"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":10,"cump":8,"ppc":80.0,"perDone":10},{"id":"U02","dd":"31-dic-25","ddISO":"2025-12","nAct":3484,"nRel":6275,"done":18,"neg":403,"pend":3466,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":-4.0,"fc":"25-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-5.0,"fc":"26-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-6.0,"fc":"27-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-3.0,"fc":"24-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-3.0,"fc":"25-may-28"}],"ch5":9,"ch5act":854,"chains":[{"tf":-3.0,"n":200,"code":"R-03-200","name":"Review & Approve Rebar"},{"tf":-2.0,"n":158,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":40,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"}],"risk":[{"code":"R-03-200","name":"Review & Approve Rebar","lf":"29-dic-25","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":-3.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":-3.0},{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"16-ene-26","tf":0.0}],"plan":[15,16,36,62,36,37,71,72,117,169,160,166],"planLab":["ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26"],"real":[3,5,10],"realLab":["oct-25","nov-25","dic-25"],"dur":0,"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":6,"cump":1,"ppc":16.7,"perDone":8},{"id":"U03","dd":"31-ene-26","ddISO":"2026-01","nAct":3484,"nRel":6275,"done":30,"neg":118,"pend":3454,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":73.0,"fc":"10-sep-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":73.0,"fc":"09-nov-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":73.0,"fc":"08-ene-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-3.0,"fc":"24-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-3.0,"fc":"25-may-28"}],"ch5":8,"ch5act":209,"chains":[{"tf":-3.0,"n":96,"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations"},{"tf":-2.0,"n":10,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":11,"code":"R-03-400","name":"Review & Approve Post Tension Calculations - L2"},{"tf":0.0,"n":25,"code":"C-08-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L8"},{"tf":1.0,"n":6,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","lf":"30-ene-26","tf":-3.0},{"code":"C-00-ST-220","name":"Pour  Pile Caps @ Foundations","lf":"10-feb-26","tf":-3.0},{"code":"C-00-ST-210","name":"Rebar Pile Caps @ Foundations","lf":"09-feb-26","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":-3.0}],"plan":[16,36,65,37,36,74,76,113,163,164,163,155],"planLab":["feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27"],"real":[3,5,11,11],"realLab":["oct-25","nov-25","dic-25","ene-26"],"dur":0,"relDel":1,"relAdd":1,"cstr":3,"actAdd":0,"prom":15,"cump":7,"ppc":46.7,"perDone":12},{"id":"U04","dd":"28-feb-26","ddISO":"2026-02","nAct":3484,"nRel":6275,"done":46,"neg":761,"pend":3438,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":-20.0,"fc":"10-sep-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-19.0,"fc":"09-nov-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-18.0,"fc":"08-ene-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-9.0,"fc":"30-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-9.0,"fc":"31-may-28"}],"ch5":17,"ch5act":995,"chains":[{"tf":-14.0,"n":19,"code":"S-26-200","name":"Prep & Submit Switchgear"},{"tf":-11.0,"n":12,"code":"C-16-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L16"}],"risk":[{"code":"S-26-200","name":"Prep & Submit Switchgear","lf":"03-mar-26","tf":-14.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":-9.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":-9.0},{"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2","lf":"25-mar-26","tf":-7.0}],"plan":[42,62,32,37,64,70,104,150,164,181,137,199],"planLab":["mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27"],"real":[3,5,12,13,13],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26"],"dur":0,"relDel":0,"relAdd":0,"cstr":3,"actAdd":0,"prom":16,"cump":4,"ppc":25.0,"perDone":16},{"id":"U05","dd":"31-mar-26","ddISO":"2026-03","nAct":3491,"nRel":6288,"done":79,"neg":172,"pend":3412,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":1.8,"fc":"20-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-0.2,"fc":"22-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-0.2,"fc":"22-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-0.2,"fc":"22-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-0.2,"fc":"23-may-28"}],"ch5":6,"ch5act":521,"chains":[{"tf":-0.2,"n":172,"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations"},{"tf":0.8,"n":174,"code":"C-03-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L3"},{"tf":1.8,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.8,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.8,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","lf":"03-abr-26","tf":-0.2},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","lf":"31-mar-26","tf":-0.2},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":-0.2},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":-0.2}],"plan":[62,49,45,56,83,108,155,184,167,164,204,263],"planLab":["abr-26","may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27"],"real":[3,5,13,14,15,29],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26"],"dur":1,"relDel":0,"relAdd":13,"cstr":0,"actAdd":7,"prom":42,"cump":21,"ppc":50.0,"perDone":33},{"id":"U06","dd":"30-abr-26","ddISO":"2026-04","nAct":3493,"nRel":6291,"done":107,"neg":162,"pend":3386,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":1.55,"fc":"20-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-0.45,"fc":"22-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-0.45,"fc":"22-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-0.45,"fc":"22-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-0.45,"fc":"23-may-28"}],"ch5":6,"ch5act":508,"chains":[{"tf":-0.45,"n":162,"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4"},{"tf":0.55,"n":172,"code":"C-05-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L5"},{"tf":1.55,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.55,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.55,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4","lf":"30-abr-26","tf":-0.45},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"21-mar-28","tf":-0.45},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":-0.45},{"code":"C-05-ST-100","name":"Form Prestressed Elevated Slab @ L5","lf":"04-may-26","tf":-0.45}],"plan":[61,66,54,80,113,160,182,167,161,207,263,244],"planLab":["may-26","jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27"],"real":[3,5,13,14,15,31,26],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26"],"dur":1,"relDel":0,"relAdd":3,"cstr":0,"actAdd":2,"prom":62,"cump":23,"ppc":37.1,"perDone":28},{"id":"U07","dd":"31-may-26","ddISO":"2026-05","nAct":3494,"nRel":6299,"done":144,"neg":202,"pend":3350,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":1.5,"fc":"20-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-13.0,"fc":"03-nov-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-15.0,"fc":"05-ene-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":-1.0,"fc":"22-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":-1.0,"fc":"23-may-28"}],"ch5":16,"ch5act":745,"chains":[{"tf":-9.0,"n":68,"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities"},{"tf":-7.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"}],"risk":[{"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities","lf":"07-jul-26","tf":-9.0},{"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L","lf":"29-may-26","tf":-1.0},{"code":"C-02-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Ed","lf":"10-jun-26","tf":-1.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"22-may-28","tf":-1.0}],"plan":[74,68,71,110,143,170,194,173,208,262,245,216],"planLab":["jun-26","jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27","may-27"],"real":[3,5,13,14,15,34,26,34],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26"],"dur":0,"relDel":1,"relAdd":9,"cstr":0,"actAdd":1,"prom":61,"cump":25,"ppc":41.0,"perDone":37},{"id":"U08","dd":"30-jun-26","ddISO":"2026-06","nAct":3498,"nRel":6305,"done":200,"neg":250,"pend":3298,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":3.0,"fc":"18-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-27.0,"fc":"17-nov-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-29.0,"fc":"19-ene-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":6.0,"fc":"15-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":6.0,"fc":"16-may-28"}],"ch5":20,"ch5act":512,"chains":[{"tf":-19.0,"n":75,"code":"R-27-200","name":"Review & Approve BDA"},{"tf":-17.0,"n":8,"code":"C-03-U-FN-370","name":"Install Flooring & Base @ Units - L3"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"04-jun-26","tf":-19.0},{"code":"C-02-UC-FN-210","name":"Hang Drywall @ Units & Common Areas - L2","lf":"28-sep-26","tf":-7.4},{"code":"C-02-UC-MP-170","name":"Install Electrical Rough @ Units & Common Area","lf":"10-sep-26","tf":-7.4},{"code":"C-02-UC-FN-200","name":"Install Drywall One Side & Insulation @ Units ","lf":"17-sep-26","tf":-7.4}],"plan":[83,81,95,135,142,204,201,241,281,243,217,209],"planLab":["jul-26","ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27","may-27","jun-27"],"real":[3,5,13,15,15,34,26,38,51],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26","jun-26"],"dur":0,"relDel":0,"relAdd":6,"cstr":0,"actAdd":4,"prom":74,"cump":45,"ppc":60.8,"perDone":56},{"id":"U09","dd":"31-jul-26","ddISO":"2026-07","nAct":3499,"nRel":6306,"done":251,"neg":360,"pend":3248,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":9.0,"fc":"12-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-47.0,"fc":"07-dic-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-46.0,"fc":"05-feb-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":0.0,"fc":"21-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":0.0,"fc":"22-may-28"}],"ch5":25,"ch5act":426,"chains":[{"tf":-31.0,"n":74,"code":"R-27-200","name":"Review & Approve BDA"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"18-jun-26","tf":-31.0},{"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors -","lf":"10-sep-26","tf":-23.6},{"code":"C-03-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L3","lf":"10-sep-26","tf":-23.6},{"code":"C-03-U-MP-180","name":"Install FA & Low Voltage Rough @ Units & Corri","lf":"10-sep-26","tf":-22.0}],"plan":[117,93,113,127,185,186,213,302,290,231,214,203],"planLab":["ago-26","sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27","may-27","jun-27","jul-27"],"real":[3,5,13,15,15,34,26,38,54,48],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26"],"dur":0,"relDel":1,"relAdd":2,"cstr":0,"actAdd":1,"prom":83,"cump":36,"ppc":43.4,"perDone":51},{"id":"U10","dd":"31-ago-26","ddISO":"2026-08","nAct":3501,"nRel":6314,"done":348,"neg":88,"pend":3153,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":3.0,"fc":"18-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-7.0,"fc":"28-oct-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-8.0,"fc":"29-dic-27"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":14.0,"fc":"07-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":14.0,"fc":"08-may-28"}],"ch5":8,"ch5act":239,"chains":[{"tf":-5.0,"n":67,"code":"F-09-100","name":"Fab & Deliver Toilet Tiles"},{"tf":-3.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"}],"risk":[{"code":"F-09-100","name":"Fab & Deliver Toilet Tiles","lf":"20-oct-26","tf":-5.0},{"code":"R-10-400","name":"Review & Approve Shower Enclosures","lf":"03-sep-26","tf":2.0},{"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities","lf":"28-oct-26","tf":3.0},{"code":"C-18-ST-100","name":"Form Prestressed Elevated Slab @ L18","lf":"08-sep-26","tf":3.5}],"plan":[179,178,161,197,204,219,263,237,194,202,197,235],"planLab":["sep-26","oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27","may-27","jun-27","jul-27","ago-27"],"real":[3,5,13,15,15,34,26,38,55,59,85],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26"],"dur":3,"relDel":1,"relAdd":9,"cstr":0,"actAdd":2,"prom":117,"cump":54,"ppc":46.2,"perDone":97},{"id":"U11","dd":"30-sep-26","ddISO":"2026-09","nAct":3504,"nRel":6326,"done":449,"neg":114,"pend":3055,"ms":[{"code":"PR-MS-200","lab":"Hito #1 · Llaves L2–L15","ctr":"21-Ago-2027","tf":1.25,"fc":"20-ago-27"},{"code":"PR-MS-300","lab":"Hito #2 · Llaves L16–L25","ctr":"21-Oct-2027","tf":-20.0,"fc":"10-nov-27"},{"code":"PR-MS-400","lab":"Hito #3 · Llaves L26–L35","ctr":"21-Dic-2027","tf":-22.0,"fc":"12-ene-28"},{"code":"PR-MS-800","lab":"T.C.O.","ctr":"21-Mar-2028","tf":7.0,"fc":"14-mar-28"},{"code":"PR-MS-900","lab":"C.O.","ctr":"22-May-2028","tf":7.0,"fc":"15-may-28"}],"ch5":13,"ch5act":319,"chains":[{"tf":-14.0,"n":65,"code":"F-10-400","name":"Fab & Deliver Shower Enclosures"},{"tf":-12.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"}],"risk":[{"code":"F-10-400","name":"Fab & Deliver Shower Enclosures","lf":"30-oct-26","tf":-14.0},{"code":"C-21-ST-100","name":"Form Prestressed Elevated Slab @ L21","lf":"01-oct-26","tf":0.25},{"code":"C-21-ST-140","name":"F/R/P Columns & Shear Walls @ L21","lf":"02-oct-26","tf":0.25},{"code":"C-21-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab","lf":"01-oct-26","tf":0.25}],"plan":[206,169,213,185,219,267,235,193,196,196,237,263],"planLab":["oct-26","nov-26","dic-26","ene-27","feb-27","mar-27","abr-27","may-27","jun-27","jul-27","ago-27","sep-27"],"real":[3,5,13,15,15,34,26,38,55,59,84,102],"realLab":["oct-25","nov-25","dic-25","ene-26","feb-26","mar-26","abr-26","may-26","jun-26","jul-26","ago-26","sep-26"],"dur":0,"relDel":0,"relAdd":12,"cstr":0,"actAdd":3,"prom":179,"cump":68,"ppc":38.0,"perDone":101}]</script>
 <script>
 (function(){
-  var css=getComputedStyle(document.documentElement);
-  function tok(n){return css.getPropertyValue(n).trim()}
-  var GRID=tok('--grid'), INK3=tok('--ink-3'), INK2=tok('--ink-2'), LINE=tok('--line-2');
-  var C_MS2='#1A73E8', C_MS3='#E37400', C_TCO='#5F6368', C_REAL='#1A73E8', C_PLAN='#D93025';
-  var NS='http://www.w3.org/2000/svg';
-  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
-  function txt(x,y,s,o){o=o||{};var t=el('text',{x:x,y:y,fill:o.fill||INK3,
-    'font-size':o.size||10.5,'font-family':o.mono?'Roboto Mono, monospace':'Roboto, sans-serif',
-    'text-anchor':o.anchor||'middle','font-weight':o.w||400});t.textContent=s;return t}
+var D=JSON.parse(document.getElementById('data').textContent);
+var NOTE={
+ 'BL 1.0a':['','Línea base de referencia. Los cinco hitos contractuales llevan restricción CS_MEOB sobre su fecha contractual.'],
+ 'U01':['','Primer periodo de avance. El modelo no se tocó.'],
+ 'U02':['','Los cinco hitos entran en holgura negativa por primera vez.'],
+ 'U03':['c','<b>Se retiraron las restricciones <code>CS_MEOB</code> de los tres hitos de entrega de llaves.</b> Sin fecha límite contra la cual medir, P6 calculó su holgura contra el fin del proyecto y devolvió +73 días. La fecha pronosticada empeoró en el mismo periodo: el cambio es de medición, no de obra.'],
+ 'U04':['c','<b>Las tres restricciones fueron repuestas</b> y la holgura real reaparece en −18 a −20 días. El par Upd 03 / Upd 04 debe excluirse de cualquier serie de erosión.'],
+ 'U05':['w','Primera versión con cambio de alcance: 7 actividades agregadas, 13 relaciones y una duración.'],
+ 'U06':['','Periodo estable. Una duración modificada.'],
+ 'U07':['','Comienza el deterioro sostenido: el Hito #2 cae a −13 días.'],
+ 'U08':['w','El narrativo encabeza con 7 días ganados a Substantial Completion, el mismo mes en que los hitos de entrega pierden 14.'],
+ 'U09':['c','Peor posición de la serie, con la holgura del T.C.O. agotada en cero.'],
+ 'U10':['c','<b>Tres duraciones de procura recortadas</b> (mamparas 70→40 días, gabinetes 70→50, coordinación FPL 40→21) y <b>el vínculo obsoleto del paquete BDA reemplazado</b>: su sucesora estaba completa desde mayo. Los hitos recuperan 40 días, y ninguno de los dos cambios es avance de obra.'],
+ 'U11':['w','El deterioro se reanuda. La cadena que gobierna nace en la fabricación de mamparas de ducha. Las 12 relaciones agregadas son actividades de clima encadenadas a estructura.']
+};
+var C={ms2:'#1A73E8',ms3:'#E37400',tco:'#5F6368',real:'#1A73E8',plan:'#D93025'};
+var NS='http://www.w3.org/2000/svg';
+function E(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+function cs(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function fmt(v,u){if(v===null||v===undefined)return '—';var s=(v>0?'+':v<0?'−':'')+Math.abs(v);return s+(u||'')}
+function klass(v){if(v===null||v===undefined)return '';return v<0?'c':(v<=5?'w':'o')}
+var sel=document.getElementById('sel');
+D.forEach(function(o,i){var op=document.createElement('option');op.value=i;
+  op.textContent=o.id+'  ·  '+o.dd;sel.appendChild(op)});
+sel.value=D.length-1;
 
-  var W=520,H=260,L=38,R=10,T=14,B=30;
-  var iw=W-L-R, ih=H-T-B;
+function txt(x,y,s,o){o=o||{};var t=E('text',{x:x,y:y,fill:o.fill||cs('--ink3'),'font-size':o.sz||9.5,
+  'font-family':o.mono?'Roboto Mono, monospace':'Roboto, sans-serif','text-anchor':o.an||'middle','font-weight':400});
+  t.textContent=s;return t}
+function clear(id){var s=document.getElementById(id);while(s.firstChild)s.removeChild(s.firstChild);return s}
 
-  /* 1 — erosión */
-  (function(){
-    var s=document.getElementById('c1');
-    var lab=['BL','01','02','03','04','05','06','07','08','09','10','11'];
-    var ms2=[0,0,-5,73,-19,-0.2,-0.45,-13,-27,-47,-7,-20];
-    var ms3=[0,0,-6,73,-18,-0.2,-0.45,-15,-29,-46,-8,-22];
-    var tco=[0,0,-3,-3,-9,-0.2,-0.45,-1,6,0,14,7];
-    var lo=-55, hi=80;
-    function X(i){return L+iw*i/(lab.length-1)}
-    function Y(v){return T+ih*(hi-v)/(hi-lo)}
-    [80,40,0,-40].forEach(function(v){
-      s.appendChild(el('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?LINE:GRID,'stroke-width':v===0?1.2:1}));
-      s.appendChild(txt(L-7,Y(v)+3.5,v,{anchor:'end',mono:1}));
-    });
-    [[ms2,C_MS2],[ms3,C_MS3],[tco,C_TCO]].forEach(function(p){
-      var d=p[0].map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)}).join(' ');
-      s.appendChild(el('path',{d:d,fill:'none',stroke:p[1],'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
-      s.appendChild(el('circle',{cx:X(p[0].length-1),cy:Y(p[0][p[0].length-1]),r:3.6,fill:p[1]}));
-    });
-    lab.forEach(function(t,i){s.appendChild(txt(X(i),H-11,t,{mono:1,size:9.5}))});
-    s.appendChild(txt(L,H-1,'',{}));
-    s.appendChild(txt(W/2,H-1,'versión del cronograma',{size:10,fill:INK3}));
-  })();
+var W=480,H=190,L=34,R=8,T=10,B=26,iw=W-L-R,ih=H-T-B;
 
-  /* 2 — capacidad vs exigencia */
-  (function(){
-    var s=document.getElementById('c2');
-    var real=[3,5,13,15,15,34,26,38,55,59,84,102];
-    var plan=[206,169,213,185,219,267,235,193,196,196,237,263];
-    var all=real.concat(plan), hi=280;
-    var n=all.length, bw=iw/n*0.78, gap=iw/n;
-    function Y(v){return T+ih*(1-v/hi)}
-    [280,210,140,70,0].forEach(function(v){
-      s.appendChild(el('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?LINE:GRID,'stroke-width':v===0?1.2:1}));
-      s.appendChild(txt(L-7,Y(v)+3.5,v,{anchor:'end',mono:1}));
-    });
-    all.forEach(function(v,i){
-      var x=L+gap*i+(gap-bw)/2;
-      s.appendChild(el('rect',{x:x.toFixed(1),y:Y(v).toFixed(1),width:bw.toFixed(1),
-        height:Math.max(1,(ih-(Y(v)-T))).toFixed(1),fill:i<12?C_REAL:C_PLAN,rx:1.5}));
-    });
-    var xs=L+gap*12;
-    s.appendChild(el('line',{x1:xs,y1:T,x2:xs,y2:T+ih,stroke:LINE,'stroke-width':1.2,'stroke-dasharray':'3 3'}));
-    s.appendChild(txt(L+gap*6,H-11,'oct-25 → sep-26  (real)',{size:10,mono:0}));
-    s.appendChild(txt(L+gap*18,H-11,'oct-26 → sep-27  (plan)',{size:10,mono:0}));
-  })();
+function hook(svg,tip,n,xf,build){
+  var hot=E('rect',{x:0,y:0,width:W,height:H,fill:'transparent'});
+  svg.appendChild(hot);
+  var mk=E('line',{x1:0,y1:T,x2:0,y2:T+ih,stroke:cs('--line2'),'stroke-width':1,opacity:0});
+  svg.insertBefore(mk,svg.firstChild.nextSibling||null);
+  function move(ev){
+    var r=svg.getBoundingClientRect();
+    var cx=((ev.touches?ev.touches[0].clientX:ev.clientX)-r.left)/r.width*W;
+    var best=0,bd=1e9;
+    for(var i=0;i<n;i++){var d=Math.abs(xf(i)-cx);if(d<bd){bd=d;best=i}}
+    mk.setAttribute('x1',xf(best));mk.setAttribute('x2',xf(best));mk.setAttribute('opacity','1');
+    tip.innerHTML=build(best);tip.classList.add('on');
+    var px=xf(best)/W*r.width;
+    tip.style.left=Math.max(4,Math.min(r.width-tip.offsetWidth-4,px-tip.offsetWidth/2))+'px';
+    tip.style.top='2px';
+  }
+  function out(){mk.setAttribute('opacity','0');tip.classList.remove('on')}
+  svg.addEventListener('mousemove',move);svg.addEventListener('mouseleave',out);
+  svg.addEventListener('touchstart',function(e){move(e)},{passive:true});
+  svg.addEventListener('touchmove',function(e){move(e)},{passive:true});
+  svg.addEventListener('touchend',out);
+}
 
-  /* 3 — PPC */
-  (function(){
-    var s=document.getElementById('c3');
-    var lab=['dic','ene','feb','mar','abr','may','jun','jul','ago','sep'];
-    var v=[16.7,46.7,25.0,50.0,37.1,41.0,60.8,43.4,46.2,38.0];
-    var hi=70;
-    var n=v.length, gap=iw/n, bw=gap*0.62;
-    function Y(x){return T+ih*(1-x/hi)}
-    [70,52.5,35,17.5,0].forEach(function(g){
-      s.appendChild(el('line',{x1:L,y1:Y(g),x2:L+iw,y2:Y(g),stroke:g===0?LINE:GRID,'stroke-width':g===0?1.2:1}));
-      s.appendChild(txt(L-7,Y(g)+3.5,Math.round(g)+'%',{anchor:'end',mono:1}));
-    });
-    v.forEach(function(x,i){
-      var px=L+gap*i+(gap-bw)/2;
-      s.appendChild(el('rect',{x:px.toFixed(1),y:Y(x).toFixed(1),width:bw.toFixed(1),
-        height:Math.max(1,ih-(Y(x)-T)).toFixed(1),fill:i===v.length-1?C_PLAN:C_REAL,rx:1.5}));
-      s.appendChild(txt(L+gap*i+gap/2,Y(x)-5,Math.round(x),{size:9.5,mono:1,fill:INK2}));
-    });
-    s.appendChild(el('line',{x1:L,y1:Y(43.4),x2:L+iw,y2:Y(43.4),stroke:INK3,'stroke-width':1.3,'stroke-dasharray':'5 3'}));
-    lab.forEach(function(t,i){s.appendChild(txt(L+gap*i+gap/2,H-11,t,{size:9.5,mono:1}))});
-    s.appendChild(txt(W/2,H-1,'periodo que cierra (2025–2026)',{size:10}));
-  })();
+function chart1(idx){
+  var s=clear('c1'),tip=document.getElementById('t1');
+  var lab=D.map(function(o){return o.id==='BL 1.0a'?'BL':o.id.replace('U','')});
+  var g2=D.map(function(o){return o.ms[1].tf}),g3=D.map(function(o){return o.ms[2].tf}),gt=D.map(function(o){return o.ms[3].tf});
+  var all=g2.concat(g3,gt).filter(function(v){return v!==null});
+  var hi=Math.max(80,Math.ceil(Math.max.apply(null,all)/10)*10), lo=Math.min(-55,Math.floor(Math.min.apply(null,all)/10)*10);
+  function X(i){return L+iw*i/(lab.length-1)} function Y(v){return T+ih*(hi-v)/(hi-lo)}
+  [hi,Math.round((hi+lo)/2/10)*10,0,lo].forEach(function(v){
+    s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
+    s.appendChild(txt(L-6,Y(v)+3.2,v,{an:'end',mono:1}))});
+  [[g2,C.ms2],[g3,C.ms3],[gt,C.tco]].forEach(function(p){
+    var d=p[0].map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)}).join(' ');
+    s.appendChild(E('path',{d:d,fill:'none',stroke:p[1],'stroke-width':1.9,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    p[0].forEach(function(v,i){if(i===idx)s.appendChild(E('circle',{cx:X(i),cy:Y(v),r:3.6,fill:p[1],stroke:cs('--surface'),'stroke-width':1.6}))})});
+  lab.forEach(function(t,i){s.appendChild(txt(X(i),H-9,t,{mono:1,sz:9,fill:i===idx?cs('--acc'):cs('--ink3')}))});
+  hook(s,tip,lab.length,X,function(i){
+    return '<div class="th">'+D[i].id+' · '+D[i].dd+'</div>'+
+      '<i style="background:'+C.ms2+'"></i>Hito #2  '+fmt(g2[i],' d')+'<br>'+
+      '<i style="background:'+C.ms3+'"></i>Hito #3  '+fmt(g3[i],' d')+'<br>'+
+      '<i style="background:'+C.tco+'"></i>T.C.O.   '+fmt(gt[i],' d')});
+}
+
+function chart2(idx){
+  var o=D[idx],s=clear('c2'),tip=document.getElementById('t2');
+  var real=o.real,plan=o.plan,rl=o.realLab,pl=o.planLab;
+  var all=real.concat(plan),n=all.length;
+  var hi=Math.max(10,Math.ceil(Math.max.apply(null,all.concat([10]))/50)*50);
+  var gap=iw/Math.max(n,1),bw=gap*0.74;
+  function Y(v){return T+ih*(1-v/hi)} function X(i){return L+gap*i+gap/2}
+  [hi,hi*0.75,hi*0.5,hi*0.25,0].forEach(function(v){
+    s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
+    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v),{an:'end',mono:1}))});
+  all.forEach(function(v,i){
+    s.appendChild(E('rect',{x:(L+gap*i+(gap-bw)/2).toFixed(1),y:Y(v).toFixed(1),width:Math.max(1.2,bw).toFixed(1),
+      height:Math.max(1,ih-(Y(v)-T)).toFixed(1),fill:i<real.length?C.real:C.plan,rx:1.5}))});
+  if(real.length&&plan.length){var xs=L+gap*real.length;
+    s.appendChild(E('line',{x1:xs,y1:T,x2:xs,y2:T+ih,stroke:cs('--line2'),'stroke-width':1,'stroke-dasharray':'3 3'}))}
+  if(real.length)s.appendChild(txt(L+gap*real.length/2,H-9,'real',{sz:9.5}));
+  if(plan.length)s.appendChild(txt(L+gap*(real.length+plan.length/2),H-9,'plan',{sz:9.5}));
+  hook(s,tip,n,X,function(i){
+    var isR=i<real.length;
+    return '<div class="th">'+(isR?rl[i]:pl[i-real.length])+'</div>'+
+      '<i style="background:'+(isR?C.real:C.plan)+'"></i>'+(isR?'Terminadas':'Plan')+'  '+all[i]});
+}
+
+function chart3(idx){
+  var s=clear('c3'),tip=document.getElementById('t3');
+  var pts=[],lab=[];
+  for(var i=1;i<=idx;i++){if(D[i].ppc!==null&&D[i].ppc!==undefined){pts.push(D[i].ppc);lab.push(D[i])}}
+  if(!pts.length){s.appendChild(txt(W/2,H/2,'Sin periodos previos',{sz:11}));document.getElementById('r3').textContent='';return}
+  var hi=Math.max(70,Math.ceil(Math.max.apply(null,pts)/10)*10);
+  var n=pts.length,gap=iw/n,bw=gap*0.6;
+  function Y(v){return T+ih*(1-v/hi)} function X(i){return L+gap*i+gap/2}
+  [hi,hi*0.66,hi*0.33,0].forEach(function(v){
+    s.appendChild(E('line',{x1:L,y1:Y(v),x2:L+iw,y2:Y(v),stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
+    s.appendChild(txt(L-6,Y(v)+3.2,Math.round(v)+'%',{an:'end',mono:1}))});
+  var avg=pts.reduce(function(a,b){return a+b},0)/n;
+  pts.forEach(function(v,i){
+    s.appendChild(E('rect',{x:(L+gap*i+(gap-bw)/2).toFixed(1),y:Y(v).toFixed(1),width:bw.toFixed(1),
+      height:Math.max(1,ih-(Y(v)-T)).toFixed(1),fill:i===n-1?C.plan:C.real,rx:1.5}))});
+  s.appendChild(E('line',{x1:L,y1:Y(avg),x2:L+iw,y2:Y(avg),stroke:cs('--ink3'),'stroke-width':1.2,'stroke-dasharray':'4 3'}));
+  if(n<=12)lab.forEach(function(o,i){s.appendChild(txt(X(i),H-9,o.id.replace('U',''),{mono:1,sz:9}))});
+  hook(s,tip,n,X,function(i){
+    return '<div class="th">'+lab[i].id+' · '+lab[i].dd+'</div>'+
+      '<i style="background:'+(i===n-1?C.plan:C.real)+'"></i>'+pts[i].toFixed(1)+'%  ('+lab[i].cump+' de '+lab[i].prom+')'});
+  document.getElementById('r3').innerHTML='Promedio de la serie <b>'+avg.toFixed(1)+'%</b>. Máximo alcanzado <b>'+
+    Math.max.apply(null,pts).toFixed(1)+'%</b>.';
+}
+
+function render(){
+  var idx=+sel.value,o=D[idx],prev=idx>0?D[idx-1]:null;
+  document.getElementById('meta').innerHTML='Data date <b>'+o.dd+'</b> &nbsp;·&nbsp; '+
+    o.nAct.toLocaleString('es')+' actividades &nbsp;·&nbsp; '+o.nRel.toLocaleString('es')+' relaciones';
+
+  /* KPIs */
+  var ks=[];
+  [1,2,3].forEach(function(j){
+    var m=o.ms[j],p=prev?prev.ms[j]:null,dl=(p&&p.tf!==null&&m.tf!==null)?+(m.tf-p.tf).toFixed(2):null;
+    ks.push({cl:klass(m.tf),lb:m.lab,v:fmt(m.tf,' d'),s:'pronóstico '+(m.fc||'—'),dl:dl});
+  });
+  var t=o.ms[3],tp=prev?prev.ms[3]:null,tdl=(tp&&tp.tf!==null&&t.tf!==null)?+(t.tf-tp.tf).toFixed(2):null;
+  ks.unshift({cl:klass(o.ms[0].tf),lb:o.ms[0].lab,v:fmt(o.ms[0].tf,' d'),s:'pronóstico '+(o.ms[0].fc||'—'),
+    dl:(prev&&prev.ms[0].tf!==null&&o.ms[0].tf!==null)?+(o.ms[0].tf-prev.ms[0].tf).toFixed(2):null});
+  ks.push({cl:o.ch5>=15?'c':(o.ch5>=8?'w':'o'),lb:'Cadenas ≤ 5 días',v:''+o.ch5,s:o.ch5act.toLocaleString('es')+' actividades',
+    dl:prev?o.ch5-prev.ch5:null,inv:1});
+  ks.push({cl:o.ppc===null?'':(o.ppc<45?'c':(o.ppc<60?'w':'o')),lb:'Cumplimiento del plan',
+    v:o.ppc===null?'—':o.ppc+'%',s:o.ppc===null?'sin periodo previo':o.cump+' de '+o.prom+' comprometidas',
+    dl:(prev&&prev.ppc!==null&&o.ppc!==null)?+(o.ppc-prev.ppc).toFixed(1):null});
+  document.getElementById('kpis').innerHTML=ks.map(function(x){
+    var d='';
+    if(x.dl!==null&&x.dl!==undefined&&x.dl!==0){
+      var good=x.inv?x.dl<0:x.dl>0;
+      d='<div class="d '+(good?'up':'dn')+'"><span class="ms">'+(x.dl>0?'arrow_upward':'arrow_downward')+
+        '</span>'+Math.abs(x.dl)+' en el mes</div>';
+    } else if(x.dl===0){d='<div class="d fl">sin cambio</div>'}
+    return '<div class="k '+x.cl+'"><div class="lb">'+x.lb+'</div><div class="v">'+x.v+
+      '</div><div class="s">'+x.s+'</div>'+d+'</div>'}).join('');
+
+  chart1(idx);chart2(idx);chart3(idx);
+
+  var g2=o.ms[1].tf,g3=o.ms[2].tf;
+  document.getElementById('r1').innerHTML='En esta versión el Hito #2 cierra en <b>'+fmt(g2,' d')+
+    '</b> y el Hito #3 en <b>'+fmt(g3,' d')+'</b>.';
+  var mx=o.real.length?Math.max.apply(null,o.real):0, pm=o.plan.length?(o.plan.reduce(function(a,b){return a+b},0)/o.plan.length):0;
+  document.getElementById('r2').innerHTML=o.plan.length
+    ? 'Mejor marca alcanzada <b>'+mx+'</b>. Promedio exigido en los meses siguientes <b>'+Math.round(pm)+
+      '</b> <span style="color:var(--ink3)">('+(mx?(pm/mx).toFixed(1):'—')+'×)</span>.'
+    : 'Mejor marca alcanzada <b>'+mx+'</b>.';
+
+  /* cambios del modelo */
+  var rows;
+  if(o.dur===null){rows='<tr><td colspan="2" style="color:var(--ink3)">Versión de referencia; no hay versión anterior con la cual comparar.</td></tr>'}
+  else{
+    rows=[['Duraciones originales modificadas',o.dur,1],['Relaciones eliminadas',o.relDel,1],
+          ['Relaciones agregadas',o.relAdd,0],['Restricciones cambiadas',o.cstr,1],
+          ['Actividades agregadas',o.actAdd,0],['Actividades terminadas',o.perDone,0],
+          ['Actividades en holgura negativa',o.neg,0]]
+      .map(function(r){return '<tr><td>'+r[0]+'</td><td class="n nm'+(r[2]&&r[1]?' hot':'')+'">'+
+        (r[1]===null?'—':r[1].toLocaleString('es'))+'</td></tr>'}).join('')}
+  document.getElementById('mod').innerHTML=rows;
+  var nt=NOTE[o.id]||['',''];
+  document.getElementById('modnote').innerHTML=nt[1]?'<p class="note '+nt[0]+'">'+nt[1]+'</p>':'';
+
+  /* cadenas */
+  var ch=o.chains.length
+    ? '<thead><tr><th>Holgura</th><th>Act.</th><th>Origen de la cadena</th></tr></thead><tbody>'+
+      o.chains.map(function(c){return '<tr><td><span class="pill '+klass(c.tf)+'">'+fmt(c.tf,' d')+
+        '</span></td><td class="nm">'+c.n+'</td><td><span class="mo">'+c.code+'</span><div class="sub">'+
+        c.name+'</div></td></tr>'}).join('')+'</tbody>'
+    : '<tr><td style="color:var(--ink3)">Ninguna banda de holgura ≤ 12 días reúne cinco o más actividades.</td></tr>';
+  document.getElementById('chains').innerHTML=ch;
+
+  /* en curso */
+  var rk=o.risk.length
+    ? '<thead><tr><th>Actividad</th><th>Fin tardío</th><th class="n">Holgura</th></tr></thead><tbody>'+
+      o.risk.map(function(r){return '<tr><td><span class="mo">'+r.code+'</span><div class="sub">'+r.name+
+        '</div></td><td class="mo">'+(r.lf||'—')+'</td><td class="n"><span class="pill '+klass(r.tf)+'">'+
+        fmt(r.tf,' d')+'</span></td></tr>'}).join('')+'</tbody>'
+    : '<tr><td style="color:var(--ink3)">No hay actividades en curso en esta versión.</td></tr>';
+  document.getElementById('risk').innerHTML=rk;
+}
+sel.addEventListener('change',render);
+render();
+window.addEventListener('resize',function(){render()});
 })();
 </script>
 

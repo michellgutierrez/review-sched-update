@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta charset="utf-8">
 <title>Tablero Domus II</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
@@ -171,6 +170,27 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
 .log .er{color:var(--crit)} .log .ok{color:var(--ok)}
 .ax{display:flex;gap:9px;margin-top:16px;justify-content:flex-end;flex-wrap:wrap}
 .ax .sp{margin-right:auto}
+/* Sección de actividades críticas */
+.sec{margin-top:16px}
+.sec>h2{font-size:14.5px;font-weight:500;margin:0 0 3px;letter-spacing:-.1px}
+.sec>p.nt{margin:0 0 11px}
+.cstat{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+.cstat .b{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.cstat .b .v{font-family:var(--fm);font-size:21px;font-weight:500;line-height:1.1;letter-spacing:-.5px}
+.cstat .b .k{font-size:11px;color:var(--ink3);margin-top:3px;line-height:1.3}
+.cstat .b.ok .v{color:var(--ok)} .cstat .b.bad .v{color:var(--crit)} .cstat .b.wrn .v{color:var(--warn)}
+.g2b{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+@media(max-width:900px){.g2b{grid-template-columns:1fr}.cstat{grid-template-columns:repeat(2,1fr)}}
+.lev{font-size:11.5px;line-height:1.55;color:var(--ink2);margin:0 0 9px}
+.lev b{color:var(--ink);font-weight:500}
+.tag{display:inline-block;font-family:var(--fm);font-size:10px;padding:1px 6px;border-radius:9px;
+  background:var(--s2);color:var(--ink2);margin-right:5px;white-space:nowrap}
+.tag.d{background:var(--warnbg);color:var(--warn)}
+.tag.r{background:var(--s2);color:var(--ink2)}
+.tag.c{background:var(--critbg);color:var(--crit)}
+td .neg{color:var(--crit)} td .pos{color:var(--ok)}
+th.sp,td.sp{padding-left:14px}
+#salio td,#pal td{vertical-align:top}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(14px);
   background:var(--ink);color:var(--surface);font-size:12.5px;padding:10px 16px;border-radius:8px;
   box-shadow:var(--sh2);opacity:0;pointer-events:none;transition:opacity .16s,transform .16s;z-index:60;
@@ -245,16 +265,40 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
   <div class="card"><h3 id="h6"></h3><p class="nt" id="n6"></p><table id="risk"></table></div>
 </div>
 
+<div class="sec">
+  <h2 id="h7"></h2>
+  <p class="nt" id="n7"></p>
+  <div class="cstat" id="cstat"></div>
+  <div class="card" style="margin-bottom:12px;position:relative">
+    <h3 id="h8"></h3><p class="nt" id="n8"></p>
+    <button class="exp" data-c="4"><span class="ms">open_in_full</span></button>
+    <div class="lg" id="lg4"></div>
+    <div class="plot"><svg id="c4" role="img"></svg><div class="tip" id="t4"></div></div>
+    <div class="rd" id="r4"></div>
+  </div>
+  <div class="card" style="margin-bottom:12px;position:relative">
+    <h3 id="h11"></h3><p class="nt" id="n11"></p>
+    <button class="exp" data-c="5"><span class="ms">open_in_full</span></button>
+    <div class="lg" id="lg5"></div>
+    <div class="plot"><svg id="c5" role="img"></svg><div class="tip" id="t5"></div></div>
+    <p class="rd" id="r5"></p>
+  </div>
+  <div class="g2b">
+    <div class="card"><h3 id="h9"></h3><p class="nt" id="n9"></p><table id="salio"></table></div>
+    <div class="card"><h3 id="h10"></h3><p class="nt" id="n10"></p><div class="lev" id="lev"></div><table id="pal"></table></div>
+  </div>
+</div>
+
 <footer id="foot"></footer>
 </div>
 
-<script id="data" type="application/json">[{"id":"BL 1.0a","dd":"2025-10-22","nAct":3484,"nRel":6275,"done":0,"neg":0,"pend":3484,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":2.0,"fc":"2027-08-19"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":0.0,"fc":"2027-10-21"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":0.0,"fc":"2027-12-21"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":6,"ch5act":541,"chains":[{"tf":0.0,"n":191,"code":"PR-MS-100","name":"Notice-to-Proceed (N.T.P.)"},{"tf":1.0,"n":175,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[],"plan":[1,11,7,10,50,63,35,42,73,81,114,173],"planLab":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"real":[],"realLab":[],"dur":null,"relDel":null,"relAdd":null,"cstr":null,"actAdd":null,"ppc":null,"perDone":null,"prom":null,"cump":null,"fuera":null},{"id":"U01","dd":"2025-12-11","nAct":3484,"nRel":6275,"done":10,"neg":0,"pend":3474,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":2.0,"fc":"2027-08-19"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":0.0,"fc":"2027-10-21"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":0.0,"fc":"2027-12-21"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":6,"ch5act":539,"chains":[{"tf":0.0,"n":187,"code":"C-00-PL-200","name":"Install Production Piles @ Bldg"},{"tf":1.0,"n":177,"code":"C-00-ST-100","name":"Excavate Entire Lot 3' ft @ Site"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"2026-01-16","tf":0.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":0.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":0.0},{"code":"R-03-200","name":"Review & Approve Rebar","lf":"2025-12-29","tf":10.0}],"plan":[9,9,48,64,35,42,72,81,114,174,169,164],"planLab":["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12"],"real":[3,4,3],"realLab":["2025-10","2025-11","2025-12"],"dur":0,"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":10,"cump":8,"fuera":2,"ppc":80.0,"perDone":10},{"id":"U02","dd":"2025-12-31","nAct":3484,"nRel":6275,"done":18,"neg":403,"pend":3466,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":-4.0,"fc":"2027-08-25"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-5.0,"fc":"2027-10-26"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-6.0,"fc":"2027-12-27"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-3.0,"fc":"2028-03-24"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-3.0,"fc":"2028-05-25"}],"ch5":9,"ch5act":854,"chains":[{"tf":-3.0,"n":200,"code":"R-03-200","name":"Review & Approve Rebar"},{"tf":-2.0,"n":158,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":40,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":0.0,"n":71,"code":"C-00-PL-200","name":"Install Production Piles @ Bldg"},{"tf":1.0,"n":33,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"R-03-200","name":"Review & Approve Rebar","lf":"2025-12-29","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-3.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-3.0},{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"2026-01-16","tf":0.0}],"plan":[15,16,36,62,36,37,71,72,117,169,160,166],"planLab":["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12"],"real":[3,5,10],"realLab":["2025-10","2025-11","2025-12"],"dur":0,"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":6,"cump":1,"fuera":6,"ppc":16.7,"perDone":7},{"id":"U03","dd":"2026-01-31","nAct":3484,"nRel":6275,"done":30,"neg":118,"pend":3454,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":73.0,"fc":"2027-09-10"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":73.0,"fc":"2027-11-09"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":73.0,"fc":"2028-01-08"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-3.0,"fc":"2028-03-24"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-3.0,"fc":"2028-05-25"}],"ch5":8,"ch5act":209,"chains":[{"tf":-3.0,"n":96,"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations"},{"tf":-2.0,"n":10,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":11,"code":"R-03-400","name":"Review & Approve Post Tension Calculations - L2"},{"tf":0.0,"n":25,"code":"C-08-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L8"},{"tf":1.0,"n":6,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","lf":"2026-01-30","tf":-3.0},{"code":"C-00-ST-220","name":"Pour  Pile Caps @ Foundations","lf":"2026-02-10","tf":-3.0},{"code":"C-00-ST-210","name":"Rebar Pile Caps @ Foundations","lf":"2026-02-09","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-3.0}],"plan":[16,36,65,37,36,74,76,113,163,164,163,155],"planLab":["2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01"],"real":[3,5,11,11],"realLab":["2025-10","2025-11","2025-12","2026-01"],"dur":0,"relDel":1,"relAdd":1,"cstr":3,"actAdd":0,"prom":15,"cump":5,"fuera":6,"ppc":33.3,"perDone":11},{"id":"U04","dd":"2026-02-28","nAct":3484,"nRel":6275,"done":46,"neg":761,"pend":3438,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":-20.0,"fc":"2027-09-10"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-19.0,"fc":"2027-11-09"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-18.0,"fc":"2028-01-08"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-9.0,"fc":"2028-03-30"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-9.0,"fc":"2028-05-31"}],"ch5":17,"ch5act":995,"chains":[{"tf":-14.0,"n":19,"code":"S-26-200","name":"Prep & Submit Switchgear"},{"tf":-11.0,"n":12,"code":"C-16-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L16"},{"tf":-9.0,"n":6,"code":"PR-MS-800","name":"Substantial Completion (T.C.O.) (03/21/28)"},{"tf":-7.0,"n":162,"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2"},{"tf":-6.0,"n":158,"code":"C-03-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L3"}],"risk":[{"code":"S-26-200","name":"Prep & Submit Switchgear","lf":"2026-03-03","tf":-14.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-9.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-9.0},{"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2","lf":"2026-03-25","tf":-7.0}],"plan":[42,62,32,37,64,70,104,150,164,181,137,199],"planLab":["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02"],"real":[3,5,12,13,13],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02"],"dur":0,"relDel":0,"relAdd":0,"cstr":3,"actAdd":0,"prom":16,"cump":3,"fuera":10,"ppc":18.8,"perDone":13},{"id":"U05","dd":"2026-03-31","nAct":3491,"nRel":6288,"done":79,"neg":172,"pend":3412,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.8,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-0.2,"fc":"2027-10-22"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-0.2,"fc":"2027-12-22"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-0.2,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-0.2,"fc":"2028-05-23"}],"ch5":6,"ch5act":521,"chains":[{"tf":-0.2,"n":172,"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations"},{"tf":0.8,"n":174,"code":"C-03-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L3"},{"tf":1.8,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.8,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.8,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","lf":"2026-04-03","tf":-0.2},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","lf":"2026-03-31","tf":-0.2},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-0.2},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-0.2}],"plan":[62,49,45,56,83,108,155,184,167,164,204,263],"planLab":["2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03"],"real":[3,5,13,14,15,29],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03"],"dur":1,"relDel":0,"relAdd":13,"cstr":0,"actAdd":7,"prom":42,"cump":19,"fuera":10,"ppc":45.2,"perDone":29},{"id":"U06","dd":"2026-04-30","nAct":3493,"nRel":6291,"done":107,"neg":162,"pend":3386,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.55,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-0.45,"fc":"2027-10-22"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-0.45,"fc":"2027-12-22"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-0.45,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-0.45,"fc":"2028-05-23"}],"ch5":6,"ch5act":508,"chains":[{"tf":-0.45,"n":162,"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4"},{"tf":0.55,"n":172,"code":"C-05-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L5"},{"tf":1.55,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.55,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.55,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4","lf":"2026-04-30","tf":-0.45},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-0.45},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-0.45},{"code":"C-05-ST-100","name":"Form Prestressed Elevated Slab @ L5","lf":"2026-05-04","tf":-0.45}],"plan":[61,66,54,80,113,160,182,167,161,207,263,244],"planLab":["2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04"],"real":[3,5,13,14,15,31,26],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"],"dur":1,"relDel":0,"relAdd":3,"cstr":0,"actAdd":2,"prom":62,"cump":21,"fuera":5,"ppc":33.9,"perDone":26},{"id":"U07","dd":"2026-05-31","nAct":3494,"nRel":6299,"done":144,"neg":202,"pend":3350,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.5,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-13.0,"fc":"2027-11-03"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-15.0,"fc":"2028-01-05"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-1.0,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-1.0,"fc":"2028-05-23"}],"ch5":16,"ch5act":745,"chains":[{"tf":-9.0,"n":68,"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities"},{"tf":-7.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-5.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-2.0,"n":9,"code":"C-26-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L26"},{"tf":-1.0,"n":99,"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L1"}],"risk":[{"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities","lf":"2026-07-07","tf":-9.0},{"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L","lf":"2026-05-29","tf":-1.0},{"code":"C-02-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Ed","lf":"2026-06-10","tf":-1.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-1.0}],"plan":[74,68,71,110,143,170,194,173,208,262,245,216],"planLab":["2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05"],"real":[3,5,13,14,15,34,26,34],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"],"dur":0,"relDel":1,"relAdd":9,"cstr":0,"actAdd":1,"prom":61,"cump":22,"fuera":12,"ppc":36.1,"perDone":34},{"id":"U08","dd":"2026-06-30","nAct":3498,"nRel":6305,"done":200,"neg":250,"pend":3298,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":3.0,"fc":"2027-08-18"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-27.0,"fc":"2027-11-17"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-29.0,"fc":"2028-01-19"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":6.0,"fc":"2028-03-15"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":6.0,"fc":"2028-05-16"}],"ch5":20,"ch5act":512,"chains":[{"tf":-19.0,"n":75,"code":"R-27-200","name":"Review & Approve BDA"},{"tf":-17.0,"n":8,"code":"C-03-U-FN-370","name":"Install Flooring & Base @ Units - L3"},{"tf":-15.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-13.0,"n":22,"code":"C-04-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L4"},{"tf":-12.0,"n":12,"code":"C-07-U-FN-280","name":"Apply Waterproofing & Install Floor/Walls Tiles @ B/"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"2026-06-04","tf":-19.0},{"code":"C-02-UC-FN-210","name":"Hang Drywall @ Units & Common Areas - L2","lf":"2026-09-28","tf":-7.4},{"code":"C-02-UC-MP-170","name":"Install Electrical Rough @ Units & Common Area","lf":"2026-09-10","tf":-7.4},{"code":"C-02-UC-FN-200","name":"Install Drywall One Side & Insulation @ Units ","lf":"2026-09-17","tf":-7.4}],"plan":[83,81,95,135,142,204,201,241,281,243,217,209],"planLab":["2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06"],"real":[3,5,13,15,15,34,26,38,51],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06"],"dur":0,"relDel":0,"relAdd":6,"cstr":0,"actAdd":4,"prom":74,"cump":40,"fuera":11,"ppc":54.1,"perDone":51},{"id":"U09","dd":"2026-07-31","nAct":3499,"nRel":6306,"done":251,"neg":360,"pend":3248,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":9.0,"fc":"2027-08-12"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-47.0,"fc":"2027-12-07"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-46.0,"fc":"2028-02-05"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":25,"ch5act":426,"chains":[{"tf":-31.0,"n":74,"code":"R-27-200","name":"Review & Approve BDA"},{"tf":-27.0,"n":8,"code":"C-08-U-FN-310","name":"Paint Final Coat @ Units - L8"},{"tf":-25.0,"n":15,"code":"C-08-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L8"},{"tf":-24.0,"n":26,"code":"C-05-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L5"},{"tf":-23.6,"n":13,"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L3"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"2026-06-18","tf":-31.0},{"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors -","lf":"2026-09-10","tf":-23.6},{"code":"C-03-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L3","lf":"2026-09-10","tf":-23.6},{"code":"C-03-U-MP-180","name":"Install FA & Low Voltage Rough @ Units & Corri","lf":"2026-09-10","tf":-22.0}],"plan":[117,93,113,127,185,186,213,302,290,231,214,203],"planLab":["2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07"],"real":[3,5,13,15,15,34,26,38,54,48],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"],"dur":0,"relDel":1,"relAdd":2,"cstr":0,"actAdd":1,"prom":83,"cump":33,"fuera":15,"ppc":39.8,"perDone":48},{"id":"U10","dd":"2026-08-31","nAct":3501,"nRel":6314,"done":348,"neg":88,"pend":3153,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":3.0,"fc":"2027-08-18"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-7.0,"fc":"2027-10-28"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-8.0,"fc":"2027-12-29"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":14.0,"fc":"2028-03-07"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":14.0,"fc":"2028-05-08"}],"ch5":8,"ch5act":239,"chains":[{"tf":-5.0,"n":67,"code":"F-09-100","name":"Fab & Deliver Toilet Tiles"},{"tf":-3.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-1.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":2.0,"n":109,"code":"R-10-400","name":"Review & Approve Shower Enclosures"},{"tf":3.0,"n":8,"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities"}],"risk":[{"code":"F-09-100","name":"Fab & Deliver Toilet Tiles","lf":"2026-10-20","tf":-5.0},{"code":"R-10-400","name":"Review & Approve Shower Enclosures","lf":"2026-09-03","tf":2.0},{"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities","lf":"2026-10-28","tf":3.0},{"code":"C-18-ST-100","name":"Form Prestressed Elevated Slab @ L18","lf":"2026-09-08","tf":3.5}],"plan":[179,178,161,197,204,219,263,237,194,202,197,235],"planLab":["2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07","2027-08"],"real":[3,5,13,15,15,34,26,38,55,59,85],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],"dur":3,"relDel":1,"relAdd":9,"cstr":0,"actAdd":2,"prom":117,"cump":49,"fuera":36,"ppc":41.9,"perDone":85},{"id":"U11","dd":"2026-09-30","nAct":3504,"nRel":6326,"done":449,"neg":114,"pend":3055,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.25,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-20.0,"fc":"2027-11-10"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-22.0,"fc":"2028-01-12"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":7.0,"fc":"2028-03-14"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":7.0,"fc":"2028-05-15"}],"ch5":13,"ch5act":319,"chains":[{"tf":-14.0,"n":65,"code":"F-10-400","name":"Fab & Deliver Shower Enclosures"},{"tf":-12.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-10.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-7.0,"n":9,"code":"C-26-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L26"},{"tf":-4.0,"n":7,"code":"C-23-U-FN-400","name":"Rough Cleanup @ Units - L23"}],"risk":[{"code":"F-10-400","name":"Fab & Deliver Shower Enclosures","lf":"2026-10-30","tf":-14.0},{"code":"C-21-ST-100","name":"Form Prestressed Elevated Slab @ L21","lf":"2026-10-01","tf":0.25},{"code":"C-21-ST-140","name":"F/R/P Columns & Shear Walls @ L21","lf":"2026-10-02","tf":0.25},{"code":"C-21-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab","lf":"2026-10-01","tf":0.25}],"plan":[206,169,213,185,219,267,235,193,196,196,237,263],"planLab":["2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07","2027-08","2027-09"],"real":[3,5,13,15,15,34,26,38,55,59,84,102],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"],"dur":0,"relDel":0,"relAdd":12,"cstr":0,"actAdd":3,"prom":179,"cump":68,"fuera":34,"ppc":38.0,"perDone":102}]</script>
+<script id="data" type="application/json">[{"id":"BL 1.0a","dd":"2025-10-22","nAct":3484,"nRel":6275,"done":0,"neg":0,"pend":3484,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":2.0,"fc":"2027-08-19"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":0.0,"fc":"2027-10-21"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":0.0,"fc":"2027-12-21"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":6,"ch5act":541,"chains":[{"tf":0.0,"n":191,"code":"PR-MS-100","name":"Notice-to-Proceed (N.T.P.)"},{"tf":1.0,"n":175,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[],"plan":[1,11,7,10,50,63,35,42,73,81,114,173],"planLab":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"real":[],"realLab":[],"dur":null,"relDel":null,"relAdd":null,"cstr":null,"actAdd":null,"ppc":null,"perDone":null,"prom":null,"cump":null,"fuera":null,"nCrit":null,"cu":null,"sa":null,"si":null,"bo":null,"pcu":null,"psa":null,"aguas":null,"add":null,"del":null,"cst":null,"lCu":null,"lSa":null,"lSi":null,"cProm":null,"cCump":null,"cPpc":null,"c0Prom":null,"c0Cump":null,"c0Ppc":null},{"id":"U01","dd":"2025-12-11","nAct":3484,"nRel":6275,"done":10,"neg":0,"pend":3474,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":2.0,"fc":"2027-08-19"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":0.0,"fc":"2027-10-21"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":0.0,"fc":"2027-12-21"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":6,"ch5act":539,"chains":[{"tf":0.0,"n":187,"code":"C-00-PL-200","name":"Install Production Piles @ Bldg"},{"tf":1.0,"n":177,"code":"C-00-ST-100","name":"Excavate Entire Lot 3' ft @ Site"},{"tf":2.0,"n":39,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":3.0,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":4.0,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"2026-01-16","tf":0.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":0.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":0.0},{"code":"R-03-200","name":"Review & Approve Rebar","lf":"2025-12-29","tf":10.0}],"plan":[9,9,48,64,35,42,72,81,114,174,169,164],"planLab":["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12"],"real":[3,4,3],"realLab":["2025-10","2025-11","2025-12"],"dur":[],"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":10,"cump":8,"fuera":2,"ppc":80.0,"perDone":10,"nCrit":182,"cu":3,"sa":0,"si":179,"bo":0,"pcu":1.6,"psa":0.0,"aguas":null,"add":[],"del":[],"cst":[],"lCu":[{"code":"MOB-1000","name":"Mobilization & Temp Facilities","tf0":0.0,"tf1":null,"st1":"fin","d0":7.0,"d1":7.0},{"code":"MOB-1010","name":"Prepare Site & Building Pad","tf0":0.0,"tf1":null,"st1":"fin","d0":7.0,"d1":7.0},{"code":"C-00-PL-100","name":"Install & Report Test Piles @ Site","tf0":0.0,"tf1":null,"st1":"fin","d0":20.0,"d1":20.0}],"lSa":[],"lSi":[{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","tf0":0.0,"tf1":0.0,"st1":"curso","d0":25.0,"d1":25.0},{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","tf0":0.0,"tf1":0.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-00-ST-500","name":"F/R/P 1st Lift Columns @ Foundations - L1","tf0":0.0,"tf1":0.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":0.0,"tf1":0.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":0.0,"tf1":0.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","tf0":0.0,"tf1":0.0,"st1":"no","d0":2.0,"d1":2.0},{"code":"C-02-ST-100","name":"Form Prestressed Elevated Slab @ L2","tf0":0.0,"tf1":0.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L2","tf0":0.0,"tf1":0.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":0.0,"tf1":0.0,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":0.0,"tf1":0.0,"st1":"no","d0":3.0,"d1":3.0}],"cProm":3,"cCump":3,"cPpc":100.0,"c0Prom":3,"c0Cump":3,"c0Ppc":100.0},{"id":"U02","dd":"2025-12-31","nAct":3484,"nRel":6275,"done":18,"neg":403,"pend":3466,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":-4.0,"fc":"2027-08-25"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-5.0,"fc":"2027-10-26"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-6.0,"fc":"2027-12-27"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-3.0,"fc":"2028-03-24"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-3.0,"fc":"2028-05-25"}],"ch5":9,"ch5act":854,"chains":[{"tf":-3.0,"n":200,"code":"R-03-200","name":"Review & Approve Rebar"},{"tf":-2.0,"n":158,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":40,"code":"C-CR-100","name":"F/R/P Foundations @ Tower Crane"},{"tf":0.0,"n":71,"code":"C-00-PL-200","name":"Install Production Piles @ Bldg"},{"tf":1.0,"n":33,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"R-03-200","name":"Review & Approve Rebar","lf":"2025-12-29","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-3.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-3.0},{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","lf":"2026-01-16","tf":0.0}],"plan":[15,16,36,62,36,37,71,72,117,169,160,166],"planLab":["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12"],"real":[3,5,10],"realLab":["2025-10","2025-11","2025-12"],"dur":[],"relDel":0,"relAdd":0,"cstr":0,"actAdd":0,"prom":6,"cump":1,"fuera":6,"ppc":16.7,"perDone":7,"nCrit":179,"cu":0,"sa":0,"si":179,"bo":0,"pcu":0.0,"psa":0.0,"aguas":null,"add":[],"del":[],"cst":[],"lCu":[],"lSa":[],"lSi":[{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","tf0":0.0,"tf1":0.0,"st1":"curso","d0":25.0,"d1":25.0},{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","tf0":0.0,"tf1":-3.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-00-ST-500","name":"F/R/P 1st Lift Columns @ Foundations - L1","tf0":0.0,"tf1":-3.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":0.0,"tf1":-3.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":0.0,"tf1":-3.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","tf0":0.0,"tf1":-3.0,"st1":"no","d0":2.0,"d1":2.0},{"code":"C-02-ST-100","name":"Form Prestressed Elevated Slab @ L2","tf0":0.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L2","tf0":0.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":0.0,"tf1":-3.0,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":0.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0}],"cProm":0,"cCump":0,"cPpc":null,"c0Prom":0,"c0Cump":0,"c0Ppc":null},{"id":"U03","dd":"2026-01-31","nAct":3484,"nRel":6275,"done":30,"neg":118,"pend":3454,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":73.0,"fc":"2027-09-10"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":73.0,"fc":"2027-11-09"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":73.0,"fc":"2028-01-08"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-3.0,"fc":"2028-03-24"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-3.0,"fc":"2028-05-25"}],"ch5":8,"ch5act":209,"chains":[{"tf":-3.0,"n":96,"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations"},{"tf":-2.0,"n":10,"code":"C-02-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L2"},{"tf":-1.0,"n":11,"code":"R-03-400","name":"Review & Approve Post Tension Calculations - L2"},{"tf":0.0,"n":25,"code":"C-08-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L8"},{"tf":1.0,"n":6,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","lf":"2026-01-30","tf":-3.0},{"code":"C-00-ST-220","name":"Pour  Pile Caps @ Foundations","lf":"2026-02-10","tf":-3.0},{"code":"C-00-ST-210","name":"Rebar Pile Caps @ Foundations","lf":"2026-02-09","tf":-3.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-3.0}],"plan":[16,36,65,37,36,74,76,113,163,164,163,155],"planLab":["2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01"],"real":[3,5,11,11],"realLab":["2025-10","2025-11","2025-12","2026-01"],"dur":[],"relDel":1,"relAdd":1,"cstr":3,"actAdd":0,"prom":15,"cump":5,"fuera":6,"ppc":33.3,"perDone":11,"nCrit":464,"cu":3,"sa":326,"si":135,"bo":0,"pcu":0.6,"psa":70.3,"aguas":100.0,"add":[{"p":"C-00-WL-100","s":"C-00-ST-500","t":"FS"}],"del":[{"p":"C-00-WL-100","s":"C-00-ST-200","t":"FS"}],"cst":[{"code":"PR-MS-200","de":"CS_MEOB","a":"—","fe":"2027-08-21","name":"Contract MS #1 (22 months): Unit Key Deliver"},{"code":"PR-MS-300","de":"CS_MEOB","a":"—","fe":"2027-10-21","name":"Contract MS #2 (24 months): Unit Key Deliver"},{"code":"PR-MS-400","de":"CS_MEOB","a":"—","fe":"2027-12-21","name":"Contract MS #3 (26 months): Unit Key Deliver"}],"lCu":[{"code":"R-03-200","name":"Review & Approve Rebar","tf0":-3.0,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0},{"code":"F-03-200","name":"Fab & Deliver Rebar","tf0":-3.0,"tf1":null,"st1":"fin","d0":15.0,"d1":15.0},{"code":"C-00-PL-200","name":"Install Production Piles @ Bldg","tf0":0.0,"tf1":null,"st1":"fin","d0":25.0,"d1":25.0}],"lSa":[{"code":"PR-MS-530","name":"Temp For Test (FPL Power)","tf0":-4.0,"tf1":27.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-02-U-PC-900","name":"Partial MEP Systems Inspections @ L2","tf0":-3.0,"tf1":19.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-03-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L3","tf0":-3.0,"tf1":19.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-04-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L4","tf0":-3.0,"tf1":19.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-05-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L5","tf0":-3.0,"tf1":19.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-06-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L6","tf0":-3.0,"tf1":19.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-07-U-FN-220","name":"Frame GWB Drop Ceilings/Soffits @ Units - L7","tf0":-3.0,"tf1":38.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-200","name":"Install Drywall One Side & Insulation @ Units - L7","tf0":-3.0,"tf1":38.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-07-U-FN-210","name":"Hang Drywall @ Units - L7","tf0":-3.0,"tf1":38.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-270","name":"Paint Drywall - 1st Coat @ Units - L7","tf0":-3.0,"tf1":38.0,"st1":"no","d0":5.0,"d1":5.0}],"lSi":[{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","tf0":-3.0,"tf1":-3.0,"st1":"curso","d0":5.0,"d1":5.0},{"code":"C-00-ST-500","name":"F/R/P 1st Lift Columns @ Foundations - L1","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":2.0,"d1":2.0},{"code":"C-02-ST-100","name":"Form Prestressed Elevated Slab @ L2","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L2","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-ST-100","name":"Form Prestressed Elevated Slab @ L3","tf0":-3.0,"tf1":-3.0,"st1":"no","d0":3.0,"d1":3.0}],"cProm":8,"cCump":4,"cPpc":50.0,"c0Prom":5,"c0Cump":2,"c0Ppc":40.0},{"id":"U04","dd":"2026-02-28","nAct":3484,"nRel":6275,"done":46,"neg":761,"pend":3438,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":-20.0,"fc":"2027-09-10"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-19.0,"fc":"2027-11-09"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-18.0,"fc":"2028-01-08"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-9.0,"fc":"2028-03-30"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-9.0,"fc":"2028-05-31"}],"ch5":17,"ch5act":995,"chains":[{"tf":-14.0,"n":19,"code":"S-26-200","name":"Prep & Submit Switchgear"},{"tf":-11.0,"n":12,"code":"C-16-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L16"},{"tf":-9.0,"n":6,"code":"PR-MS-800","name":"Substantial Completion (T.C.O.) (03/21/28)"},{"tf":-7.0,"n":162,"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2"},{"tf":-6.0,"n":158,"code":"C-03-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L3"}],"risk":[{"code":"S-26-200","name":"Prep & Submit Switchgear","lf":"2026-03-03","tf":-14.0},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-9.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-9.0},{"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2","lf":"2026-03-25","tf":-7.0}],"plan":[42,62,32,37,64,70,104,150,164,181,137,199],"planLab":["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02"],"real":[3,5,12,13,13],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02"],"dur":[],"relDel":0,"relAdd":0,"cstr":3,"actAdd":0,"prom":16,"cump":3,"fuera":10,"ppc":18.8,"perDone":13,"nCrit":137,"cu":1,"sa":1,"si":135,"bo":0,"pcu":0.7,"psa":0.7,"aguas":100.0,"add":[],"del":[],"cst":[{"code":"PR-MS-200","de":"—","a":"CS_MEOB","fe":"","name":"Contract MS #1 (22 months): Unit Key Deliver"},{"code":"PR-MS-300","de":"—","a":"CS_MEOB","fe":"","name":"Contract MS #2 (24 months): Unit Key Deliver"},{"code":"PR-MS-400","de":"—","a":"CS_MEOB","fe":"","name":"Contract MS #3 (26 months): Unit Key Deliver"}],"lCu":[{"code":"R-03-400","name":"Review & Approve Post Tension Calculations - L2","tf0":-1.0,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0}],"lSa":[{"code":"C-00-PL-300","name":"Cut-off Piles @ Site","tf0":-2.75,"tf1":0.74,"st1":"curso","d0":5.0,"d1":5.0}],"lSi":[{"code":"C-00-ST-200","name":"Form PIle Caps @ Foundations","tf0":-3.0,"tf1":-1.26,"st1":"curso","d0":5.0,"d1":5.0},{"code":"C-00-ST-500","name":"F/R/P 1st Lift Columns @ Foundations - L1","tf0":-3.0,"tf1":-2.01,"st1":"curso","d0":5.0,"d1":5.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-3.0,"tf1":-7.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-3.0,"tf1":-9.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","tf0":-3.0,"tf1":-2.01,"st1":"curso","d0":2.0,"d1":2.0},{"code":"C-02-ST-100","name":"Form Prestressed Elevated Slab @ L2","tf0":-3.0,"tf1":-2.01,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L2","tf0":-3.0,"tf1":-7.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":-3.0,"tf1":-7.0,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":-3.0,"tf1":-7.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-ST-100","name":"Form Prestressed Elevated Slab @ L3","tf0":-3.0,"tf1":-7.0,"st1":"no","d0":3.0,"d1":3.0}],"cProm":6,"cCump":1,"cPpc":16.7,"c0Prom":6,"c0Cump":1,"c0Ppc":16.7},{"id":"U05","dd":"2026-03-31","nAct":3491,"nRel":6288,"done":79,"neg":172,"pend":3412,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.8,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-0.2,"fc":"2027-10-22"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-0.2,"fc":"2027-12-22"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-0.2,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-0.2,"fc":"2028-05-23"}],"ch5":6,"ch5act":521,"chains":[{"tf":-0.2,"n":172,"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations"},{"tf":0.8,"n":174,"code":"C-03-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L3"},{"tf":1.8,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.8,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.8,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","lf":"2026-04-03","tf":-0.2},{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","lf":"2026-03-31","tf":-0.2},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-0.2},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-0.2}],"plan":[62,49,45,56,83,108,155,184,167,164,204,263],"planLab":["2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03"],"real":[3,5,13,14,15,29],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03"],"dur":[{"code":"F-26-200","de":220.0,"a":150.0,"name":"Fab & Deliver Switchgear"}],"relDel":0,"relAdd":13,"cstr":0,"actAdd":7,"prom":42,"cump":19,"fuera":10,"ppc":45.2,"perDone":29,"nCrit":806,"cu":15,"sa":626,"si":165,"bo":0,"pcu":1.9,"psa":77.7,"aguas":100.0,"add":[{"p":"DEL-01-100","s":"DEL-01-110","t":"FS"},{"p":"DEL-01-110","s":"C-00-PL-300","t":"FF"},{"p":"DEL-02-100","s":"DEL-02-110","t":"FS"},{"p":"DEL-02-110","s":"C-00-ST-300","t":"FF"},{"p":"DEL-02-110","s":"DEL-02-120","t":"FS"},{"p":"DEL-02-120","s":"C-00-ST-300","t":"FF"},{"p":"DEL-02-120","s":"C-00-ST-310","t":"FF"},{"p":"DEL-02-120","s":"C-00-ST-320","t":"FF"}],"del":[],"cst":[],"lCu":[{"code":"S-26-200","name":"Prep & Submit Switchgear","tf0":-14.0,"tf1":null,"st1":"fin","d0":40.0,"d1":40.0},{"code":"C-02-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L2","tf0":-7.0,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"F-03-400","name":"Fab & Deliver Post Tension Tendons - L2","tf0":-7.0,"tf1":null,"st1":"fin","d0":30.0,"d1":30.0},{"code":"C-00-ST-500","name":"F/R/P 1st Lift Columns @ Foundations - L1","tf0":-2.01,"tf1":null,"st1":"fin","d0":5.0,"d1":5.0},{"code":"C-02-ST-100","name":"Form Prestressed Elevated Slab @ L2","tf0":-2.01,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-00-ST-210","name":"Rebar Pile Caps @ Foundations","tf0":-2.01,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0},{"code":"C-00-ST-220","name":"Pour  Pile Caps @ Foundations","tf0":-2.01,"tf1":null,"st1":"fin","d0":2.0,"d1":2.0},{"code":"C-00-ST-300","name":"Rebar Shear Walls @ Foundations","tf0":-2.01,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0}],"lSa":[{"code":"PR-MS-530","name":"Temp For Test (FPL Power)","tf0":-20.0,"tf1":0.8,"st1":"no","d0":5.0,"d1":5.0},{"code":"R-26-200","name":"Review & Approve Switchgear","tf0":-14.0,"tf1":59.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"F-26-200","name":"Fab & Deliver Switchgear","tf0":-14.0,"tf1":59.0,"st1":"no","d0":220.0,"d1":150.0},{"code":"C-02-MP-MP-110","name":"Install Electrical Switchgear & Boards & Panels @ Main","tf0":-14.0,"tf1":0.8,"st1":"no","d0":40.0,"d1":40.0},{"code":"C-02-U-PC-900","name":"Partial MEP Systems Inspections @ L2","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-03-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L3","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-04-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L4","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-05-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L5","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-06-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L6","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-07-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L7","tf0":-14.0,"tf1":0.8,"st1":"no","d0":7.0,"d1":7.0}],"lSi":[{"code":"C-25-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L25","tf0":-11.0,"tf1":-0.2,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-25-U-PC-910","name":"Subcontractor Punch List & Punch Paint @ Units - L25","tf0":-11.0,"tf1":-0.2,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-25-U-PC-920","name":"GC Punchlist @ Units - L25","tf0":-11.0,"tf1":-0.2,"st1":"no","d0":5.0,"d1":5.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-9.0,"tf1":-0.2,"st1":"no","d0":62.0,"d1":62.0},{"code":"PR-PC-900","name":"Final Punchout","tf0":-9.0,"tf1":-0.2,"st1":"no","d0":62.0,"d1":62.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-7.0,"tf1":-0.2,"st1":"no","d0":40.0,"d1":40.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":-7.0,"tf1":-0.2,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":-7.0,"tf1":-0.2,"st1":"curso","d0":3.0,"d1":3.0},{"code":"C-03-ST-100","name":"Form Prestressed Elevated Slab @ L3","tf0":-7.0,"tf1":-0.2,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L3","tf0":-7.0,"tf1":-0.2,"st1":"no","d0":3.0,"d1":3.0}],"cProm":14,"cCump":12,"cPpc":85.7,"c0Prom":13,"c0Cump":11,"c0Ppc":84.6},{"id":"U06","dd":"2026-04-30","nAct":3493,"nRel":6291,"done":107,"neg":162,"pend":3386,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.55,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-0.45,"fc":"2027-10-22"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-0.45,"fc":"2027-12-22"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-0.45,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-0.45,"fc":"2028-05-23"}],"ch5":6,"ch5act":508,"chains":[{"tf":-0.45,"n":162,"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4"},{"tf":0.55,"n":172,"code":"C-05-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L5"},{"tf":1.55,"n":38,"code":"C-07-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab @ L7"},{"tf":2.55,"n":62,"code":"C-15-ST-150","name":"Stress PT @ L15"},{"tf":3.55,"n":40,"code":"C-05-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L5"}],"risk":[{"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4","lf":"2026-04-30","tf":-0.45},{"code":"PR-PS-800","name":"Overall Project Duration (N.T.P. to T.C.O.)","lf":"2028-03-21","tf":-0.45},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-0.45},{"code":"C-05-ST-100","name":"Form Prestressed Elevated Slab @ L5","lf":"2026-05-04","tf":-0.45}],"plan":[61,66,54,80,113,160,182,167,161,207,263,244],"planLab":["2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04"],"real":[3,5,13,14,15,31,26],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"],"dur":[{"code":"F-27-200","de":70.0,"a":50.0,"name":"Fab & Deliver BDA System"}],"relDel":0,"relAdd":3,"cstr":0,"actAdd":2,"prom":62,"cump":21,"fuera":5,"ppc":33.9,"perDone":26,"nCrit":165,"cu":10,"sa":0,"si":155,"bo":0,"pcu":6.1,"psa":0.0,"aguas":null,"add":[{"p":"DEL-01-110","s":"DEL-01-120","t":"FS"},{"p":"DEL-01-130","s":"C-03-ST-100","t":"FS"},{"p":"DEL-01-130","s":"C-03-ST-110","t":"FS"}],"del":[],"cst":[],"lCu":[{"code":"C-00-ST-600","name":"Backfill & Compact @ Foundations","tf0":-0.2,"tf1":null,"st1":"fin","d0":2.0,"d1":2.0},{"code":"C-02-ST-130","name":"Pour Elevated Slab @ L2","tf0":-0.2,"tf1":null,"st1":"fin","d0":1.0,"d1":1.0},{"code":"C-02-ST-140","name":"F/R/P Columns & Shear Walls @ L2","tf0":-0.2,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-03-ST-100","name":"Form Prestressed Elevated Slab @ L3","tf0":-0.2,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-03-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L3","tf0":-0.2,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-03-ST-130","name":"Pour Elevated Slab @ L3","tf0":-0.2,"tf1":null,"st1":"fin","d0":1.0,"d1":1.0},{"code":"C-03-ST-140","name":"F/R/P Columns & Shear Walls @ L3","tf0":-0.2,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-04-ST-100","name":"Form Prestressed Elevated Slab @ L4","tf0":-0.2,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0}],"lSa":[],"lSi":[{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4","tf0":-0.2,"tf1":-0.45,"st1":"curso","d0":3.0,"d1":3.0},{"code":"C-05-ST-100","name":"Form Prestressed Elevated Slab @ L5","tf0":-0.2,"tf1":-0.45,"st1":"curso","d0":3.0,"d1":3.0},{"code":"C-05-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L5","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-05-ST-130","name":"Pour Elevated Slab @ L5","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":1.0,"d1":1.0},{"code":"C-05-ST-140","name":"F/R/P Columns & Shear Walls @ L5","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-06-ST-100","name":"Form Prestressed Elevated Slab @ L6","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-06-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L6","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-06-ST-130","name":"Pour Elevated Slab @ L6","tf0":-0.2,"tf1":-0.45,"st1":"no","d0":1.0,"d1":1.0}],"cProm":14,"cCump":13,"cPpc":92.9,"c0Prom":11,"c0Cump":10,"c0Ppc":90.9},{"id":"U07","dd":"2026-05-31","nAct":3494,"nRel":6299,"done":144,"neg":202,"pend":3350,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.5,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-13.0,"fc":"2027-11-03"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-15.0,"fc":"2028-01-05"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":-1.0,"fc":"2028-03-22"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":-1.0,"fc":"2028-05-23"}],"ch5":16,"ch5act":745,"chains":[{"tf":-9.0,"n":68,"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities"},{"tf":-7.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-5.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-2.0,"n":9,"code":"C-26-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L26"},{"tf":-1.0,"n":99,"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L1"}],"risk":[{"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities","lf":"2026-07-07","tf":-9.0},{"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L","lf":"2026-05-29","tf":-1.0},{"code":"C-02-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Ed","lf":"2026-06-10","tf":-1.0},{"code":"PR-PS-900","name":"Overall Project Duration (N.T.P. to C.O.)","lf":"2028-05-22","tf":-1.0}],"plan":[74,68,71,110,143,170,194,173,208,262,245,216],"planLab":["2026-06","2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05"],"real":[3,5,13,14,15,34,26,34],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"],"dur":[],"relDel":1,"relAdd":9,"cstr":0,"actAdd":1,"prom":61,"cump":22,"fuera":12,"ppc":36.1,"perDone":34,"nCrit":155,"cu":8,"sa":0,"si":147,"bo":0,"pcu":5.2,"psa":0.0,"aguas":null,"add":[{"p":"C-08-ST-100","s":"C-BH-100","t":"FS"},{"p":"C-BH-100","s":"C-BH-200","t":"FS"},{"p":"C-BH-200","s":"C-BH-300","t":"FS"},{"p":"C-BH-300","s":"C-BH-400","t":"FS"},{"p":"C-BH-400","s":"C-BH-500","t":"FS"},{"p":"DEL-01-120","s":"DEL-01-130","t":"FS"},{"p":"DEL-01-130","s":"DEL-01-140","t":"FS"},{"p":"DEL-01-140","s":"C-06-ST-140","t":"FS"}],"del":[{"p":"C-BH-100","s":"C-07-ST-130","t":"FS"}],"cst":[],"lCu":[{"code":"C-04-ST-140","name":"F/R/P Columns & Shear Walls @ L4","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-05-ST-100","name":"Form Prestressed Elevated Slab @ L5","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-05-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L5","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-05-ST-130","name":"Pour Elevated Slab @ L5","tf0":-0.45,"tf1":null,"st1":"fin","d0":1.0,"d1":1.0},{"code":"C-05-ST-140","name":"F/R/P Columns & Shear Walls @ L5","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-06-ST-100","name":"Form Prestressed Elevated Slab @ L6","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-06-ST-110","name":"Rebar & PT Tendons for Elevated Slab @ L6","tf0":-0.45,"tf1":null,"st1":"fin","d0":3.0,"d1":3.0},{"code":"C-06-ST-130","name":"Pour Elevated Slab @ L6","tf0":-0.45,"tf1":null,"st1":"fin","d0":1.0,"d1":1.0}],"lSa":[],"lSi":[{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-02-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L2","tf0":-0.45,"tf1":-1.0,"st1":"curso","d0":4.0,"d1":4.0},{"code":"C-02-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L2","tf0":-0.45,"tf1":-1.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"C-03-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L3","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-04-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L4","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-05-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L5","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-06-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L6","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L7","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L7","tf0":-0.45,"tf1":-1.0,"st1":"no","d0":2.0,"d1":2.0}],"cProm":13,"cCump":10,"cPpc":76.9,"c0Prom":9,"c0Cump":8,"c0Ppc":88.9},{"id":"U08","dd":"2026-06-30","nAct":3498,"nRel":6305,"done":200,"neg":250,"pend":3298,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":3.0,"fc":"2027-08-18"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-27.0,"fc":"2027-11-17"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-29.0,"fc":"2028-01-19"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":6.0,"fc":"2028-03-15"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":6.0,"fc":"2028-05-16"}],"ch5":20,"ch5act":512,"chains":[{"tf":-19.0,"n":75,"code":"R-27-200","name":"Review & Approve BDA"},{"tf":-17.0,"n":8,"code":"C-03-U-FN-370","name":"Install Flooring & Base @ Units - L3"},{"tf":-15.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-13.0,"n":22,"code":"C-04-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L4"},{"tf":-12.0,"n":12,"code":"C-07-U-FN-280","name":"Apply Waterproofing & Install Floor/Walls Tiles @ B/"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"2026-06-04","tf":-19.0},{"code":"C-02-UC-FN-210","name":"Hang Drywall @ Units & Common Areas - L2","lf":"2026-09-28","tf":-7.4},{"code":"C-02-UC-MP-170","name":"Install Electrical Rough @ Units & Common Area","lf":"2026-09-10","tf":-7.4},{"code":"C-02-UC-FN-200","name":"Install Drywall One Side & Insulation @ Units ","lf":"2026-09-17","tf":-7.4}],"plan":[83,81,95,135,142,204,201,241,281,243,217,209],"planLab":["2026-07","2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06"],"real":[3,5,13,15,15,34,26,38,51],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06"],"dur":[],"relDel":0,"relAdd":6,"cstr":0,"actAdd":4,"prom":74,"cump":40,"fuera":11,"ppc":54.1,"perDone":51,"nCrit":217,"cu":4,"sa":69,"si":144,"bo":0,"pcu":1.8,"psa":31.8,"aguas":100.0,"add":[{"p":"DEL-01-140","s":"DEL-01-150","t":"FS"},{"p":"DEL-01-150","s":"C-07-ST-130","t":"FS"},{"p":"DEL-04-100","s":"DEL-04-110","t":"FS"},{"p":"DEL-04-110","s":"DEL-04-120","t":"FS"},{"p":"DEL-04-120","s":"C-02-UC-MP-190","t":"FS"},{"p":"PR-MS-100","s":"DEL-04-100","t":"SS"}],"del":[],"cst":[],"lCu":[{"code":"S-06-200","name":"Prep & Submit Kitchen Cabinets & Vanities","tf0":-9.0,"tf1":null,"st1":"fin","d0":40.0,"d1":40.0},{"code":"C-02-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L2","tf0":-1.0,"tf1":null,"st1":"fin","d0":4.0,"d1":4.0},{"code":"C-02-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L2","tf0":-1.0,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0},{"code":"C-01-ST-300","name":"Remove Reshoring & Grind/Prep Ceiling Slab @ L1","tf0":-1.0,"tf1":null,"st1":"fin","d0":4.0,"d1":4.0}],"lSa":[{"code":"R-06-200","name":"Review & Approve Kitchen Cabinets & Vanities","tf0":-9.0,"tf1":13.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities","tf0":-9.0,"tf1":13.0,"st1":"no","d0":70.0,"d1":70.0},{"code":"PR-PC-120","name":"Commission Fire Alarm System (Fire Command Work)","tf0":-1.0,"tf1":4.0,"st1":"no","d0":40.0,"d1":40.0},{"code":"PR-PC-990","name":"Project Closeout","tf0":-1.0,"tf1":6.0,"st1":"no","d0":62.0,"d1":62.0},{"code":"C-03-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L3","tf0":-1.0,"tf1":4.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"C-04-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L4","tf0":-1.0,"tf1":4.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"C-05-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L5","tf0":-1.0,"tf1":4.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"C-06-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L6","tf0":-1.0,"tf1":4.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-ST-400","name":"Lay Exterior & Interior CMU Walls & Balcony Edges @ L7","tf0":-1.0,"tf1":4.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-100","name":"Layout Interior Walls @ Units & Corridors - L7","tf0":-1.0,"tf1":4.0,"st1":"no","d0":2.0,"d1":2.0}],"lSi":[{"code":"C-02-UC-FN-290","name":"Install Vanities & Mirrors @ B/Rs - L2","tf0":-9.0,"tf1":-7.4,"st1":"no","d0":2.0,"d1":2.0},{"code":"C-02-UC-FN-310","name":"Paint Final Coat @ Units & Common Areas - L2","tf0":-9.0,"tf1":-7.4,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-02-UC-FN-350","name":"Install Kitchen Cabinets & & Countertops & Millwork @ ","tf0":-9.0,"tf1":-7.4,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-02-UC-FN-300","name":"Install Shower Enclosures @ B/Rs  L2","tf0":-9.0,"tf1":-7.4,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L3","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-04-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L4","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-05-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L5","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-06-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L6","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-07-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L7","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-370","name":"Install Flooring & Base @ Units - L7","tf0":-9.0,"tf1":-19.0,"st1":"no","d0":10.0,"d1":10.0}],"cProm":25,"cCump":19,"cPpc":76.0,"c0Prom":4,"c0Cump":1,"c0Ppc":25.0},{"id":"U09","dd":"2026-07-31","nAct":3499,"nRel":6306,"done":251,"neg":360,"pend":3248,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":9.0,"fc":"2027-08-12"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-47.0,"fc":"2027-12-07"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-46.0,"fc":"2028-02-05"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":0.0,"fc":"2028-03-21"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":0.0,"fc":"2028-05-22"}],"ch5":25,"ch5act":426,"chains":[{"tf":-31.0,"n":74,"code":"R-27-200","name":"Review & Approve BDA"},{"tf":-27.0,"n":8,"code":"C-08-U-FN-310","name":"Paint Final Coat @ Units - L8"},{"tf":-25.0,"n":15,"code":"C-08-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L8"},{"tf":-24.0,"n":26,"code":"C-05-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L5"},{"tf":-23.6,"n":13,"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L3"}],"risk":[{"code":"R-27-200","name":"Review & Approve BDA","lf":"2026-06-18","tf":-31.0},{"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors -","lf":"2026-09-10","tf":-23.6},{"code":"C-03-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L3","lf":"2026-09-10","tf":-23.6},{"code":"C-03-U-MP-180","name":"Install FA & Low Voltage Rough @ Units & Corri","lf":"2026-09-10","tf":-22.0}],"plan":[117,93,113,127,185,186,213,302,290,231,214,203],"planLab":["2026-08","2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07"],"real":[3,5,13,15,15,34,26,38,54,48],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"],"dur":[],"relDel":1,"relAdd":2,"cstr":0,"actAdd":1,"prom":83,"cump":33,"fuera":15,"ppc":39.8,"perDone":48,"nCrit":249,"cu":1,"sa":0,"si":248,"bo":0,"pcu":0.4,"psa":0.0,"aguas":null,"add":[{"p":"DEL-01-150","s":"DEL-01-160","t":"FS"},{"p":"DEL-01-160","s":"C-14-ST-130","t":"FS"}],"del":[{"p":"C-BH-200","s":"C-12-ST-130","t":"FS"}],"cst":[],"lCu":[{"code":"C-04-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L4","tf0":-13.0,"tf1":null,"st1":"fin","d0":4.0,"d1":4.0}],"lSa":[],"lSi":[{"code":"R-27-200","name":"Review & Approve BDA","tf0":-19.0,"tf1":-31.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"F-27-200","name":"Fab & Deliver BDA System","tf0":-19.0,"tf1":-31.0,"st1":"no","d0":50.0,"d1":50.0},{"code":"C-03-U-FN-220","name":"Frame GWB Drop Ceilings/Soffits @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-03-U-FN-200","name":"Install Drywall One Side & Insulation @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-03-U-FN-210","name":"Hang Drywall @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-03-U-FN-270","name":"Paint Drywall - 1st Coat @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":4.0,"d1":4.0},{"code":"C-03-U-FN-260","name":"Hang Interior Doors @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L3","tf0":-19.0,"tf1":-23.6,"st1":"curso","d0":12.0,"d1":12.0},{"code":"C-03-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L3","tf0":-19.0,"tf1":-23.6,"st1":"curso","d0":2.0,"d1":2.0},{"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3","tf0":-19.0,"tf1":-23.6,"st1":"no","d0":5.0,"d1":5.0}],"cProm":22,"cCump":18,"cPpc":81.8,"c0Prom":1,"c0Cump":0,"c0Ppc":0.0},{"id":"U10","dd":"2026-08-31","nAct":3501,"nRel":6314,"done":348,"neg":88,"pend":3153,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":3.0,"fc":"2027-08-18"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-7.0,"fc":"2027-10-28"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-8.0,"fc":"2027-12-29"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":14.0,"fc":"2028-03-07"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":14.0,"fc":"2028-05-08"}],"ch5":8,"ch5act":239,"chains":[{"tf":-5.0,"n":67,"code":"F-09-100","name":"Fab & Deliver Toilet Tiles"},{"tf":-3.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-1.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":2.0,"n":109,"code":"R-10-400","name":"Review & Approve Shower Enclosures"},{"tf":3.0,"n":8,"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities"}],"risk":[{"code":"F-09-100","name":"Fab & Deliver Toilet Tiles","lf":"2026-10-20","tf":-5.0},{"code":"R-10-400","name":"Review & Approve Shower Enclosures","lf":"2026-09-03","tf":2.0},{"code":"F-06-200","name":"Fab & Deliver Kitchen Cabinets & Vanities","lf":"2026-10-28","tf":3.0},{"code":"C-18-ST-100","name":"Form Prestressed Elevated Slab @ L18","lf":"2026-09-08","tf":3.5}],"plan":[179,178,161,197,204,219,263,237,194,202,197,235],"planLab":["2026-09","2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07","2027-08"],"real":[3,5,13,15,15,34,26,38,55,59,85],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],"dur":[{"code":"F-06-200","de":70.0,"a":50.0,"name":"Fab & Deliver Kitchen Cabinets & Vanities"},{"code":"F-10-400","de":70.0,"a":40.0,"name":"Fab & Deliver Shower Enclosures"},{"code":"C-01-MP-MP-120","de":40.0,"a":21.0,"name":"Coordinate & Schedule with FPL for Work @ FP"}],"relDel":1,"relAdd":9,"cstr":0,"actAdd":2,"prom":117,"cump":49,"fuera":36,"ppc":41.9,"perDone":85,"nCrit":423,"cu":38,"sa":296,"si":89,"bo":0,"pcu":9.0,"psa":70.0,"aguas":96.3,"add":[{"p":"DEL-01-160","s":"DEL-01-170","t":"FS"},{"p":"DEL-01-170","s":"C-15-MP-120","t":"FS"},{"p":"DEL-01-170","s":"C-15-ST-100","t":"FS"},{"p":"DEL-01-170","s":"C-15-ST-110","t":"FS"},{"p":"DEL-01-170","s":"DEL-01-180","t":"FS"},{"p":"DEL-01-180","s":"C-18-MP-120","t":"FS"},{"p":"DEL-01-180","s":"C-18-ST-100","t":"FS"},{"p":"DEL-01-180","s":"C-18-ST-110","t":"FS"}],"del":[{"p":"F-27-200","s":"C-02-UC-MP-110","t":"FS"}],"cst":[],"lCu":[{"code":"C-07-U-FN-220","name":"Frame GWB Drop Ceilings/Soffits @ Units - L7","tf0":-31.0,"tf1":null,"st1":"fin","d0":10.0,"d1":10.0},{"code":"C-07-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L7","tf0":-31.0,"tf1":null,"st1":"fin","d0":4.0,"d1":4.0},{"code":"C-05-U-FN-220","name":"Frame GWB Drop Ceilings/Soffits @ Units - L5","tf0":-24.0,"tf1":null,"st1":"fin","d0":8.0,"d1":8.0},{"code":"C-05-U-FN-200","name":"Install Drywall One Side & Insulation @ Units - L5","tf0":-24.0,"tf1":null,"st1":"fin","d0":5.0,"d1":5.0},{"code":"C-05-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L5","tf0":-24.0,"tf1":null,"st1":"fin","d0":2.0,"d1":2.0},{"code":"C-05-U-MP-180","name":"Install FA & Low Voltage Rough @ Units & Corridors - L","tf0":-24.0,"tf1":null,"st1":"fin","d0":8.0,"d1":8.0},{"code":"C-03-U-FN-220","name":"Frame GWB Drop Ceilings/Soffits @ Units - L3","tf0":-23.6,"tf1":null,"st1":"fin","d0":8.0,"d1":8.0},{"code":"C-03-U-FN-200","name":"Install Drywall One Side & Insulation @ Units - L3","tf0":-23.6,"tf1":null,"st1":"fin","d0":5.0,"d1":5.0}],"lSa":[{"code":"R-27-200","name":"Review & Approve BDA","tf0":-31.0,"tf1":250.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"F-27-200","name":"Fab & Deliver BDA System","tf0":-31.0,"tf1":250.0,"st1":"no","d0":50.0,"d1":50.0},{"code":"C-05-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L5","tf0":-31.0,"tf1":9.0,"st1":"no","d0":4.0,"d1":4.0},{"code":"C-06-U-MP-110","name":"Install Electrical & Low Voltage & BDA Risers @ L6","tf0":-31.0,"tf1":9.0,"st1":"no","d0":4.0,"d1":4.0},{"code":"C-07-U-FN-200","name":"Install Drywall One Side & Insulation @ Units - L7","tf0":-31.0,"tf1":13.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-07-U-FN-210","name":"Hang Drywall @ Units - L7","tf0":-31.0,"tf1":13.0,"st1":"curso","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-270","name":"Paint Drywall - 1st Coat @ Units - L7","tf0":-31.0,"tf1":13.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-07-U-FN-260","name":"Hang Interior Doors @ Units - L7","tf0":-31.0,"tf1":13.0,"st1":"no","d0":4.0,"d1":4.0},{"code":"C-07-U-MP-170","name":"Install Electrical Rough @ Units & Corridors - L7","tf0":-31.0,"tf1":13.0,"st1":"curso","d0":12.0,"d1":12.0},{"code":"C-07-U-MP-190","name":"Inspect MEP Rough @ Units & Corridors - L7","tf0":-31.0,"tf1":13.0,"st1":"no","d0":2.0,"d1":2.0}],"lSi":[{"code":"C-07-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L7","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-370","name":"Install Flooring & Base @ Units - L7","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-08-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L8","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-08-U-FN-370","name":"Install Flooring & Base @ Units - L8","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-09-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L9","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-09-U-FN-370","name":"Install Flooring & Base @ Units - L9","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-10-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L10","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-10-U-FN-370","name":"Install Flooring & Base @ Units - L10","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-11-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L11","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-11-U-FN-370","name":"Install Flooring & Base @ Units - L11","tf0":-31.0,"tf1":-5.0,"st1":"no","d0":10.0,"d1":10.0}],"cProm":11,"cCump":5,"cPpc":45.5,"c0Prom":8,"c0Cump":5,"c0Ppc":62.5},{"id":"U11","dd":"2026-09-30","nAct":3504,"nRel":6326,"done":449,"neg":114,"pend":3055,"ms":[{"code":"PR-MS-200","k":"ms1","ctr":"2027-08-21","tf":1.25,"fc":"2027-08-20"},{"code":"PR-MS-300","k":"ms2","ctr":"2027-10-21","tf":-20.0,"fc":"2027-11-10"},{"code":"PR-MS-400","k":"ms3","ctr":"2027-12-21","tf":-22.0,"fc":"2028-01-12"},{"code":"PR-MS-800","k":"tco","ctr":"2028-03-21","tf":7.0,"fc":"2028-03-14"},{"code":"PR-MS-900","k":"co","ctr":"2028-05-22","tf":7.0,"fc":"2028-05-15"}],"ch5":13,"ch5act":319,"chains":[{"tf":-14.0,"n":65,"code":"F-10-400","name":"Fab & Deliver Shower Enclosures"},{"tf":-12.0,"n":10,"code":"C-03-U-FN-310","name":"Paint Final Coat @ Units - L3"},{"tf":-10.0,"n":7,"code":"C-31-U-FN-370","name":"Install Flooring & Base @ Units - L31"},{"tf":-7.0,"n":9,"code":"C-26-U-PC-900","name":"Partial MEP Systems Inspections @ Units - L26"},{"tf":-4.0,"n":7,"code":"C-23-U-FN-400","name":"Rough Cleanup @ Units - L23"}],"risk":[{"code":"F-10-400","name":"Fab & Deliver Shower Enclosures","lf":"2026-10-30","tf":-14.0},{"code":"C-21-ST-100","name":"Form Prestressed Elevated Slab @ L21","lf":"2026-10-01","tf":0.25},{"code":"C-21-ST-140","name":"F/R/P Columns & Shear Walls @ L21","lf":"2026-10-02","tf":0.25},{"code":"C-21-MP-120","name":"Install MEP Inserts & Sleeves at Elevated Slab","lf":"2026-10-01","tf":0.25}],"plan":[206,169,213,185,219,267,235,193,196,196,237,263],"planLab":["2026-10","2026-11","2026-12","2027-01","2027-02","2027-03","2027-04","2027-05","2027-06","2027-07","2027-08","2027-09"],"real":[3,5,13,15,15,34,26,38,55,59,84,102],"realLab":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"],"dur":[],"relDel":0,"relAdd":12,"cstr":0,"actAdd":3,"prom":179,"cump":68,"fuera":34,"ppc":38.0,"perDone":102,"nCrit":89,"cu":2,"sa":1,"si":86,"bo":0,"pcu":2.2,"psa":1.1,"aguas":0.0,"add":[{"p":"DEL-01-180","s":"DEL-01-190","t":"FS"},{"p":"DEL-01-190","s":"C-18-MP-120","t":"FS"},{"p":"DEL-01-190","s":"C-18-ST-100","t":"FS"},{"p":"DEL-01-190","s":"C-18-ST-110","t":"FS"},{"p":"DEL-01-190","s":"DEL-01-200","t":"FS"},{"p":"DEL-01-200","s":"C-19-MP-120","t":"FS"},{"p":"DEL-01-200","s":"C-19-ST-110","t":"FS"},{"p":"DEL-01-200","s":"DEL-01-210","t":"FS"}],"del":[],"cst":[],"lCu":[{"code":"F-09-100","name":"Fab & Deliver Toilet Tiles","tf0":-5.0,"tf1":null,"st1":"fin","d0":60.0,"d1":60.0},{"code":"C-02-UC-FN-280","name":"Apply Waterproofing & Install Floor/Walls Tiles @ B/Rs","tf0":-5.0,"tf1":null,"st1":"fin","d0":6.0,"d1":6.0}],"lSa":[{"code":"C-02-UC-FN-290","name":"Install Vanities & Mirrors @ B/Rs - L2","tf0":-5.0,"tf1":3.0,"st1":"no","d0":2.0,"d1":2.0}],"lSi":[{"code":"C-02-UC-FN-310","name":"Paint Final Coat @ Units & Common Areas - L2","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":5.0,"d1":5.0},{"code":"C-02-UC-FN-350","name":"Install Kitchen Cabinets & & Countertops & Millwork @ ","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":7.0,"d1":7.0},{"code":"C-02-UC-FN-300","name":"Install Shower Enclosures @ B/Rs  L2","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":3.0,"d1":3.0},{"code":"C-03-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L3","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-04-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L4","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-05-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L5","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-06-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L6","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":8.0,"d1":8.0},{"code":"C-07-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L7","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-07-U-FN-370","name":"Install Flooring & Base @ Units - L7","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":10.0,"d1":10.0},{"code":"C-08-U-FN-350","name":"Install Kitchen Cabinets & Countertops @ Units - L8","tf0":-5.0,"tf1":-14.0,"st1":"no","d0":8.0,"d1":8.0}],"cProm":26,"cCump":21,"cPpc":80.8,"c0Prom":0,"c0Cump":0,"c0Ppc":null}]</script>
 <script>
 (function(){
 /* Datos: el tablero trae 12 versiones incorporadas; si el usuario cargó archivos
    en una visita anterior se reemplazan por el resultado guardado (métricas, no archivos). */
 var EMB=JSON.parse(document.getElementById('data').textContent);
-var D=EMB, SRC=null;
+var D=EMB, SRC=null, RAW=null;
 try{var sj=localStorage.getItem('domus_data');
   if(sj){var so=JSON.parse(sj);
     if(so&&so.d&&so.d.length){D=so.d;SRC=so.s||{n:so.d.length,when:''}}}}catch(e){}
@@ -323,25 +367,48 @@ function readVersion(text,fileName){
   var dd=pdt(prow[pi.last_recalc_date]);
   if(!dd)throw new Error('sin data date (last_recalc_date)');
   var short=prow[pi.proj_short_name]||'';
+
+  /* ruta WBS completa, subiendo por la cadena de padres */
+  var wn={},wp={},wpath={};
+  if(t.PROJWBS){var w=t.PROJWBS.idx;
+    t.PROJWBS.rows.forEach(function(r){wn[r[w.wbs_id]]=r[w.wbs_name];wp[r[w.wbs_id]]=r[w.parent_wbs_id]})}
+  function wpathOf(id,d){
+    if(wpath[id]!==undefined)return wpath[id];
+    if(!(id in wn)||(d||0)>25)return '';
+    var p=wp[id], r=(p&&p!==id&&(p in wn))?wpathOf(p,(d||0)+1)+' / '+wn[id]:wn[id];
+    wpath[id]=r;return r;
+  }
+  var cal={};
+  if(t.CALENDAR){var cz=t.CALENDAR.idx;
+    t.CALENDAR.rows.forEach(function(r){cal[r[cz.clndr_id]]=r[cz.clndr_name]})}
+
   var x=TK.idx;
   var acts=[],byCode={},rel=[],idCode={};
   for(var i=0;i<TK.rows.length;i++){
     var r=TK.rows[i];
     var a={id:r[x.task_id],code:r[x.task_code],name:r[x.task_name],
-      st:r[x.status_code],type:r[x.task_type],wbs:r[x.wbs_id],
-      tf:nmv(r[x.total_float_hr_cnt]),td:nmv(r[x.target_drtn_hr_cnt]),rd:nmv(r[x.remain_drtn_hr_cnt]),
-      ee:pdt(r[x.early_end_date]),es:pdt(r[x.early_start_date]),lf:pdt(r[x.late_end_date]),
+      st:r[x.status_code],type:r[x.task_type],
+      wbs:wpathOf(r[x.wbs_id]),cal:cal[r[x.clndr_id]]||'',
+      tf:nmv(r[x.total_float_hr_cnt]),ff:nmv(r[x.free_float_hr_cnt]),
+      td:nmv(r[x.target_drtn_hr_cnt]),rd:nmv(r[x.remain_drtn_hr_cnt]),
+      pc:nmv(r[x.phys_complete_pct]),
+      ee:pdt(r[x.early_end_date]),es:pdt(r[x.early_start_date]),
+      lf:pdt(r[x.late_end_date]),ls:pdt(r[x.late_start_date]),
       ae:pdt(r[x.act_end_date]),as_:pdt(r[x.act_start_date]),
-      cs:(r[x.cstr_type]||'')+'|'+(r[x.cstr_date]||'')};
+      ct:r[x.cstr_type]||'',cd:pdt(r[x.cstr_date]),
+      fp:r[x.float_path]||'',dpf:r[x.driving_path_flag]||''};
+    a.cs=a.ct+'|'+(r[x.cstr_date]||'');
     a.tfd=a.tf===null?null:a.tf/8;
     acts.push(a);byCode[a.code]=a;idCode[a.id]=a.code;
   }
   if(TP){var y=TP.idx;
     for(var j=0;j<TP.rows.length;j++){var q=TP.rows[j];
-      rel.push(idCode[q[y.pred_task_id]]+'>'+idCode[q[y.task_id]]+'>'+q[y.pred_type])}}
+      rel.push({p:idCode[q[y.pred_task_id]],s:idCode[q[y.task_id]],
+                t:q[y.pred_type],lag:nmv(q[y.lag_hr_cnt])})}}
   return {id:vlabel(fileName,short),file:fileName,dd:dd,short:short,
           acts:acts,byCode:byCode,rel:rel};
 }
+function relKey(r){return r.p+'>'+r.s+'>'+r.t}
 
 function metrics(V,PV){
   var acts=V.acts,dd=V.dd;
@@ -389,7 +456,7 @@ function metrics(V,PV){
       if(b&&b.td!==null&&a.td!==null&&b.td!==a.td)durCh++});
     o.dur=durCh;
     var sa={},sb={};
-    PV.rel.forEach(function(r){sa[r]=1}); V.rel.forEach(function(r){sb[r]=1});
+    PV.rel.forEach(function(r){sa[relKey(r)]=1}); V.rel.forEach(function(r){sb[relKey(r)]=1});
     o.relDel=Object.keys(sa).filter(function(r){return !sb[r]}).length;
     o.relAdd=Object.keys(sb).filter(function(r){return !sa[r]}).length;
     var cs=0;
@@ -415,10 +482,102 @@ function metrics(V,PV){
   return o;
 }
 
+/* ═══ Actividades críticas: mismo cálculo que el análisis forense ═══
+   Críticas = pendientes de trabajo con holgura ≤ 0 en la versión anterior.
+   Se las sigue por código y se clasifica su destino; luego se mide cuántas de
+   las que salieron de criticidad están aguas abajo de lo que cambió. */
+var WORK={TT_Task:1,TT_Rsrc:1};
+
+function critical(V,PV){
+  var o={nCrit:null,cu:null,sa:null,si:null,bo:null,pcu:null,psa:null,aguas:null,
+         dur:null,add:null,'del':null,cst:null,lCu:null,lSa:null,lSi:null,
+         cProm:null,cCump:null,cPpc:null,c0Prom:null,c0Cump:null,c0Ppc:null};
+  if(!PV)return o;
+  var crit=PV.acts.filter(function(a){
+    return a.st!=='TK_Complete'&&WORK[a.type]&&a.tfd!==null&&a.tfd<=0});
+  var cu=[],sa=[],si=[],bo=0;
+  crit.forEach(function(a){
+    var n=V.byCode[a.code];
+    if(!n){bo++;return}
+    var rec={code:a.code,name:(n.name||'').slice(0,54),
+      tf0:r2(a.tfd),tf1:(n.tfd===null?null:r2(n.tfd)),
+      st1:(n.st==='TK_NotStart'?'no':n.st==='TK_Active'?'curso':'fin')};
+    if(n.st==='TK_Complete')cu.push(rec);
+    else if(n.tfd!==null&&n.tfd>0)sa.push(rec);
+    else si.push(rec);
+  });
+  /* cambios al modelo del periodo */
+  var dur=[],cst=[];
+  V.acts.forEach(function(a){
+    var b=PV.byCode[a.code]; if(!b)return;
+    if(b.td!==null&&a.td!==null&&b.td!==a.td)
+      dur.push({code:a.code,name:(a.name||'').slice(0,44),de:r2(b.td/8),a:r2(a.td/8)});
+    if(b.cs!==a.cs)
+      cst.push({code:a.code,name:(a.name||'').slice(0,44),de:(b.ct||'—'),a:(a.ct||'—')});
+  });
+  var was={},now={};
+  PV.rel.forEach(function(r){was[relKey(r)]=r}); V.rel.forEach(function(r){now[relKey(r)]=r});
+  var add=[],del=[];
+  Object.keys(now).sort().forEach(function(k){if(!was[k])add.push(now[k])});
+  Object.keys(was).sort().forEach(function(k){if(!now[k])del.push(was[k])});
+
+  /* alcance: aguas abajo de lo que cambió, y aguas arriba de un hito cuya
+     restricción se movió (quitarle el ancla libera a todo lo que lo alimenta) */
+  var seeds={},msSeeds={};
+  dur.forEach(function(x){seeds[x.code]=1});
+  add.concat(del).forEach(function(r){seeds[r.p]=1});
+  cst.forEach(function(x){ if(/^PR-MS-/.test(x.code))msSeeds[x.code]=1 });
+  var fwd={},rev={};
+  PV.rel.forEach(function(r){
+    (fwd[r.p]=fwd[r.p]||[]).push(r.s); (rev[r.s]=rev[r.s]||[]).push(r.p)});
+  function walk(start,g){
+    var seen={},q=Object.keys(start);
+    while(q.length){var x=q.shift(),nx=g[x]||[];
+      for(var i=0;i<nx.length;i++){ if(!seen[nx[i]]){seen[nx[i]]=1;q.push(nx[i])} }}
+    return seen;
+  }
+  var alc=walk(seeds,fwd), up=walk(msSeeds,rev);
+  Object.keys(up).forEach(function(k){alc[k]=1});
+  var hit=sa.filter(function(r){return alc[r.code]}).length;
+
+  /* PPC restringido: de lo comprometido para el periodo, sólo lo crítico o casi
+     crítico (holgura ≤ 5 d). Mismo criterio de cumplimiento que el PPC general. */
+  function ppcAt(thr){
+    var prom={},np=0;
+    PV.acts.forEach(function(a){
+      if(a.st!=='TK_Complete'&&WORK[a.type]&&a.ee&&a.ee<=V.dd&&
+         a.tfd!==null&&a.tfd<=thr){prom[a.code]=1;np++}});
+    var cm=0;
+    V.acts.forEach(function(a){
+      if(a.st==='TK_Complete'&&a.ae&&a.ae>PV.dd&&a.ae<=V.dd&&prom[a.code])cm++});
+    return {prom:np,cump:cm,ppc:(np?Math.round(1000*cm/np)/10:null)};
+  }
+  var q5=ppcAt(5), q0=ppcAt(0);
+  o.cProm=q5.prom; o.cCump=q5.cump; o.cPpc=q5.ppc;
+  o.c0Prom=q0.prom; o.c0Cump=q0.cump; o.c0Ppc=q0.ppc;
+
+  var n=crit.length;
+  o.nCrit=n; o.cu=cu.length; o.sa=sa.length; o.si=si.length; o.bo=bo;
+  o.pcu=n?Math.round(1000*cu.length/n)/10:0;
+  o.psa=n?Math.round(1000*sa.length/n)/10:0;
+  o.aguas=sa.length?Math.round(1000*hit/sa.length)/10:null;
+  var byTf=function(x,y){return x.tf0-y.tf0};
+  o.dur=dur.slice(0,6); o.cst=cst.slice(0,6);
+  o.add=add.slice(0,8).map(function(r){return {p:r.p,s:r.s,t:r.t.replace('PR_','')}});
+  o['del']=del.slice(0,8).map(function(r){return {p:r.p,s:r.s,t:r.t.replace('PR_','')}});
+  o.lCu=cu.sort(byTf).slice(0,8); o.lSa=sa.sort(byTf).slice(0,10); o.lSi=si.sort(byTf).slice(0,10);
+  return o;
+}
+
 function buildDataset(versions){
   versions.sort(function(a,b){return a.dd-b.dd});
   var out=[];
-  for(var i=0;i<versions.length;i++)out.push(metrics(versions[i],i?versions[i-1]:null));
+  for(var i=0;i<versions.length;i++){
+    var pv=i?versions[i-1]:null;
+    var m=metrics(versions[i],pv), cr=critical(versions[i],pv);
+    for(var k in cr) m[k]=cr[k];
+    out.push(m);
+  }
   return out;
 }
 
@@ -432,6 +591,32 @@ es:{job:'Job #52511 · Tablero de cronograma',lsel:'Actualización',llang:'Idiom
  h1:'Erosión de holgura',n1:'Holgura total por hito, días calendario',
  h2:'Capacidad contra exigencia',n2:'Actividades terminadas por mes y las que el plan exige',
  h3:'Cumplimiento del plan',n3:'De lo prometido para el mes, cuánto se terminó',
+ h11:'Cumplimiento del plan: crítico contra general',
+ n11:'Mismo criterio que el PPC, aplicado sólo a lo comprometido con holgura ≤ 5 días',
+ lgPpcG:'Todo lo comprometido',lgPpcC:'Sólo crítico y casi crítico',
+ tTodas:'todas',tCrit:'crítico',
+ r5:function(g,c,n,t){return 'Acumulado: <b>'+c+'%</b> en lo crítico contra <b>'+g+'%</b> en el total. '+
+   'Pero lo crítico son <b>'+n+'</b> de <b>'+t+'</b> compromisos: el cumplimiento alto cubre una quinta parte del trabajo.'},
+ sinPpcC:'Sin compromisos críticos en este periodo.',
+ nSinC:'sin críticas comprometidas',
+ h7:'Actividades críticas: cumplimiento y cambios al modelo',
+ n7:'Críticas = pendientes de trabajo con holgura total ≤ 0 en la versión anterior. Se sigue a cada una por código hasta la versión seleccionada.',
+ h8:'Qué pasó con las críticas del periodo anterior',n8:'Cumplidas, salidas de criticidad sin ejecutarse, y las que siguen críticas',
+ h9:'Críticas que salieron sin ejecutarse',n9:'Dejaron de ser críticas sin terminarse. Holgura antes → después.',
+ h10:'La palanca del periodo',n10:'Los cambios al modelo que liberaron esa holgura',
+ kCrit:'críticas seguidas',kCu:'cumplidas',kSa:'salieron sin ejecutarse',kAg:'aguas abajo de la palanca',
+ lCu:'Cumplidas',lSa:'Salieron',lSi:'Siguen críticas',
+ tCu:'cumplida',tSa:'salió sin ejecutarse',tSi:'sigue crítica',
+ thAct:'Actividad',thAntes:'Antes',thDesp:'Después',thEst:'Estado',
+ thCambio:'Cambio',thDe:'de',thA:'a',
+ stNo:'no iniciada',stCurso:'en curso',stFin:'terminada',
+ sinCrit:'Esta versión no tiene periodo anterior con el que comparar.',
+ sinSalio:'Ninguna crítica salió de criticidad sin ejecutarse en este periodo.',
+ sinPal:'No hubo cambios al modelo en este periodo.',
+ pDur:'duración',pRel:'lógica',pCst:'restricción',
+ levTxt:function(n,p){return 'De las <b>'+n+'</b> que salieron, el <b>'+p+'%</b> está aguas abajo de lo que cambió. Ninguna se tocó de forma individual: la holgura se liberó desde otro punto de la red.'},
+ levNada:'Las salidas de este periodo no se explican por cambios al modelo.',
+ r4:function(cu,sa){return 'Acumulado de los once periodos: <b>'+cu+'</b> críticas cumplidas contra <b>'+sa+'</b> que salieron de criticidad sin ejecutarse.'},
  h4:'Cambios en el modelo',n4:'Diferencia contra la versión anterior',
  h5:'Cadenas más apretadas',n5:'Bandas de holgura con cinco o más actividades',
  h6:'En curso, con menos margen',n6:'Actividades abiertas al cierre del periodo',
@@ -469,7 +654,9 @@ es:{job:'Job #52511 · Tablero de cronograma',lsel:'Actualización',llang:'Idiom
  lgBig:function(n){return '! '+n+' no se guardó en el navegador por tamaño; el tablero funciona en esta sesión.'},
  noteGen:'Versión calculada de un archivo cargado en el navegador. Las notas de lectura solo existen para las versiones revisadas manualmente.',
  dlx:'Descargar hoja de cálculo',dlj:'JSON',
- dlErr:'No se pudo entregar el archivo.'},
+ dlErr:'No se pudo entregar el archivo.',
+ dlf:'Dataset completo',dlWait:'Armando el dataset completo. Puede tardar unos segundos.',
+ dpFull:'Al cargar los archivos queda disponible además la descarga del <b>dataset completo</b>: una fila por actividad y por versión, con la matriz de holgura y los cambios al modelo uno por uno.'},
 en:{job:'Job #52511 · Schedule dashboard',lsel:'Update',llang:'Language',
  meta:function(o){return 'Data date <b>'+o.dd+'</b> &nbsp;·&nbsp; '+o.a+' activities &nbsp;·&nbsp; '+o.r+' relationships'},
  ms1:'Milestone #1 · Keys L2–L15',ms2:'Milestone #2 · Keys L16–L25',ms3:'Milestone #3 · Keys L26–L35',
@@ -479,6 +666,32 @@ en:{job:'Job #52511 · Schedule dashboard',lsel:'Update',llang:'Language',
  h1:'Float erosion',n1:'Total float by milestone, calendar days',
  h2:'Capacity against demand',n2:'Activities completed per month and those the plan requires',
  h3:'Plan reliability',n3:'Of what was promised for the month, how much finished',
+ h11:'Plan reliability: critical against overall',
+ n11:'Same criterion as PPC, applied only to commitments with float ≤ 5 days',
+ lgPpcG:'All commitments',lgPpcC:'Critical and near-critical only',
+ tTodas:'all',tCrit:'critical',
+ r5:function(g,c,n,t){return 'Cumulative: <b>'+c+'%</b> on critical work against <b>'+g+'%</b> overall. '+
+   'But critical work is <b>'+n+'</b> of <b>'+t+'</b> commitments: the high hit rate covers a fifth of the job.'},
+ sinPpcC:'No critical commitments in this period.',
+ nSinC:'no critical commitments',
+ h7:'Critical activities: delivery and model changes',
+ n7:'Critical = remaining work with total float ≤ 0 in the previous version. Each one is tracked by code through to the selected version.',
+ h8:'What happened to the previous period\u2019s critical activities',n8:'Completed, dropped out of criticality without being executed, and still critical',
+ h9:'Critical activities that dropped out unexecuted',n9:'Stopped being critical without being completed. Float before → after.',
+ h10:'The lever of the period',n10:'The model changes that released that float',
+ kCrit:'critical tracked',kCu:'completed',kSa:'dropped out unexecuted',kAg:'downstream of the lever',
+ lCu:'Completed',lSa:'Dropped out',lSi:'Still critical',
+ tCu:'completed',tSa:'dropped out unexecuted',tSi:'still critical',
+ thAct:'Activity',thAntes:'Before',thDesp:'After',thEst:'Status',
+ thCambio:'Change',thDe:'from',thA:'to',
+ stNo:'not started',stCurso:'in progress',stFin:'complete',
+ sinCrit:'This version has no previous period to compare against.',
+ sinSalio:'No critical activity dropped out of criticality unexecuted in this period.',
+ sinPal:'There were no model changes in this period.',
+ pDur:'duration',pRel:'logic',pCst:'constraint',
+ levTxt:function(n,p){return 'Of the <b>'+n+'</b> that dropped out, <b>'+p+'%</b> sit downstream of what changed. Not one was touched individually: the float was released from elsewhere in the network.'},
+ levNada:'This period\u2019s drop-outs are not explained by model changes.',
+ r4:function(cu,sa){return 'Across the eleven periods: <b>'+cu+'</b> critical activities completed against <b>'+sa+'</b> that dropped out of criticality unexecuted.'},
  h4:'Changes to the model',n4:'Difference against the previous version',
  h5:'Tightest chains',n5:'Float bands holding five or more activities',
  h6:'In progress, least margin',n6:'Activities open at the end of the period',
@@ -516,7 +729,9 @@ en:{job:'Job #52511 · Schedule dashboard',lsel:'Update',llang:'Language',
  lgBig:function(n){return '! '+n+' was not saved in the browser because of its size; the dashboard works for this session.'},
  noteGen:'Version computed from a file loaded in the browser. Reading notes exist only for the versions reviewed by hand.',
  dlx:'Download spreadsheet',dlj:'JSON',
- dlErr:'The file could not be delivered.'}
+ dlErr:'The file could not be delivered.',
+ dlf:'Full dataset',dlWait:'Building the full dataset. This can take a few seconds.',
+ dpFull:'Loading the files also unlocks the <b>full dataset</b> download: one row per activity per version, with the float matrix and every model change listed one by one.'}
 };
 
 var NOTE={
@@ -542,10 +757,13 @@ var NOTE={
  'The deterioration resumes. The governing chain originates in shower enclosure fabrication. The 12 relationships added are weather activities tied to structure.']
 };
 
-var C={ms2:'#1A73E8',ms3:'#E37400',tco:'#5F6368',real:'#1A73E8',plan:'#D93025'};
+var C={ms2:'#1A73E8',ms3:'#E37400',tco:'#5F6368',real:'#1A73E8',plan:'#D93025',
+       cu:'#1E8E3E',sa:'#D93025',si:'#9AA0A6',ppcG:'#9AA0A6',ppcC:'#1E8E3E'};
 var NS='http://www.w3.org/2000/svg';
 function E(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
 function cs(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function esc(x){return String(x===null||x===undefined?'':x)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function fmt(v,u){if(v===null||v===undefined)return '—';return (v>0?'+':v<0?'−':'')+Math.abs(v)+(u||'')}
 function kl(v){if(v===null||v===undefined)return '';return v<0?'c':(v<=5?'w':'o')}
 
@@ -570,8 +788,13 @@ function txt(x,y,s,o){o=o||{};var t=E('text',{x:x,y:y,fill:o.fill||cs('--ink3'),
   t.textContent=s;return t}
 function clear(id){var s=document.getElementById(id);while(s.firstChild)s.removeChild(s.firstChild);return s}
 var BIG={};
-function dm(id){var b=!!BIG[id];var W=b?980:480,H=b?360:190,Lm=b?46:34,R=b?14:8,T=b?14:10,B=b?36:26;
-  return {W:W,H:H,L:Lm,R:R,T:T,B:B,iw:W-Lm-R,ih:H-T-B,big:b}}
+/* c4 y c5 ocupan el ancho completo, así que su lienzo base ya es ancho:
+   con el viewBox chico se estiraban y la tipografía salía desproporcionada */
+var WIDE={c4:1,c5:1};
+function dm(id){var b=!!BIG[id],w=!!WIDE[id];
+  var W=(b||w)?980:480, H=b?(w?420:360):(w?290:190),
+      Lm=(b||w)?46:34, R=(b||w)?14:8, T=(b||w)?14:10, B=(b||w)?36:26;
+  return {W:W,H:H,L:Lm,R:R,T:T,B:B,iw:W-Lm-R,ih:H-T-B,big:b||w}}
 
 function hook(svg,tip,n,xf,build,d){
   var W=d.W,H=d.H,T=d.T,ih=d.ih;
@@ -673,6 +896,95 @@ function chart3(idx){
   document.getElementById('r3').innerHTML=L().r3(avg.toFixed(1),Math.max.apply(null,pts).toFixed(1));
 }
 
+/* barras apiladas: destino de las críticas de cada periodo */
+function chart4(idx){
+  var d=dm('c4'),W=d.W,H=d.H,Lm=d.L,T=d.T,iw=d.iw,ih=d.ih;
+  var s=clear('c4');s.setAttribute('viewBox','0 0 '+W+' '+H);
+  var lab=[],st=[];
+  for(var i=0;i<=idx;i++){var o=D[i];
+    if(o.nCrit===null||o.nCrit===undefined||!o.nCrit)continue;
+    lab.push(o);st.push([o.cu,o.sa,o.si])}
+  if(!st.length){s.appendChild(txt(W/2,H/2,L().sinCrit,{sz:11}));
+    document.getElementById('r4').textContent='';return}
+  var hi=Math.max.apply(null,st.map(function(a){return a[0]+a[1]+a[2]}));
+  hi=Math.ceil(hi/100)*100||100;
+  var n=st.length,gap=iw/n,bw=Math.min(gap*0.62,d.big?44:22);
+  function Y(v){return T+ih*(1-v/hi)} function X(i){return Lm+gap*i+gap/2}
+  [hi,hi*0.5,0].forEach(function(v){
+    s.appendChild(E('line',{x1:Lm,y1:Y(v),x2:Lm+iw,y2:Y(v),
+      stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
+    s.appendChild(txt(Lm-6,Y(v)+3.2,Math.round(v),{an:'end',mono:1,sz:d.big?11:9.5}))});
+  st.forEach(function(a,i){
+    var acc=0, x=X(i)-bw/2, saY=null, saH=0;
+    [[a[2],C.si],[a[1],C.sa],[a[0],C.cu]].forEach(function(pr,j){
+      if(!pr[0])return;
+      var h=ih*pr[0]/hi;
+      s.appendChild(E('rect',{x:x.toFixed(1),y:(T+ih-acc-h).toFixed(1),
+        width:bw.toFixed(1),height:Math.max(1,h).toFixed(1),fill:pr[1],rx:1.5}));
+      if(j===1){saY=T+ih-acc-h;saH=h}
+      acc+=h});
+    /* la cifra sólo cabe dentro del segmento rojo si el segmento es alto */
+    if(d.big&&a[1]&&saH>=16)
+      s.appendChild(txt(X(i),saY+saH/2+3.5,a[1],{mono:1,sz:10,fill:'#fff'}))});
+  lab.forEach(function(o,i){
+    s.appendChild(txt(X(i),H-(d.big?13:9),d.big?fd(o.dd):o.id.replace('U',''),
+      {mono:1,sz:d.big?10:9}))});
+  hook(s,document.getElementById('t4'),n,X,function(i){
+    var o=lab[i],a=st[i],t=L();
+    return '<div class="th">'+o.id+' · '+fd(o.dd)+'</div>'+
+      '<i style="background:'+C.cu+'"></i>'+a[0]+'  '+t.tCu+'<br>'+
+      '<i style="background:'+C.sa+'"></i>'+a[1]+'  '+t.tSa+'<br>'+
+      '<i style="background:'+C.si+'"></i>'+a[2]+'  '+t.tSi},d);
+  var tc=0,ts=0;
+  D.forEach(function(o){if(o.nCrit){tc+=o.cu;ts+=o.sa}});
+  document.getElementById('r4').innerHTML=L().r4(tc,ts);
+}
+
+/* PPC general contra PPC restringido a lo crítico */
+function chart5(idx){
+  var d=dm('c5'),W=d.W,H=d.H,Lm=d.L,T=d.T,iw=d.iw,ih=d.ih;
+  var s=clear('c5');s.setAttribute('viewBox','0 0 '+W+' '+H);
+  var lab=[],g=[],cr=[];
+  for(var i=1;i<=idx;i++){var o=D[i];
+    if(o.ppc===null||o.ppc===undefined)continue;
+    lab.push(o);g.push(o.ppc);cr.push(o.cPpc)}
+  if(!g.length){s.appendChild(txt(W/2,H/2,L().sinPer,{sz:11}));
+    document.getElementById('r5').textContent='';return}
+  var hi=100,n=g.length,gap=iw/n,bw=Math.min(gap*0.33,d.big?20:10);
+  function Y(v){return T+ih*(1-v/hi)} function X(i){return Lm+gap*i+gap/2}
+  [100,50,0].forEach(function(v){
+    s.appendChild(E('line',{x1:Lm,y1:Y(v),x2:Lm+iw,y2:Y(v),
+      stroke:v===0?cs('--line2'):cs('--grid'),'stroke-width':v===0?1.2:1}));
+    s.appendChild(txt(Lm-6,Y(v)+3.2,v+'%',{an:'end',mono:1,sz:d.big?11:9.5}))});
+  g.forEach(function(v,i){
+    s.appendChild(E('rect',{x:(X(i)-bw-1).toFixed(1),y:Y(v).toFixed(1),width:bw.toFixed(1),
+      height:Math.max(1,ih-(Y(v)-T)).toFixed(1),fill:C.ppcG,rx:1.5}));
+    var c=cr[i];
+    if(c!==null&&c!==undefined)
+      s.appendChild(E('rect',{x:(X(i)+1).toFixed(1),y:Y(c).toFixed(1),width:bw.toFixed(1),
+        height:Math.max(1,ih-(Y(c)-T)).toFixed(1),fill:C.ppcC,rx:1.5}))});
+  if(d.big)g.forEach(function(v,i){
+    s.appendChild(txt(X(i)-bw/2-1,Y(v)-5,Math.round(v)+'%',{mono:1,sz:9.5,fill:cs('--ink3')}));
+    if(cr[i]!==null&&cr[i]!==undefined)
+      s.appendChild(txt(X(i)+bw/2+1,Y(cr[i])-5,Math.round(cr[i])+'%',{mono:1,sz:9.5,fill:C.ppcC}))});
+  lab.forEach(function(o,i){
+    s.appendChild(txt(X(i),H-(d.big?13:9),d.big?fd(o.dd):o.id.replace('U',''),
+      {mono:1,sz:d.big?10:9}))});
+  hook(s,document.getElementById('t5'),n,X,function(i){
+    var o=lab[i],t=L();
+    return '<div class="th">'+o.id+' · '+fd(o.dd)+'</div>'+
+      '<i style="background:'+C.ppcG+'"></i>'+o.ppc.toFixed(1)+'%  '+t.tTodas+
+      ' ('+t.deComp(o.cump,o.prom)+')<br>'+
+      '<i style="background:'+C.ppcC+'"></i>'+
+      (o.cPpc===null||o.cPpc===undefined ? t.nSinC
+        : o.cPpc.toFixed(1)+'%  '+t.tCrit+' ('+t.deComp(o.cCump,o.cProm)+')')},d);
+  var sg=0,sp=0,sc=0,scp=0;
+  D.forEach(function(o){ if(o.prom){sg+=o.cump;sp+=o.prom}
+    if(o.cProm){sc+=o.cCump;scp+=o.cProm} });
+  document.getElementById('r5').innerHTML=L().r5(
+    (100*sg/sp).toFixed(0),(100*sc/scp).toFixed(0),scp,sp);
+}
+
 function render(){
   var idx=+sel.value,o=D[idx],prev=idx>0?D[idx-1]:null,t=L();
   document.getElementById('job').textContent=t.job;
@@ -680,7 +992,7 @@ function render(){
   document.getElementById('llang').textContent=t.llang;
   shell(t);
   document.getElementById('meta').innerHTML=t.meta({dd:fd(o.dd,1),a:N(o.nAct),r:N(o.nRel)});
-  ['h1','h2','h3','h4','h5','h6'].forEach(function(k){document.getElementById(k).textContent=t[k]});
+  ['h1','h2','h3','h4','h5','h6','h7','h8','h9','h10','h11','n7','n8','n9','n10','n11'].forEach(function(k){document.getElementById(k).textContent=t[k]});
   ['n1','n2','n3','n4','n5','n6'].forEach(function(k){document.getElementById(k).textContent=t[k]});
   document.getElementById('foot').innerHTML=t.foot;
   document.getElementById('lg1').innerHTML=
@@ -743,6 +1055,57 @@ function render(){
         fmt(r.tf,' d')+'</span></td></tr>'}).join('')+'</tbody>'
     : '<tr><td style="color:var(--ink3)">'+t.rNone+'</td></tr>';
 
+  /* ── actividades críticas ── */
+  chart4(idx);
+  document.getElementById('lg4').innerHTML=
+    '<span><i class="sw q" style="background:'+C.cu+'"></i>'+t.lCu+'</span>'+
+    '<span><i class="sw q" style="background:'+C.sa+'"></i>'+t.lSa+'</span>'+
+    '<span><i class="sw q" style="background:'+C.si+'"></i>'+t.lSi+'</span>';
+  chart5(idx);
+  document.getElementById('lg5').innerHTML=
+    '<span><i class="sw q" style="background:'+C.ppcG+'"></i>'+t.lgPpcG+'</span>'+
+    '<span><i class="sw q" style="background:'+C.ppcC+'"></i>'+t.lgPpcC+'</span>';
+  var ST={no:t.stNo,curso:t.stCurso,fin:t.stFin};
+  if(o.nCrit===null||o.nCrit===undefined){
+    document.getElementById('cstat').innerHTML='';
+    document.getElementById('salio').innerHTML='<tr><td style="color:var(--ink3)">'+t.sinCrit+'</td></tr>';
+    document.getElementById('pal').innerHTML='';
+    document.getElementById('lev').textContent=t.sinCrit;
+  } else {
+    document.getElementById('cstat').innerHTML=[
+      ['',o.nCrit,t.kCrit],['ok',o.cu,t.kCu],['bad',o.sa,t.kSa],
+      ['wrn',(o.aguas===null?'—':o.aguas+'%'),t.kAg]
+    ].map(function(a){return '<div class="b '+a[0]+'"><div class="v">'+a[1]+
+      '</div><div class="k">'+a[2]+'</div></div>'}).join('');
+
+    document.getElementById('salio').innerHTML=(o.lSa&&o.lSa.length)
+      ? '<thead><tr><th>'+t.thAct+'</th><th class="n">'+t.thAntes+'</th><th class="n">'+
+        t.thDesp+'</th><th class="sp">'+t.thEst+'</th></tr></thead><tbody>'+
+        o.lSa.map(function(r){return '<tr><td><span class="mo">'+esc(r.code)+
+          '</span><div class="sub">'+esc(r.name)+
+          '</div></td><td class="n nm"><span class="neg">'+fmt(r.tf0,'')+
+          '</span></td><td class="n nm"><span class="pos">'+fmt(r.tf1,'')+
+          '</span></td><td class="sp"><div class="sub" style="margin-top:0">'+
+          esc(ST[r.st1]||r.st1)+'</div></td></tr>'}).join('')+'</tbody>'
+      : '<tr><td style="color:var(--ink3)">'+t.sinSalio+'</td></tr>';
+
+    var pr=[];
+    (o.dur||[]).forEach(function(x){pr.push(['d',t.pDur,x.code,x.name,x.de+' d',x.a+' d'])});
+    (o.cst||[]).forEach(function(x){pr.push(['c',t.pCst,x.code,x.name,x.de,x.a])});
+    (o['del']||[]).forEach(function(x){pr.push(['r',t.pRel+' −',x.p+' → '+x.s,'',x.t,'—'])});
+    (o.add||[]).forEach(function(x){pr.push(['r',t.pRel+' +',x.p+' → '+x.s,'','—',x.t])});
+    document.getElementById('pal').innerHTML=pr.length
+      ? '<thead><tr><th>'+t.thCambio+'</th><th class="n">'+t.thDe+'</th><th class="n">'+
+        t.thA+'</th></tr></thead><tbody>'+
+        pr.slice(0,14).map(function(a){return '<tr><td><span class="tag '+a[0]+'">'+esc(a[1])+
+          '</span><span class="mo">'+esc(a[2])+'</span>'+
+          (a[3]?'<div class="sub">'+esc(a[3])+'</div>':'')+
+          '</td><td class="n mo">'+esc(a[4])+'</td><td class="n mo">'+esc(a[5])+'</td></tr>'}).join('')+'</tbody>'
+      : '<tr><td style="color:var(--ink3)">'+t.sinPal+'</td></tr>';
+    document.getElementById('lev').innerHTML=(o.sa&&o.aguas!==null&&o.aguas>0)
+      ? t.levTxt(o.sa,o.aguas) : (o.sa?t.levNada:'');
+  }
+
   Array.prototype.forEach.call(document.querySelectorAll('.exp'),function(b){
     var id='c'+b.dataset.c;
     b.setAttribute('title',BIG[id]?t.small:t.big);
@@ -763,7 +1126,7 @@ var ovl=document.getElementById('ovl'), zone=document.getElementById('zone'),
 function shell(t){
   document.getElementById('upt').textContent=t.upt;
   document.getElementById('dh').textContent=t.dh;
-  document.getElementById('dp').innerHTML=t.dp;
+  document.getElementById('dp').innerHTML=t.dp+'<br>'+t.dpFull;
   document.getElementById('z1').textContent=t.z1;
   document.getElementById('z2').textContent=t.z2;
   document.getElementById('rstt').textContent=t.rstt;
@@ -773,9 +1136,11 @@ function shell(t){
     (SRC?t.srcUp(SRC.n,SRC.when):t.srcEmb(D.length))+
     ' &nbsp;·&nbsp; <span class="lk" id="rl">'+(SRC?t.reload:t.upt)+'</span>'+
     (DLOK?' &nbsp;·&nbsp; <span class="lk" id="dl">'+t.dlx+'</span>'+
+          (RAW?' &nbsp;·&nbsp; <span class="lk" id="df">'+t.dlf+'</span>':'')+
           ' &nbsp;·&nbsp; <span class="lk" id="dj">'+t.dlj+'</span>':'');
   var rl=document.getElementById('rl'); if(rl)rl.onclick=open_;
   var dl=document.getElementById('dl'); if(dl)dl.onclick=dlXlsx;
+  var df=document.getElementById('df'); if(df)df.onclick=dlFull;
   var dj=document.getElementById('dj'); if(dj)dj.onclick=dlJson;
   document.getElementById('rst').style.display=SRC?'':'none';
 }
@@ -840,6 +1205,7 @@ function load(fl){
     V.sort(function(a,b){return b.dd-a.dd});
     V.forEach(function(v){if(seen[v.id]){say(t.lgDup(v.id),'er');return}seen[v.id]=1;keep.push(v)});
     var ds=buildDataset(keep);
+    RAW=keep;   /* el grano fino queda en memoria para la exportación completa */
     if(!ds.some(function(o){return o.ms.some(function(m){return m.tf!==null})}))say(t.lgNoMs,'er');
     if(ds.length===1)say(t.lgOne,'er');
     D=ds;
@@ -881,6 +1247,83 @@ en:{
  ms:{ms1:'Milestone #1 · Keys L2–L15',ms2:'Milestone #2 · Keys L16–L25',ms3:'Milestone #3 · Keys L26–L35',
      tco:'Substantial Completion (T.C.O.)',co:'Final Completion (C.O.)'},
  sReal:'Actual',sPlan:'Plan',file:'Domus_II_Dashboard_Data'}};
+
+var XF={es:{
+ file:'Domus_II_Dataset_Completo',
+ Versiones:['Versión','Data date','Archivo','Actividades','Relaciones'],
+ Actividades:['Versión','Data date','Código','Actividad','WBS','Estado','Tipo','Calendario',
+  'Dur original (d)','Dur restante (d)','Avance físico (%)','Inicio temprano','Fin temprano',
+  'Inicio tardío','Fin tardío','Inicio real','Fin real','Holgura total (h)','Holgura total (d)',
+  'Holgura libre (d)','Restricción tipo','Restricción fecha','Ruta flotante','Marca ruta impulsora'],
+ Relaciones:['Versión','Data date','Predecesora','Sucesora','Tipo','Lag (d)'],
+ pivHead:['Código','Actividad','WBS','Estado final'],
+ pivLast:'Cambio último periodo',pivAll:'Cambio total',
+ Cambios:['Versión','Código','Actividad','Qué cambió','Valor anterior','Valor nuevo','WBS'],
+ Logica:['Versión','Cambio','Predecesora','Sucesora','Tipo','Nombre predecesora','Nombre sucesora'],
+ cAdd:'Actividad agregada',cDur:'Duración original (d)',cCt:'Tipo de restricción',
+ cCd:'Fecha de restricción',cSt:'Estado',lDel:'Eliminada',lAdd:'Agregada',
+ dicHead:['Columna','De dónde sale','Nota'],
+ dic:[['Versión','Derivada','Etiqueta tomada del nombre del archivo: proj_short_name viene truncado en algunas versiones.'],
+  ['Data date','PROJECT.last_recalc_date','Fecha de corte del cálculo. Separa lo ocurrido del pronóstico.'],
+  ['Código','TASK.task_code','Llave estable para cruzar versiones. Los task_id no lo son.'],
+  ['WBS','PROJWBS.wbs_name','Ruta completa, armada subiendo por parent_wbs_id hasta la raíz.'],
+  ['Estado','TASK.status_code','TK_NotStart / TK_Active / TK_Complete, traducidos.'],
+  ['Calendario','CALENDAR.clndr_name','Define si los días de holgura son laborables o calendario.'],
+  ['Dur original (d)','TASK.target_drtn_hr_cnt ÷ 8','Su cambio entre versiones delata recortes de procura.'],
+  ['Avance físico (%)','TASK.phys_complete_pct','Declarado por el CMAR, no calculado.'],
+  ['Fin temprano','TASK.early_end_date','En completadas con lógica retenida puede traer fechas fantasma.'],
+  ['Fin real','TASK.act_end_date','Vacía hasta que la actividad ocurre. Base del cumplimiento del plan.'],
+  ['Holgura total (h)','TASK.total_float_hr_cnt','Valor crudo de P6, en horas.'],
+  ['Holgura total (d)','Holgura total (h) ÷ 8','Única conversión aplicada. Negativa = ya no cabe en el plazo.'],
+  ['Restricción tipo','TASK.cstr_type','CS_MEOB = Finish On or Before.'],
+  ['Lag (d)','TASKPRED.lag_hr_cnt ÷ 8','Desfase de la relación.']],
+ leeme:[['CÓMO SE CALCULA TODO — del archivo .xer a los indicadores del tablero'],[''],
+  ['FUENTE','El .xer es un volcado relacional de Primavera P6: texto con %T por tabla, %F por campos y %R por registro. No es un reporte, son las tablas crudas. Las que se usan: TASK, TASKPRED, PROJWBS, PROJECT y CALENDAR.'],
+  ['EXTRACCIÓN','El parser corre en tu navegador y devuelve las tablas tal cual, sin filtrar. No hay base de datos intermedia: el .xer es el dataset principal.'],
+  ['UNIDADES','P6 guarda la holgura en horas; todo se divide entre 8. Las actividades de trabajo corren en calendario 5×8, así que sus días son laborables; los hitos corren en calendario de 7 días, así que los suyos son días calendario. No son comparables sin convertir.'],
+  ['UNIONES','wbs_id se cruza contra PROJWBS para armar la ruta completa; en TASKPRED, pred_task_id y task_id se traducen a códigos de actividad, que sí son estables entre versiones.'],
+  ['COMPARACIÓN','Cada versión se compara contra la anterior cruzando por código: duraciones, restricciones, estado, actividades nuevas, y la lógica como conjunto de tripletas predecesora-sucesora-tipo.'],
+  ['CUMPLIMIENTO','Comprometidas = pendientes en la versión anterior con fin temprano dentro del periodo. Cumplidas = de ellas, las que cerraron con fecha real dentro del periodo. Se verifica actividad por actividad, no por conteo agregado.'],
+  ['BANDAS','Las pendientes se agrupan por holgura exacta. Una banda con cinco o más actividades es una cadena: todas se mueven juntas.'],[''],
+  ['NADA PROVIENE DEL REPORTE NARRATIVO. Todas las columnas salen de las tablas del .xer o son una operación aritmética sobre ellas, descrita arriba.']]},
+en:{
+ file:'Domus_II_Full_Dataset',
+ Versiones:['Version','Data date','File','Activities','Relationships'],
+ Actividades:['Version','Data date','Code','Activity','WBS','Status','Type','Calendar',
+  'Original dur (d)','Remaining dur (d)','Physical % complete','Early start','Early finish',
+  'Late start','Late finish','Actual start','Actual finish','Total float (h)','Total float (d)',
+  'Free float (d)','Constraint type','Constraint date','Float path','Driving path flag'],
+ Relaciones:['Version','Data date','Predecessor','Successor','Type','Lag (d)'],
+ pivHead:['Code','Activity','WBS','Final status'],
+ pivLast:'Change, last period',pivAll:'Change, overall',
+ Cambios:['Version','Code','Activity','What changed','Previous value','New value','WBS'],
+ Logica:['Version','Change','Predecessor','Successor','Type','Predecessor name','Successor name'],
+ cAdd:'Activity added',cDur:'Original duration (d)',cCt:'Constraint type',
+ cCd:'Constraint date',cSt:'Status',lDel:'Removed',lAdd:'Added',
+ dicHead:['Column','Where it comes from','Note'],
+ dic:[['Version','Derived','Label taken from the file name: proj_short_name is truncated in some versions.'],
+  ['Data date','PROJECT.last_recalc_date','Cut-off of the calculation. Separates what happened from the forecast.'],
+  ['Code','TASK.task_code','Stable key for matching across versions. task_id is not.'],
+  ['WBS','PROJWBS.wbs_name','Full path, built by walking parent_wbs_id up to the root.'],
+  ['Status','TASK.status_code','TK_NotStart / TK_Active / TK_Complete, translated.'],
+  ['Calendar','CALENDAR.clndr_name','Decides whether float days are working or calendar days.'],
+  ['Original dur (d)','TASK.target_drtn_hr_cnt ÷ 8','Changes between versions reveal procurement durations being cut.'],
+  ['Physical % complete','TASK.phys_complete_pct','Declared by the CMAR, not computed.'],
+  ['Early finish','TASK.early_end_date','On complete activities under retained logic it can carry ghost dates.'],
+  ['Actual finish','TASK.act_end_date','Empty until the activity happens. Basis of plan reliability.'],
+  ['Total float (h)','TASK.total_float_hr_cnt','Raw P6 value, in hours.'],
+  ['Total float (d)','Total float (h) ÷ 8','The only conversion applied. Negative = no longer fits the deadline.'],
+  ['Constraint type','TASK.cstr_type','CS_MEOB = Finish On or Before.'],
+  ['Lag (d)','TASKPRED.lag_hr_cnt ÷ 8','Relationship lag.']],
+ leeme:[['HOW EVERYTHING IS COMPUTED — from the .xer file to the dashboard indicators'],[''],
+  ['SOURCE','A .xer is a relational dump from Primavera P6: text with %T per table, %F for fields and %R per record. It is not a report, these are the raw tables. The ones used: TASK, TASKPRED, PROJWBS, PROJECT and CALENDAR.'],
+  ['EXTRACTION','The parser runs in your browser and returns the tables as they are, unfiltered. There is no intermediate database: the .xer is the main dataset.'],
+  ['UNITS','P6 stores float in hours; everything is divided by 8. Work activities run on a 5×8 calendar, so their days are working days; milestones run on a 7-day calendar, so theirs are calendar days. They are not comparable without conversion.'],
+  ['JOINS','wbs_id is matched against PROJWBS to build the full path; in TASKPRED, pred_task_id and task_id are translated to activity codes, which are stable across versions.'],
+  ['COMPARISON','Each version is compared against the previous one by activity code: durations, constraints, status, new activities, and logic as a set of predecessor-successor-type triples.'],
+  ['PLAN RELIABILITY','Committed = remaining in the previous version with an early finish inside the period. Met = of those, the ones that closed with an actual finish inside the period. Verified activity by activity, not as an aggregate count.'],
+  ['BANDS','Remaining activities are grouped by exact float. A band with five or more activities is a chain: they all move together.'],[''],
+  ['NOTHING COMES FROM THE NARRATIVE REPORT. Every column comes from the .xer tables or is an arithmetic operation on them, described above.']]}};
 
 /* mismas seis tablas que la hoja de cálculo entregada con el análisis */
 function tables(){
@@ -941,10 +1384,7 @@ function dlXlsx(){
     grab(XH[lang].file+'.xlsx',new Blob([buf],
       {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
   }
-  if(window.XLSX)return go();
-  var s=document.createElement('script');s.src=XLIB;
-  s.onload=go; s.onerror=function(){dlCsv(t)};
-  document.head.appendChild(s);
+  withXlsx(function(ok){ok?go():dlCsv(t)});
 }
 /* si la librería no carga, una sola hoja con las seis tablas en secciones */
 function dlCsv(t){
@@ -959,6 +1399,100 @@ function dlCsv(t){
     out.push('')});
   grab(XH[lang].file+'.csv',new Blob(['﻿'+out.join('\r\n')],{type:'text/csv;charset=utf-8'}));
 }
+/* ═══ Dataset completo: una fila por actividad y por versión ═══
+   Solo está disponible cuando los .xer se cargaron en esta sesión: el detalle
+   no viaja dentro de la página, se reconstruye al parsear. */
+var ST={TK_NotStart:['No iniciada','Not started'],TK_Active:['En curso','In progress'],
+        TK_Complete:['Completada','Complete']};
+var TT={TT_Task:['Actividad','Task'],TT_Mile:['Hito inicio','Start milestone'],
+        TT_FinMile:['Hito fin','Finish milestone'],TT_LOE:['Nivel de esfuerzo','Level of effort'],
+        TT_Rsrc:['Dependiente de recurso','Resource dependent'],TT_WBS:['Resumen WBS','WBS summary']};
+var PT={PR_FS:'FS',PR_SS:'SS',PR_FF:'FF',PR_SF:'SF'};
+function tr(m,k){var e=m[k];return e?e[lang==='es'?0:1]:(k||'')}
+function d8(v){return v===null||v===undefined?null:Math.round(v/8*100)/100}
+
+function fullTables(){
+  var h=XF[lang], A=[h.Actividades], R=[h.Relaciones], VS=[h.Versiones];
+  RAW.forEach(function(V){
+    VS.push([V.id,V.dd,V.file,V.acts.length,V.rel.length]);
+    V.acts.forEach(function(a){
+      A.push([V.id,V.dd,a.code,a.name,a.wbs,tr(ST,a.st),tr(TT,a.type),a.cal,
+        d8(a.td),d8(a.rd),a.pc,a.es,a.ee,a.ls,a.lf,a.as_,a.ae,
+        a.tf,d8(a.tf),d8(a.ff),a.ct,a.cd,a.fp,a.dpf])});
+    V.rel.forEach(function(r){R.push([V.id,V.dd,r.p,r.s,PT[r.t]||r.t,d8(r.lag)])});
+  });
+
+  /* matriz de holgura: actividad en filas, versión en columnas */
+  var codes=[],seen={},last={};
+  RAW.forEach(function(V){V.acts.forEach(function(a){
+    if(!seen[a.code]){seen[a.code]=1;codes.push(a.code)} last[a.code]=a})});
+  var M=[h.pivHead.concat(RAW.map(function(V){return V.id}))
+         .concat([h.pivLast,h.pivAll])];
+  codes.forEach(function(c){
+    var row=[c,last[c].name,last[c].wbs,tr(ST,last[c].st)], v=[];
+    RAW.forEach(function(V){var a=V.byCode[c];var x=a?r2(a.tfd):null;v.push(x);row.push(x)});
+    var n=v.length, fin=v[n-1];
+    row.push(fin===null||v[n-2]===null||v[n-2]===undefined?null:r2(fin-v[n-2]));
+    var first=null;for(var i=0;i<n;i++)if(v[i]!==null){first=v[i];break}
+    row.push(fin===null||first===null?null:r2(fin-first));
+    M.push(row)});
+  M.sort(function(a,b){if(a[0]===h.pivHead[0])return -1;
+    var x=a[a.length-2],y=b[b.length-2];
+    return (x===null?9e9:x)-(y===null?9e9:y)});
+
+  /* cambios al modelo, actividad por actividad */
+  var C=[h.Cambios], L=[h.Logica];
+  for(var i=1;i<RAW.length;i++){
+    var V=RAW[i], P=RAW[i-1];
+    V.acts.forEach(function(a){
+      var b=P.byCode[a.code];
+      if(!b){C.push([V.id,a.code,a.name,h.cAdd,'','',a.wbs]);return}
+      if(b.td!==a.td)C.push([V.id,a.code,a.name,h.cDur,d8(b.td),d8(a.td),a.wbs]);
+      if(b.ct!==a.ct)C.push([V.id,a.code,a.name,h.cCt,b.ct,a.ct,a.wbs]);
+      if(String(b.cd)!==String(a.cd))C.push([V.id,a.code,a.name,h.cCd,b.cd,a.cd,a.wbs]);
+      if(b.st!==a.st)C.push([V.id,a.code,a.name,h.cSt,tr(ST,b.st),tr(ST,a.st),a.wbs]);
+    });
+    var now={},was={};
+    V.rel.forEach(function(r){now[relKey(r)]=r}); P.rel.forEach(function(r){was[relKey(r)]=r});
+    Object.keys(was).sort().forEach(function(k){if(!now[k]){var r=was[k];
+      L.push([V.id,h.lDel,r.p,r.s,PT[r.t]||r.t,
+        (P.byCode[r.p]||{}).name||'',(P.byCode[r.s]||{}).name||''])}});
+    Object.keys(now).sort().forEach(function(k){if(!was[k]){var r=now[k];
+      L.push([V.id,h.lAdd,r.p,r.s,PT[r.t]||r.t,
+        (V.byCode[r.p]||{}).name||'',(V.byCode[r.s]||{}).name||''])}});
+  }
+  return {Leeme:h.leeme,Diccionario:[h.dicHead].concat(h.dic),Versiones:VS,
+          Actividades:A,Holgura_matriz:M,Cambios_actividad:C,Cambios_logica:L,Relaciones:R};
+}
+
+function dlFull(){
+  var t=L();
+  toast(t.dlWait);
+  withXlsx(function(ok){
+    if(!ok){toast(t.dlErr);return}
+    setTimeout(function(){
+      try{
+        var T=fullTables(), wb=XLSX.utils.book_new();
+        ['Leeme','Diccionario','Versiones','Actividades','Holgura_matriz',
+         'Cambios_actividad','Cambios_logica','Relaciones'].forEach(function(k){
+          var ws=XLSX.utils.aoa_to_sheet(T[k],{cellDates:true,dateNF:'dd-mmm-yy'});
+          ws['!cols']=T[k][0].map(function(c){
+            return {wch:Math.max(11,Math.min(k==='Leeme'?90:52,String(c).length+4))}});
+          if(k!=='Leeme')ws['!freeze']={xSplit:0,ySplit:1};
+          XLSX.utils.book_append_sheet(wb,ws,k)});
+        var buf=XLSX.write(wb,{bookType:'xlsx',type:'array',compression:true,bookSST:true});
+        grab(XF[lang].file+'.xlsx',new Blob([buf],
+          {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+      }catch(e){toast(t.dlErr+' ('+e.message+')')}
+    },60)});
+}
+function withXlsx(cb){
+  if(window.XLSX)return cb(true);
+  var s=document.createElement('script');s.src=XLIB;
+  s.onload=function(){cb(true)};s.onerror=function(){cb(false)};
+  document.head.appendChild(s);
+}
+
 function dlJson(){
   grab(XH[lang].file+'.json',
     new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));
@@ -977,5 +1511,3 @@ render();
 window.addEventListener('resize',render);
 })();
 </script>
-
-</body></html>

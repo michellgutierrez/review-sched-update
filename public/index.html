@@ -185,6 +185,8 @@ footer code{font-family:var(--fm);font-size:10.5px;background:var(--s2);padding:
 @media(max-width:900px){.g2b{grid-template-columns:1fr}.cstat{grid-template-columns:repeat(2,1fr)}}
 .lev{font-size:11.5px;line-height:1.55;color:var(--ink2);margin:0 0 9px}
 .lev b{color:var(--ink);font-weight:500}
+.warn{font-size:11.5px;color:var(--warn);background:var(--warnbg);border-radius:7px;
+  padding:6px 10px;margin-top:6px;line-height:1.45}
 .tag{display:inline-block;font-family:var(--fm);font-size:10px;padding:1px 6px;border-radius:9px;
   background:var(--s2);color:var(--ink2);margin-right:5px;white-space:nowrap}
 .tag.d{background:var(--warnbg);color:var(--warn)}
@@ -215,6 +217,7 @@ th.sp,td.sp{padding-left:14px}
   </div>
   <div class="meta" id="meta"></div>
   <div class="src" id="src"><span class="dot"></span><span id="srct"></span></div>
+  <div class="warn" id="stale" style="display:none"></div>
 </div>
 
 <div class="ovl" id="ovl">
@@ -322,9 +325,15 @@ th.sp,td.sp{padding-left:14px}
    en una visita anterior se reemplazan por el resultado guardado (métricas, no archivos). */
 var EMB=JSON.parse(document.getElementById('data').textContent);
 var D=EMB, SRC=null, RAW=null;
+/* El navegador guarda el dataset YA CALCULADO. Si la página cambia de campos,
+   una caché vieja no los tiene y se renderiza con huecos: el sello la descarta. */
+var SCHEMA=3, STALE=false;
 try{var sj=localStorage.getItem('domus_data');
   if(sj){var so=JSON.parse(sj);
-    if(so&&so.d&&so.d.length){D=so.d;SRC=so.s||{n:so.d.length,when:''}}}}catch(e){}
+    if(so&&so.d&&so.d.length){
+      if(so.v===SCHEMA){D=so.d;SRC=so.s||{n:so.d.length,when:''}}
+      else{STALE=true;try{localStorage.removeItem('domus_data')}catch(e2){}}
+    }}}catch(e){}
 
 /* ═══ Lectura de .xer en el navegador ═══
    Replica el cálculo verificado contra las 12 versiones del análisis forense. */
@@ -667,6 +676,8 @@ es:{job:'Job #52511 · Tablero de cronograma',lsel:'Actualización',llang:'Idiom
  h1:'Erosión de holgura',n1:'Holgura total por hito, días calendario',
  h2:'Capacidad contra exigencia',n2:'Actividades terminadas por mes y las que el plan exige',
  h3:'Cumplimiento del plan',n3:'De lo prometido para el mes, cuánto se terminó',
+ lgDupDD:function(a,b){return '! '+a+' tiene la misma data date que '+b+'; se ignora, porque un periodo de cero días no mide nada.'},
+ stale:'El tablero cambió de indicadores y los datos que tenías guardados aquí no los traían. Vuelve a cargar tus .xer.',
  h14:'El 100% de las actividades críticas del proyecto',
  n14:'Toda actividad que haya sido crítica en cualquier versión, con su estado al corte. El universo sólo crece.',
  lgCD:'Hechas',lgCC:'Siguen críticas',lgCP:'Pendientes, ya no críticas',lgCG:'Ya no existen',
@@ -767,6 +778,8 @@ en:{job:'Job #52511 · Schedule dashboard',lsel:'Update',llang:'Language',
  h1:'Float erosion',n1:'Total float by milestone, calendar days',
  h2:'Capacity against demand',n2:'Activities completed per month and those the plan requires',
  h3:'Plan reliability',n3:'Of what was promised for the month, how much finished',
+ lgDupDD:function(a,b){return '! '+a+' has the same data date as '+b+'; it is ignored, because a zero-day period measures nothing.'},
+ stale:'The dashboard changed indicators and the data saved here did not carry them. Load your .xer files again.',
  h14:'All critical activities in the project',
  n14:'Every activity that has been critical in any version, with its state at the cut-off. The universe only grows.',
  lgCD:'Done',lgCC:'Still critical',lgCP:'Remaining, no longer critical',lgCG:'No longer present',
@@ -1161,10 +1174,12 @@ function chart7(idx){
   if(o.nCrit===null||o.nCrit===undefined){
     sv.appendChild(txt(W/2,H/2,t.sinCrit,{sz:11}));
     document.getElementById('r7').textContent='';return}
-  var steps=[{k:t.wS0,v:o.nCrit,tot:1,c:C.si},
-             {k:t.wCu,v:-o.cu,c:C.cu},{k:t.wSa,v:-o.sa,c:C.sa}];
-  if(o.bo)steps.push({k:t.wBo,v:-o.bo,c:C.sal});
-  steps.push({k:t.wEn,v:o.en,c:C.en},{k:t.wS1,v:o.S1,tot:1,c:C.si});
+  var z=function(x){return (x===null||x===undefined)?0:x};
+  var steps=[{k:t.wS0,v:z(o.nCrit),tot:1,c:C.si},
+             {k:t.wCu,v:-z(o.cu),c:C.cu},{k:t.wSa,v:-z(o.sa),c:C.sa}];
+  if(z(o.bo))steps.push({k:t.wBo,v:-z(o.bo),c:C.sal});
+  steps.push({k:t.wEn,v:z(o.en),c:C.en},
+             {k:t.wS1,v:z(o.S1)||(z(o.nCrit)-z(o.cu)-z(o.sa)-z(o.bo)+z(o.en)),tot:1,c:C.si});
   var run=0,hi=0;
   steps.forEach(function(x){ if(x.tot){hi=Math.max(hi,x.v);run=x.v}
     else {hi=Math.max(hi,run,run+x.v);run+=x.v}});
@@ -1188,7 +1203,9 @@ function chart7(idx){
       fill:x.tot?cs('--ink2'):x.c}));
     sv.appendChild(txt(X(i),H-(d.big?13:9),x.k,{sz:d.big?10:8.5,fill:cs('--ink3')}));
   });
-  document.getElementById('r7').innerHTML=(o.sa||o.en)?t.r7(o.sa,o.en,o.cu):t.r7cero;
+  var nn=function(x){return (x===null||x===undefined)?0:x};
+  document.getElementById('r7').innerHTML=
+    (nn(o.sa)||nn(o.en))?t.r7(nn(o.sa),nn(o.en),nn(o.cu)):t.r7cero;
 }
 
 function render(){
@@ -1357,6 +1374,9 @@ function shell(t){
   document.getElementById('rstt').textContent=t.rstt;
   document.getElementById('clst').textContent=t.clst;
   srcEl.classList.toggle('on',!!SRC);
+  var sw=document.getElementById('stale');
+  if(sw)sw.style.display=(STALE&&!SRC)?'':'none';
+  if(sw)sw.textContent=t.stale;
   document.getElementById('srct').innerHTML=
     (SRC?t.srcUp(SRC.n,SRC.when):t.srcEmb(D.length))+
     ' &nbsp;·&nbsp; <span class="lk" id="rl">'+(SRC?t.reload:t.upt)+'</span>'+
@@ -1428,7 +1448,12 @@ function load(fl){
     /* una etiqueta repetida se resuelve por data date: gana la más reciente */
     var seen={},keep=[];
     V.sort(function(a,b){return b.dd-a.dd});
-    V.forEach(function(v){if(seen[v.id]){say(t.lgDup(v.id),'er');return}seen[v.id]=1;keep.push(v)});
+    var vistaDD={};
+    V.forEach(function(v){
+      if(seen[v.id]){say(t.lgDup(v.id),'er');return}
+      var k=isod(v.dd);
+      if(vistaDD[k]){say(t.lgDupDD(v.file,vistaDD[k]),'er');return}
+      seen[v.id]=1; vistaDD[k]=v.file; keep.push(v)});
     var ds=buildDataset(keep);
     RAW=keep;   /* el grano fino queda en memoria para la exportación completa */
     if(!ds.some(function(o){return o.ms.some(function(m){return m.tf!==null})}))say(t.lgNoMs,'er');
@@ -1436,7 +1461,7 @@ function load(fl){
     D=ds;
     SRC={n:ds.length,when:new Date().toLocaleDateString(lang==='es'?'es':'en',
       {day:'2-digit',month:'short',year:'numeric'})};
-    try{localStorage.setItem('domus_data',JSON.stringify({d:D,s:SRC}))}
+    try{localStorage.setItem('domus_data',JSON.stringify({v:SCHEMA,d:D,s:SRC}))}
     catch(e){say(t.lgBig(''),'er')}
     sel.value='';fillSel();render();
     say(t.lgDone(ds.length),'ok');

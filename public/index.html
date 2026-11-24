@@ -1758,6 +1758,27 @@ lgs.addEventListener('change',function(){lang=lgs.value;
   try{localStorage.setItem('domus_lang',lang)}catch(e){}
   fillSel();render()});
 render();
+
+/* ── Puerta de inspección desde la consola ──────────────────────────────
+   El script corre dentro de un closure, así que D no es global. Esto lo
+   expone de sólo lectura para poder revisarlo en DevTools:
+     domus.data()      el dataset que consumen los gráficos (una fila por versión)
+     domus.data('U12') una versión por etiqueta
+     domus.raw()       el grano fino parseado del .xer, sólo si cargaste archivos
+                       en esta sesión: [{id, dd, acts[], rel[], byCode{}}]
+     domus.cache()     lo que hay guardado en el navegador
+     domus.schema      número de esquema de esa caché
+     domus.fields()    los campos de una versión, agrupados                       */
+window.domus={
+  schema:SCHEMA,
+  data:function(id){ return id?D.filter(function(o){return o.id===id})[0]:D },
+  raw:function(id){ if(!RAW)return null;
+    return id?RAW.filter(function(v){return v.id===id})[0]:RAW },
+  cache:function(){ try{return JSON.parse(localStorage.getItem('domus_data'))}catch(e){return null} },
+  fields:function(){ return D.length?Object.keys(D[D.length-1]):[] },
+  stale:function(){ return STALE }
+};
+
 window.addEventListener('resize',render);
 })();
 </script>

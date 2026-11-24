@@ -327,11 +327,24 @@ var EMB=JSON.parse(document.getElementById('data').textContent);
 var D=EMB, SRC=null, RAW=null;
 /* El navegador guarda el dataset YA CALCULADO. Si la página cambia de campos,
    una caché vieja no los tiene y se renderiza con huecos: el sello la descarta. */
-var SCHEMA=3, STALE=false;
+var SCHEMA=4, STALE=false;
+/* El número de esquema depende de que yo lo suba al cambiar los campos, y ya
+   fallé una vez. Esto además comprueba la FORMA de lo guardado: un campo que
+   cambió de tipo descarta la caché aunque el número coincida. */
+function shapeOK(d){
+  if(!d||!d.length)return false;
+  var o=d[d.length-1];
+  function ok(k,ty){var v=o[k];
+    if(v===null||v===undefined)return true;
+    return ty==='a'?Array.isArray(v):typeof v===ty}
+  return ok('dur','number')&&ok('nDur','number')&&ok('en','number')&&
+         ok('uni','number')&&ok('cDone','number')&&
+         ok('sDur','a')&&ok('lSaldo','a')&&ok('ms','a');
+}
 try{var sj=localStorage.getItem('domus_data');
   if(sj){var so=JSON.parse(sj);
     if(so&&so.d&&so.d.length){
-      if(so.v===SCHEMA){D=so.d;SRC=so.s||{n:so.d.length,when:''}}
+      if(so.v===SCHEMA&&shapeOK(so.d)){D=so.d;SRC=so.s||{n:so.d.length,when:''}}
       else{STALE=true;try{localStorage.removeItem('domus_data')}catch(e2){}}
     }}}catch(e){}
 
@@ -1261,7 +1274,8 @@ function render(){
 
   var rows;
   if(o.dur===null){rows='<tr><td colspan="2" style="color:var(--ink3)">'+t.mRef+'</td></tr>'}
-  else{rows=[[t.mDur,o.dur,1],[t.mRelD,o.relDel,1],[t.mRelA,o.relAdd,0],[t.mCstr,o.cstr,1],
+  else{var num=function(v,alt){return typeof v==='number'?v:(typeof alt==='number'?alt:null)};
+    rows=[[t.mDur,num(o.dur,o.nDur),1],[t.mRelD,o.relDel,1],[t.mRelA,o.relAdd,0],[t.mCstr,o.cstr,1],
              [t.mActA,o.actAdd,0],[t.mDone,o.perDone,0],[t.mFuera,o.fuera,0],[t.mNeg,o.neg,0]]
     .map(function(r){return '<tr><td>'+r[0]+'</td><td class="n nm'+(r[2]&&r[1]?' hot':'')+'">'+N(r[1])+'</td></tr>'}).join('')}
   document.getElementById('mod').innerHTML=rows;
